@@ -64,23 +64,23 @@
       gsap.set(bloom, { left: r.left + r.width * 0.834, top: r.top + r.height * 0.395 });
     }
 
-    var tl = gsap.timeline({ defaults: { ease: 'power2.out' }, onComplete: function () { endIntro(false); } });
+    var tl = gsap.timeline({ defaults: { ease: 'power2.out' }, onComplete: function () { endIntro(true); } });
     tl.set(cloth, { xPercent: 22.7 })
       .set(back, { filter: 'brightness(.45) saturate(.8)' })
       .set(cloth, { filter: 'brightness(.62)' })
-      .from('.intro-frame', { autoAlpha: 0, scale: .96, duration: .5 }, 0)
-      .to(lines, { strokeDashoffset: 0, duration: 1.8, stagger: .12, ease: 'power1.inOut' }, 0)
-      .from(copy, { autoAlpha: 0, y: 14, duration: .6, stagger: .12 }, .3)
-      .to(cloth, { xPercent: 0, duration: 1.5, ease: 'power3.inOut' }, .25)
-      .to(cloth, { filter: 'brightness(1)', duration: 1.1, ease: 'power1.out' }, .35)
-      .to(veil, { opacity: 0, duration: 1.1, ease: 'power1.out' }, .7)
-      .to(back, { filter: 'brightness(1.05) saturate(1)', duration: 1.2, ease: 'power1.out' }, .7)
-      .to(heart, { opacity: 1, scale: 1.1, duration: .5, ease: 'power2.out' }, 1.2)
-      .to(heart, { scale: .95, duration: .3, ease: 'sine.inOut' }, 1.7)
-      .add(placeBloom, 1.8)
-      .to(bloom, { opacity: 1, duration: .2, ease: 'none' }, 1.85)
-      .to(bloom, { scale: Math.max(window.innerWidth, window.innerHeight) / 10, duration: .75, ease: 'power2.in' }, 1.85)
-      .to(intro, { autoAlpha: 0, duration: .35, ease: 'power1.out' }, 2.45);
+      .from('.intro-frame', { autoAlpha: 0, scale: .96, duration: .4 }, 0)
+      .to(lines, { strokeDashoffset: 0, duration: 1.4, stagger: .1, ease: 'power1.inOut' }, 0)
+      .from(copy, { autoAlpha: 0, y: 14, duration: .5, stagger: .1 }, .25)
+      .to(cloth, { xPercent: 0, duration: 1.3, ease: 'power3.inOut' }, .2)
+      .to(cloth, { filter: 'brightness(1)', duration: .9, ease: 'power1.out' }, .3)
+      .to(veil, { opacity: 0, duration: .9, ease: 'power1.out' }, .55)
+      .to(back, { filter: 'brightness(1.05) saturate(1)', duration: 1, ease: 'power1.out' }, .55)
+      .to(heart, { opacity: 1, scale: 1.1, duration: .45, ease: 'power2.out' }, 1.0)
+      .to(heart, { scale: .95, duration: .25, ease: 'sine.inOut' }, 1.45)
+      .add(placeBloom, 1.45)
+      .to(bloom, { opacity: 1, duration: .2, ease: 'none' }, 1.5)
+      .to(bloom, { scale: Math.max(window.innerWidth, window.innerHeight) / 10, duration: .65, ease: 'power2.in' }, 1.5)
+      .to(intro, { autoAlpha: 0, duration: .3, ease: 'power1.out' }, 1.95);
   }
 
   if (root.classList.contains('intro-on') && intro) {
@@ -93,8 +93,9 @@
         else { im.addEventListener('load', function () { if (--pending <= 0) go(); }); im.addEventListener('error', function () { if (--pending <= 0) go(); }); }
       });
       if (pending <= 0) go();
-      setTimeout(go, 900); // do not wait on slow images
-      setTimeout(function () { endIntro(true); }, 4000); // failsafe: never block the site for more than ~4 s
+      setTimeout(go, 500); // do not wait on slow images
+      // Failsafe: the site is never blocked more than ~3 s after navigation start.
+      setTimeout(function () { endIntro(true); }, Math.max(0, 2700 - (window.performance ? performance.now() : 0)));
     }
   } else {
     if (intro && intro.parentNode) intro.parentNode.removeChild(intro);
@@ -191,6 +192,7 @@
   $('#bookletBtn').addEventListener('click', function (e) {
     e.preventDefault();
     var n = $('#booklet-checkout');
+    n.hidden = false;
     n.classList.remove('is-flash');
     void n.offsetWidth;
     n.classList.add('is-flash');

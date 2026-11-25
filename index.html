@@ -24,7 +24,11 @@
     try {
       if (play && sessionStorage.getItem('hnw-intro-seen') && location.search.indexOf('intro') === -1) play = false;
     } catch (e) {}
-    if (play) d.classList.add('intro-on');
+    if (play) {
+      d.classList.add('intro-on');
+      // Hard cap: even if scripts fail, the intro never covers the site for more than ~3 s.
+      setTimeout(function () { d.classList.remove('intro-on'); }, 2700);
+    }
   })();
 </script>
 <script type="application/ld+json">
@@ -418,7 +422,7 @@
         <p class="wink">Costs less than one more argument.</p>
       </div>
       <!-- Placeholder target until the Authorize.net / GHL checkout exists. -->
-      <p id="booklet-checkout" class="checkout-note" tabindex="-1">Checkout opens soon. The booklet is in its final edit.</p>
+      <p id="booklet-checkout" class="checkout-note" tabindex="-1" role="status" hidden>Checkout opens soon.</p>
     </div>
   </div>
 </section>
@@ -470,13 +474,14 @@
     <form class="request-form" id="requestForm" data-reveal novalidate>
       <div class="field"><label for="rqName">Name</label><input id="rqName" name="name" type="text" autocomplete="name" required></div>
       <div class="field"><label for="rqPhone">Phone</label><input id="rqPhone" name="phone" type="tel" autocomplete="tel" required></div>
-      <div class="field"><label for="rqEmail">Email</label><input id="rqEmail" name="email" type="email" autocomplete="email"></div>
+      <div class="field"><label for="rqEmail">Email <span class="opt">(optional)</span></label><input id="rqEmail" name="email" type="email" autocomplete="email"></div>
       <div class="field"><label for="rqNote">A short note <span class="opt">(optional)</span></label><textarea id="rqNote" name="note" rows="3"></textarea></div>
       <p class="form-err" id="rqErr" role="alert"></p>
       <button class="btn btn-wine btn-lg btn-block" type="submit">Request a private session</button>
-      <p class="form-small">Your request goes to the practice by email. It is confidential.</p>
+      <p class="form-small">Sending opens your email app with the request filled in. Press send there.</p>
       <div class="form-thanks" id="rqThanks" hidden tabindex="-1">
         <p class="thanks-title">Thank you.</p>
+        <p>Your email app should open now with your request. Press send there. If it did not open, write to <a class="link-wine" href="mailto:info@psychologicalhealingcenter.com">info@psychologicalhealingcenter.com</a>.</p>
         <p>Dr. Judy is very popular. Very busy. She will reach out to you personally to book your coordinated time.</p>
       </div>
     </form>
@@ -539,11 +544,11 @@
   </div>
 </section>
 
-<!-- ============ COMING NEXT / BOOKS ============ -->
+<!-- ============ BOOKS ============ -->
 <section class="next section" id="books" aria-labelledby="nx-title">
   <div class="wrap">
     <div class="section-head center" data-reveal>
-      <p class="eyebrow">Coming next</p>
+      <p class="eyebrow">Her books</p>
       <h2 id="nx-title" class="h2">Books by Dr. Judy</h2>
     </div>
     <div class="books">
@@ -564,7 +569,7 @@
         <img src="img/book-be-the-cause.webp" width="400" height="609" alt="Book cover: Be the Cause, Healing Human Disconnect, by Judy Rosenberg, PhD" loading="lazy">
         <p class="book-tag">Available now</p>
         <h3>Be the Cause: Healing Human Disconnect</h3>
-        <p>The original Be the Cause<sup>®</sup> book.</p>
+        <p>Paperback, available on Amazon.</p>
         <div class="book-links">
           <a class="link-wine" href="https://a.co/d/0dzZqwvJ">Paperback on Amazon &rarr;</a>
           <a class="link-wine" href="https://www.healingnarcissisticwounds.com/Be_The_Cause_Free_Sample.pdf">Read a free sample (PDF) &rarr;</a>
