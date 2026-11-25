@@ -11,26 +11,28 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="preload" as="image" href="img/intro-cloth.webp">
-<link rel="preload" as="image" href="img/intro-back.webp">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/dossier.css">
 <script>
-  /* Decide before first paint whether the angel intro plays.
-     It never plays with reduced motion, and only once per browser session (add ?intro to force it). */
+  /* Decide before first paint whether the intro plays.
+     It never plays with reduced motion, and only once per browser session (add ?intro to force it).
+     The intro itself is pure CSS, so it starts at first paint even before any script loads. */
   (function () {
     var d = document.documentElement, play = true;
     d.classList.add('js');
-    try { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) play = false; } catch (e) {}
+    try { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { play = false; d.classList.add('rm'); } } catch (e) {}
     try {
       if (play && sessionStorage.getItem('hnw-intro-seen') && location.search.indexOf('intro') === -1) play = false;
     } catch (e) {}
     if (play) {
       d.classList.add('intro-on');
       try { sessionStorage.setItem('hnw-intro-seen', '1'); } catch (e) {}
-      // Hard cap: even if scripts fail, the intro fades by ~2.65 s and is gone at 2.7 s.
-      setTimeout(function () { d.classList.add('intro-out'); }, 2400);
-      setTimeout(function () { d.classList.remove('intro-on'); }, 2700);
+      // Hard cap: even if scripts fail, the intro lifts at 2.2 s and is gone at 3.0 s.
+      setTimeout(function () { d.classList.add('intro-out'); }, 2200);
+      setTimeout(function () { d.classList.remove('intro-on'); }, 3000);
     }
+    // Failsafe: the hero copy is never left hidden if site.js fails to load.
+    setTimeout(function () { d.classList.add('hero-in'); }, play ? 3000 : 1200);
   })();
 </script>
 <script type="application/ld+json">
@@ -47,7 +49,7 @@
         "https://www.youtube.com/@drjudywtf8793",
         "https://www.instagram.com/drjudyrosenberg/",
         "https://www.facebook.com/drjudyrosenberg",
-        "https://www.tiktok.com/@h2fpod",
+        "https://www.tiktok.com/@drjudywtf",
         "https://www.linkedin.com/in/dr-judy-rosenberg-5239277"
       ]
     },
@@ -66,39 +68,34 @@
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- ============ ANGEL INTRO (decorative; content is fully rendered underneath) ============ -->
+<!-- ============ INTRO (decorative, CSS-driven; content is fully rendered underneath) ============ -->
 <div id="intro" class="intro">
   <div class="intro-scene" aria-hidden="true">
+    <div class="intro-glow"></div>
     <svg class="intro-lines" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">
-      <g fill="none" stroke="url(#gl)" stroke-width="1.2" stroke-linecap="round">
-        <path d="M-20 120 C 140 80, 220 200, 360 150 S 560 40, 700 110 S 900 220, 1020 160"/>
-        <path d="M-20 420 C 120 380, 260 480, 400 430 S 620 300, 760 360 S 920 470, 1020 430"/>
-        <path d="M80 -10 C 120 120, 60 240, 140 360 S 240 560, 200 620"/>
-        <path d="M880 -10 C 840 140, 940 260, 860 380 S 760 540, 820 620"/>
-      </g>
-      <g fill="#ffd9b8">
-        <circle cx="360" cy="150" r="2.2"/><circle cx="700" cy="110" r="2.4"/><circle cx="400" cy="430" r="2"/>
-        <circle cx="760" cy="360" r="2.4"/><circle cx="140" cy="360" r="2"/><circle cx="860" cy="380" r="2.2"/>
-        <circle cx="220" cy="185" r="1.6"/><circle cx="560" cy="62" r="1.6"/><circle cx="620" cy="330" r="1.6"/>
-      </g>
       <defs>
-        <linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="#f0ad91" stop-opacity=".1"/><stop offset=".5" stop-color="#ffd9b8" stop-opacity=".9"/><stop offset="1" stop-color="#f0ad91" stop-opacity=".1"/></linearGradient>
+        <linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="#B8893B" stop-opacity=".05"/><stop offset=".5" stop-color="#B8893B" stop-opacity=".75"/><stop offset="1" stop-color="#621019" stop-opacity=".15"/></linearGradient>
       </defs>
+      <g fill="none" stroke="url(#gl)" stroke-width="1.1" stroke-linecap="round">
+        <path pathLength="1" d="M-20 70 L 130 36 L 250 98 L 372 52 L 520 84"/>
+        <path pathLength="1" d="M1020 60 L 880 104 L 760 40 L 640 92 L 520 84"/>
+        <path pathLength="1" d="M-20 530 L 120 498 L 240 556"/>
+        <path pathLength="1" d="M1020 524 L 880 566 L 760 506"/>
+      </g>
+      <g class="intro-stars" fill="#B8893B">
+        <circle cx="130" cy="36" r="2.4"/><circle cx="250" cy="98" r="3"/><circle cx="372" cy="52" r="2.2"/><circle cx="520" cy="84" r="3.4"/>
+        <circle cx="640" cy="92" r="2.2"/><circle cx="760" cy="40" r="3"/><circle cx="880" cy="104" r="2.4"/>
+        <circle cx="120" cy="498" r="2.2"/><circle cx="240" cy="556" r="2.8"/>
+        <circle cx="760" cy="506" r="2.8"/><circle cx="880" cy="566" r="2.2"/>
+      </g>
     </svg>
+    <img class="intro-lady" src="img/lady-line.webp" width="640" height="242" alt="">
     <div class="intro-copy">
       <p class="intro-eyebrow">Be the Cause<sup>®</sup></p>
-      <p class="intro-title">Healing from<br>Narcissistic Abuse</p>
+      <p class="intro-title"><span class="il"><span>Healing from</span></span><span class="il"><span><em>Narcissistic Abuse</em></span></span></p>
+      <p class="intro-div"><span></span><i></i><span></span></p>
       <p class="intro-sub">Break the trauma bond. Return to yourself.</p>
     </div>
-    <div class="intro-stage">
-      <div class="intro-frame">
-        <img class="intro-back" src="img/intro-back.webp" width="851" height="612" alt="">
-        <div class="intro-veil"></div>
-        <div class="intro-heart"></div>
-        <img class="intro-cloth" src="img/intro-cloth.webp" width="1191" height="612" alt="">
-      </div>
-    </div>
-    <div class="intro-bloom"></div>
   </div>
   <button type="button" class="intro-skip" id="introSkip">Skip intro <span aria-hidden="true">&rarr;</span></button>
 </div>
@@ -107,7 +104,6 @@
 <header class="site-header" id="top">
   <div class="wrap header-inner">
     <a class="brand" href="#top" aria-label="Healing Narcissistic Wounds, back to top">
-      <!-- Placeholder wordmark until the logo file arrives -->
       <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3"><circle cx="24" cy="26" r="14"/><circle cx="40" cy="26" r="14"/><circle cx="32" cy="40" r="14"/></g></svg>
       <span class="brand-text"><span class="brand-name">Healing Narcissistic Wounds</span><span class="brand-sub">Dr. Judy Rosenberg &middot; Be the Cause<sup>®</sup></span></span>
     </a>
@@ -124,74 +120,92 @@
     </nav>
     <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="nav"><span class="sr-only">Menu</span><span class="bar"></span><span class="bar"></span></button>
   </div>
+  <span class="scroll-line" aria-hidden="true"></span>
 </header>
 
 <main id="main">
 
-<!-- ============ HERO + FREE VIDEO ============ -->
+<!-- ============ HERO + FREE VIDEO (center + orbit) ============ -->
 <section class="hero" id="free-video" aria-labelledby="hero-title">
-  <canvas class="hero-stars" id="heroStars" aria-hidden="true"></canvas>
+  <div class="hero-bg" aria-hidden="true"></div>
   <svg class="hero-ribbons" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
     <defs>
-      <linearGradient id="rb1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0ad91" stop-opacity="0"/><stop offset=".45" stop-color="#f0ad91" stop-opacity=".45"/><stop offset="1" stop-color="#d19489" stop-opacity="0"/></linearGradient>
-      <linearGradient id="rb2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff4ea" stop-opacity="0"/><stop offset=".5" stop-color="#fff4ea" stop-opacity=".75"/><stop offset="1" stop-color="#fff4ea" stop-opacity="0"/></linearGradient>
+      <linearGradient id="rb1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0ad91" stop-opacity="0"/><stop offset=".45" stop-color="#f0ad91" stop-opacity=".35"/><stop offset="1" stop-color="#d19489" stop-opacity="0"/></linearGradient>
+      <linearGradient id="rb2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff8f2" stop-opacity="0"/><stop offset=".5" stop-color="#fff8f2" stop-opacity=".8"/><stop offset="1" stop-color="#fff8f2" stop-opacity="0"/></linearGradient>
     </defs>
-    <path class="rb rb-a" fill="url(#rb1)" d="M-80 640 C 240 520, 420 760, 760 600 S 1240 380, 1520 480 L 1520 560 C 1240 470, 1060 700, 760 690 S 260 620, -80 740 Z"/>
+    <path class="rb rb-a" fill="url(#rb1)" d="M-80 700 C 240 580, 420 820, 760 660 S 1240 440, 1520 540 L 1520 620 C 1240 530, 1060 760, 760 750 S 260 680, -80 800 Z"/>
     <path class="rb rb-b" fill="url(#rb2)" d="M-80 300 C 300 200, 520 420, 860 330 S 1300 160, 1520 230 L 1520 270 C 1300 220, 1120 420, 860 400 S 300 300, -80 360 Z"/>
   </svg>
+  <canvas class="hero-stars" id="heroStars" aria-hidden="true"></canvas>
   <img class="hero-lady" src="img/lady-line.webp" width="640" height="242" alt="" aria-hidden="true">
 
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow hero-eyebrow" data-hero><span>Dr. Judy Rosenberg</span><span class="eb-dot" aria-hidden="true"> &middot; </span><span>Licensed Clinical Psychologist</span></p>
-      <h1 id="hero-title" class="display" data-hero>Trapped in a <em>narcissistic relationship?</em></h1>
-      <p class="lead" data-hero>Being gaslit, manipulated, controlled? Losing your sense of self, and beginning to doubt your own mind?</p>
-      <p class="lead-strong" data-hero>You've come to the right place.</p>
-      <div class="cta-row" data-hero>
-        <button type="button" class="btn btn-wine" id="playTeaser"><span class="play-dot" aria-hidden="true"></span>Watch the free video</button>
-        <a class="btn btn-ghost" href="#program">See the program</a>
-      </div>
-      <p class="hero-note" data-hero>Break the trauma bond. Return to yourself.</p>
-    </div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow hero-eyebrow" data-hero><span>Dr. Judy Rosenberg</span><span class="eb-dot" aria-hidden="true"> &middot; </span><span>Licensed Clinical Psychologist</span></p>
+    <h1 id="hero-title" class="display hero-title split">Trapped in a <em>narcissistic relationship?</em></h1>
 
-    <div class="hero-media" data-hero>
-      <figure class="video-card" id="teaserCard">
-        <div class="video-shell">
-          <video id="teaser" playsinline controls preload="none" poster="img/teaser-poster.webp" width="960" height="540">
-            <source src="https://www.healingnarcissisticwounds.com/videos/nar-teaser-v7.mp4" type="video/mp4">
-          </video>
-          <button type="button" class="video-cover" id="teaserCover" aria-label="Play the free one-minute video">
-            <span class="video-cover-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
-            <span class="video-cover-label">Free &middot; the first minute</span>
-          </button>
-          <div class="video-gate" id="videoGate" hidden>
-            <p class="gate-title">That was just a sample.</p>
-            <p class="gate-sub">Want the rest? Leave your email.</p>
-            <form class="gate-form" id="gateForm" novalidate>
-              <label class="sr-only" for="gateEmail">Your email</label>
-              <input id="gateEmail" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
-              <button class="btn btn-wine btn-sm" type="submit">Unlock the full introduction</button>
-            </form>
-            <p class="gate-err" id="gateErr" role="alert"></p>
-            <button type="button" class="gate-replay" id="gateReplay">Replay the minute</button>
-          </div>
-          <!-- Full intro (Vimeo) is injected only after the email step, so nothing loads before then. -->
+    <div class="hero-stage">
+      <div class="portal portal-wide" data-portal>
+        <div class="orbit-field" id="heroOrbit" aria-hidden="true">
+          <svg class="orbit-path" focusable="false"><ellipse class="op-outer"/><ellipse class="op-main"/></svg>
+          <span class="oi oi-judy"><img src="img/judy-portrait.webp" width="640" height="960" alt=""></span>
+          <span class="oi oi-book"><img src="img/cover-hnw.webp" width="560" height="842" alt=""></span>
+          <span class="oi oi-mm"><img src="img/mm-paradigm.webp" width="240" height="240" alt=""></span>
+          <span class="oi oi-book"><img src="img/book-be-the-cause.webp" width="400" height="609" alt=""></span>
+          <span class="oi oi-mic"><svg viewBox="0 0 24 24" focusable="false"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg></span>
+          <span class="oi oi-book oi-wide"><img src="img/book-hcw.webp" width="400" height="605" alt=""></span>
+          <span class="oi oi-mm oi-wide"><img src="img/mm-unity.webp" width="240" height="240" alt=""></span>
         </div>
-        <figcaption>
-          <span>“Narcissists seek fillment. Healthy people seek fulfillment.”</span>
-          <button type="button" class="link-btn" id="openGate">Get the full introduction &rarr;</button>
-        </figcaption>
-      </figure>
+        <div class="portal-bloom" aria-hidden="true"></div>
+        <figure class="video-card" id="teaserCard" data-hero>
+          <div class="portal-ring" aria-hidden="true"></div>
+          <div class="video-shell">
+            <video id="teaser" playsinline controls preload="none" poster="img/teaser-poster.webp" width="960" height="540">
+              <source src="https://www.healingnarcissisticwounds.com/videos/nar-teaser-v7.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="video-cover" id="teaserCover" aria-label="Play the free one-minute video">
+              <span class="video-cover-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+              <span class="video-cover-label">Free &middot; the first minute</span>
+            </button>
+            <div class="video-gate" id="videoGate" hidden>
+              <p class="gate-title">That was just a sample.</p>
+              <p class="gate-sub">Want the rest? Leave your email.</p>
+              <form class="gate-form" id="gateForm" novalidate>
+                <label class="sr-only" for="gateEmail">Your email</label>
+                <input id="gateEmail" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
+                <button class="btn btn-wine btn-sm" type="submit">Unlock the full introduction</button>
+              </form>
+              <p class="gate-err" id="gateErr" role="alert"></p>
+              <button type="button" class="gate-replay" id="gateReplay">Replay the minute</button>
+            </div>
+          </div>
+          <figcaption>
+            <span>“Narcissists seek fillment. Healthy people seek fulfillment.”</span>
+            <button type="button" class="link-btn" id="openGate">Get the full introduction &rarr;</button>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="hero-side hero-side-l" data-hero>
+        <p class="lead">Being gaslit, manipulated, controlled? Losing your sense of self, and beginning to doubt your own mind?</p>
+      </div>
+      <div class="hero-side hero-side-r" data-hero>
+        <p class="lead-strong">You've come to the right place.</p>
+        <div class="cta-row">
+          <button type="button" class="btn btn-wine" id="playTeaser"><span class="play-dot" aria-hidden="true"></span>Watch the free video</button>
+          <a class="btn btn-ghost" href="#program">See the program</a>
+        </div>
+      </div>
     </div>
+    <p class="hero-note" data-hero><span class="note-line" aria-hidden="true"></span>Break the trauma bond. Return to yourself.<span class="note-line" aria-hidden="true"></span></p>
   </div>
 </section>
 
 <!-- ============ AS SEEN ON (third-party marks exactly as on her live site) ============ -->
 <section class="press" aria-label="As seen on">
-  <div class="wrap press-inner">
+  <div class="press-inner">
     <p class="press-label">As seen on</p>
-    <div class="press-track-wrap">
-      <ul class="press-track">
+    <div class="press-track-wrap" data-marquee>
+      <ul class="press-track marquee-track">
         <li><img src="img/press/dash-dolls-e.webp" width="355" height="200" alt="Dash Dolls on E!" loading="lazy"></li>
         <li><img src="img/press/cbs-news.webp" width="411" height="120" alt="CBS News" loading="lazy"></li>
         <li><img src="img/press/cnn.webp" width="252" height="120" alt="CNN" loading="lazy"></li>
@@ -201,16 +215,39 @@
         <li><img src="img/press/kcal-news.webp" width="286" height="120" alt="KCAL News" loading="lazy"></li>
       </ul>
     </div>
-    <p class="press-more">The Roseanne Show &middot; Botched &middot; Nathan for You &middot; Weird, True &amp; Freaky &middot; <i>Metallica Saved My Life</i> (film)</p>
+    <p class="press-more wrap">The Roseanne Show &middot; Botched &middot; Nathan for You &middot; Weird, True &amp; Freaky &middot; <i>Metallica Saved My Life</i> (film)</p>
   </div>
 </section>
 
-<!-- ============ DO YOU RECOGNISE THIS? ============ -->
-<section class="recognise section" id="recognise" aria-labelledby="rec-title">
+<!-- ============ CURTAIN PULL (pinned, scroll-scrubbed) ============ -->
+<section class="curtain" id="curtain" aria-labelledby="ct-title">
+  <div class="curtain-stage">
+    <div class="curtain-flood" aria-hidden="true"></div>
+    <p class="eyebrow curtain-eyebrow">Decode Your Past&hellip;<br class="m-br"> Recode Your Future<sup>®</sup></p>
+    <div class="curtain-art" aria-hidden="true">
+      <div class="ca-frame">
+        <img class="ca-back" src="img/intro-back.webp" width="851" height="612" alt="" loading="lazy">
+        <div class="ca-heart"></div>
+        <div class="ca-rays"></div>
+        <img class="ca-cloth" src="img/intro-cloth.webp" width="1191" height="612" alt="" loading="lazy">
+      </div>
+    </div>
+    <h2 id="ct-title" class="curtain-lines">
+      <span class="cl cl-1"><span class="clm"><span>Encode</span></span> <span class="clm"><span><em>your past.</em></span></span></span>
+      <span class="cl cl-2"><span class="clm"><span>Decode</span></span> <span class="clm"><span><em>your present.</em></span></span></span>
+      <span class="cl cl-3"><span class="clm"><span>Recode</span></span> <span class="clm"><span><em>your future.</em></span></span></span>
+    </h2>
+    <ol class="curtain-steps" aria-hidden="true"><li class="is-on">01</li><li>02</li><li>03</li></ol>
+    <p class="curtain-hint" aria-hidden="true">Scroll</p>
+  </div>
+</section>
+
+<!-- ============ DO YOU RECOGNIZE THIS? ============ -->
+<section class="recognize section" id="recognize" aria-labelledby="rec-title">
   <div class="wrap">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Do you recognise this?</p>
-      <h2 id="rec-title" class="h2">It has a name. <em>And no, you're not crazy.</em></h2>
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Do you recognize this?</p>
+      <h2 id="rec-title" class="h2 split">It has a name. <em>And no, you're not crazy.</em></h2>
     </div>
     <ul class="rec-grid">
       <li class="rec-card" data-reveal><span class="rec-num">01</span><p>You're being gaslit, manipulated, controlled.</p></li>
@@ -222,23 +259,29 @@
     </ul>
     <div class="rec-foot" data-reveal>
       <p>Narcissistic abuse begins in a family system gone wrong, where parents lack empathy, control and manipulate, and put their own needs before their children. The Be the Cause<sup>®</sup> Mind Map is your pathway back to wholeness.</p>
-      <a class="btn btn-ghost" href="#free-video">Start with the free video</a>
+      <a class="btn btn-wine" href="#free-video">Start with the free video</a>
     </div>
   </div>
 </section>
+
+<!-- ============ GIANT TEXT RAIL (decorative; lines repeat copy from this page) ============ -->
+<div class="rail-band" aria-hidden="true">
+  <div class="rail rail-a" data-rail="1"><div class="rail-track"><span>Decode Your Past&hellip; Recode Your Future<sup>®</sup></span><i>✦</i><span><em>Be the Cause<sup>®</sup></em></span><i>✦</i><span>Break the trauma bond</span><i>✦</i><span><em>Return to yourself</em></span><i>✦</i></div></div>
+  <div class="rail rail-b" data-rail="-1"><div class="rail-track"><span>You don't absorb it. <em>You observe it.</em></span><i>✦</i><span>Healing Human Disconnect <em>starts with you.</em></span><i>✦</i></div></div>
+</div>
 
 <!-- ============ THE HEALING JOURNEY ============ -->
 <section class="journey" id="journey" aria-labelledby="jr-title">
   <div class="journey-sky" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="section-head center" data-reveal>
-      <p class="eyebrow eyebrow-gold">The healing journey</p>
-      <h2 id="jr-title" class="h2 h2-light">“When we are willing to enter the darkness, we can begin to find the light.”</h2>
-      <p class="journey-intro">The path from Dr. Judy's journal, in her own words.</p>
+    <div class="section-head center">
+      <p class="eyebrow" data-reveal>The healing journey</p>
+      <h2 id="jr-title" class="h2 split">“When we are willing to enter the darkness, we can begin to find the light.”</h2>
+      <p class="journey-intro" data-reveal>The path from Dr. Judy's journal, in her own words.</p>
     </div>
 
     <div class="thread-wrap">
-      <svg class="thread" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 40 1000"><path id="threadPath" d="M20 0 C 34 120, 6 240, 20 360 S 34 600, 20 720 S 6 900, 20 1000" fill="none" stroke="url(#thg)" stroke-width="2.2" vector-effect="non-scaling-stroke"/><defs><linearGradient id="thg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6a35c"/><stop offset=".6" stop-color="#f0ad91"/><stop offset="1" stop-color="#621019"/></linearGradient></defs></svg>
+      <svg class="thread" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 40 1000"><path id="threadPath" d="M20 0 C 34 120, 6 240, 20 360 S 34 600, 20 720 S 6 900, 20 1000" fill="none" stroke="url(#thg)" stroke-width="2.2" vector-effect="non-scaling-stroke"/><defs><linearGradient id="thg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#621019"/><stop offset=".55" stop-color="#d19489"/><stop offset="1" stop-color="#B8893B"/></linearGradient></defs></svg>
 
       <p class="chapter ch-dark" data-reveal>I &middot; Into the dark</p>
       <ol class="beats">
@@ -304,35 +347,119 @@
   </div>
 </section>
 
+<!-- ============ THE DOSSIER: nine chapters (art + words from Dr. Judy's journal) ============ -->
+<section class="dz" id="dossier" aria-labelledby="dz-title">
+  <div class="dz-pin">
+    <div class="dz-dark" aria-hidden="true"></div>
+    <div class="dz-glow" aria-hidden="true"></div>
+    <canvas class="dz-embers" aria-hidden="true"></canvas>
+
+    <div class="dz-intro">
+      <img class="dz-road" src="img/dossier/road.webp" width="820" height="1063" alt="" aria-hidden="true" loading="lazy">
+      <div class="dz-intro-copy">
+        <p class="dz-kicker">From Dr. Judy's journal</p>
+        <h2 id="dz-title" class="dz-title"><span>Every journey</span> <span>begins with a map</span></h2>
+        <p class="dz-hint" aria-hidden="true"><span></span>Scroll into the nine chapters</p>
+      </div>
+    </div>
+
+    <ol class="dz-chapters">
+      <li class="dz-ch" data-glow="#b5566e" data-act="Encode your past">
+        <figure class="dz-card"><img src="img/dossier/wound.webp" width="820" height="1061" loading="lazy" alt="Chapter page: The Wound. The hole in the soul begins here. Childhood creates the wounds. Narcissists exploit them."><span class="dz-sheen" aria-hidden="true"></span></figure>
+        <div class="dz-cap"><p class="dz-num">I</p><h3>The Wound</h3><p>The hole in the soul begins here.</p></div>
+      </li>
+      <li class="dz-ch" data-glow="#a33d78" data-act="Encode your past">
+        <figure class="dz-card"><img src="img/dossier/reaction.webp" width="820" height="1061" loading="lazy" alt="Chapter page: The Reaction. The cracked lens of perception. Fight, flight, freeze, fawn. Gaslighting cracks your lens of perception. The trauma bond keeps you from fighting and fleeing."><span class="dz-sheen" aria-hidden="true"></span></figure>
+        <div class="dz-cap"><p class="dz-num">II</p><h3>The Reaction</h3><p>The cracked lens of perception.</p></div>
+      </li>
+      <li class="dz-ch" data-glow="#c27a45" data-act="Encode your past">
+        <figure class="dz-card"><img src="img/dossier/encoding.webp" width="820" height="1061" loading="lazy" alt="Chapter page: The Encoding. When survival becomes self abandonment. The narcissist hijacks you to fill its hole in the soul."><span class="dz-sheen" aria-hidden="true"></span></figure>
+        <div class="dz-cap"><p class="dz-num">III</p><h3>The Encoding</h3><p>When survival becomes self abandonment.</p></div>
+      </li>
+      <li class="dz-ch" data-glow="#c9873a" data-act="Decode your present">
+        <figure class="dz-card"><img src="img/dossier/chaos.webp" width="820" height="1061" loading="lazy" alt="Chapter page: What the Freud! Chaos. When the toxic bond begins to collapse. As the familial system breaks down, the vulnerable little i becomes easy to capture, and the repetitive family cycle begins."><span class="dz-sheen" aria-hidden="true"></span></figure>
+        <div class="dz-cap"><p class="dz-num">IV</p><h3>Chaos</h3><p>When the toxic bond begins to collapse.</p></div>
+      </li>
+      <li class="dz-ch" data-glow="#8e4fa0" data-act="Decode your present">
+        <figure class="dz-card"><img src="img/dossier/defenses.webp" width="820" height="1061" loading="lazy" alt="Chapter page: What the Freud! Defenses. The little i defenses are breaking down. Demeaning, devaluing, destroying and gaslighting weaken the immunity to narcissistic exploitation."><span class="dz-sheen" aria-hidden="true"></span></figure>
+        <div class="dz-cap"><p class="dz-num">V</p><h3>Defenses</h3><p>The little <i>i</i> defenses are breaking down.</p></div>
+      </li>
+      <li class="dz-ch" data-glow="#d9a043" data-act="Decode your present">
+        <figure class="dz-card"><img src="img/dossier/breakthrough.webp" width="820" height="1061" loading="lazy" alt="Chapter page: What the Freud! Breakdown / Breakthrough. The little i struggles to free itself from the web of narcissism. Will you break down or break through?"><span class="dz-sheen" aria-hidden="true"></span></figure>
+        <div class="dz-cap"><p class="dz-num">VI</p><h3>Breakdown / Breakthrough</h3><p>Will you break down or break through?</p></div>
+      </li>
+      <li class="dz-ch" data-glow="#e7b98a" data-act="Recode your future">
+        <figure class="dz-card"><img src="img/dossier/paradigm.webp" width="820" height="1061" loading="lazy" alt="Chapter page: Paradigm Shift. The true authentic self emerges. The truth lens comes into focus. Reclaimed mind, body and soul. The paradigm shift is the reclamation of your true authentic self."><span class="dz-sheen" aria-hidden="true"></span></figure>
+        <div class="dz-cap"><p class="dz-num">VII</p><h3>Paradigm Shift</h3><p>The true authentic self emerges.</p></div>
+      </li>
+      <li class="dz-ch" data-glow="#d6a446" data-act="Recode your future">
+        <figure class="dz-card"><img src="img/dossier/healing.webp" width="820" height="1071" loading="lazy" alt="Chapter page: Healing. Your authentic self is recoding your future. You are becoming the cause of better outcomes for your life. A decoded past creates a legacy of healthy choices for yourself and the next generation."><span class="dz-sheen" aria-hidden="true"></span></figure>
+        <div class="dz-cap"><p class="dz-num">VIII</p><h3>Healing</h3><p>Your authentic self is recoding your future.</p></div>
+      </li>
+      <li class="dz-ch" data-glow="#b48ad0" data-act="Recode your future">
+        <figure class="dz-card"><img src="img/dossier/unity.webp" width="820" height="1169" loading="lazy" alt="Chapter page: Unity. As I heal individually, I create a legacy of global and multigenerational healing. My legacy begins with returning to my authentic self."><span class="dz-sheen" aria-hidden="true"></span></figure>
+        <div class="dz-cap"><p class="dz-num">IX</p><h3>Unity</h3><p>My legacy begins with returning to my authentic self.</p></div>
+      </li>
+    </ol>
+
+    <div class="dz-hud" aria-hidden="true">
+      <p class="dz-act">Encode your past</p>
+      <div class="dz-count"><span class="dz-count-now">I</span><span class="dz-count-sep"></span><span>IX</span></div>
+    </div>
+    <ol class="dz-rail" aria-label="Chapters">
+      <li><button type="button" data-go="0">The Wound</button></li>
+      <li><button type="button" data-go="1">The Reaction</button></li>
+      <li><button type="button" data-go="2">The Encoding</button></li>
+      <li><button type="button" data-go="3">Chaos</button></li>
+      <li><button type="button" data-go="4">Defenses</button></li>
+      <li><button type="button" data-go="5">Breakdown / Breakthrough</button></li>
+      <li><button type="button" data-go="6">Paradigm Shift</button></li>
+      <li><button type="button" data-go="7">Healing</button></li>
+      <li><button type="button" data-go="8">Unity</button></li>
+    </ol>
+  </div>
+
+  <div class="dz-outro">
+    <img class="dz-injury" src="img/dossier/injury.webp" width="820" height="1061" alt="" aria-hidden="true" loading="lazy">
+    <div class="dz-outro-copy">
+      <p class="dz-outro-line">The narcissistic injury is where <em>your healing</em> from narcissistic abuse begins.</p>
+      <div class="dz-cta">
+        <a class="btn btn-wine btn-lg" href="#free-video">Start with the free video</a>
+        <a class="btn btn-ghost btn-lg" href="#request">Request a session</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ THE MIND MAP SYSTEM ============ -->
 <section class="mindmap" id="mind-map" aria-labelledby="mm-title">
   <div class="wrap">
-    <div class="section-head center" data-reveal>
-      <p class="eyebrow eyebrow-gold">How it works</p>
-      <h2 id="mm-title" class="h2 h2-gold">The Be the Cause<sup>®</sup> Mind Map System</h2>
-      <p class="mm-lead">Nine stations. One journey from wound to unity. Created and illustrated by Dr. Judy.</p>
+    <div class="section-head center">
+      <p class="eyebrow" data-reveal>How it works</p>
+      <h2 id="mm-title" class="h2 h2-xl split">The Be the Cause<sup>®</sup> <em>Mind Map System</em></h2>
+      <p class="mm-lead" data-reveal>Nine stations. One journey from wound to unity. Created and illustrated by Dr. Judy.</p>
     </div>
     <div class="mm-board">
       <div class="mm-row" data-row>
-        <p class="mm-row-label">Encode your past</p>
+        <p class="mm-row-label"><span>I</span>Encode your past</p>
         <ol class="mm-stations">
           <li class="mm-st"><img src="img/mm-wound.webp" width="240" height="240" alt="Mind Map panel 1, The Wound: a dark burst of fragments" loading="lazy"><span><b>1</b>The Wound</span></li>
-          <li class="mm-st"><img src="img/mm-reaction.webp" width="240" height="240" alt="Mind Map panel 2, Reaction: a bright explosion of colour" loading="lazy"><span><b>2</b>Reaction</span></li>
+          <li class="mm-st"><img src="img/mm-reaction.webp" width="240" height="240" alt="Mind Map panel 2, Reaction: a bright explosion of color" loading="lazy"><span><b>2</b>Reaction</span></li>
           <li class="mm-st"><img src="img/mm-encoding.webp" width="240" height="240" alt="Mind Map panel 3, Encoding: a painted DNA strand" loading="lazy"><span><b>3</b>Encoding</span></li>
         </ol>
       </div>
       <div class="mm-row" data-row>
-        <p class="mm-row-label">Decode your present</p>
+        <p class="mm-row-label"><span>II</span>Decode your present</p>
         <ol class="mm-stations" start="4">
-          <li class="mm-st"><img src="img/mm-chaos.webp" width="240" height="240" alt="Mind Map panel 4, Chaos: tangled coloured threads" loading="lazy"><span><b>4</b>Chaos</span></li>
-          <li class="mm-st"><img src="img/mm-breakthrough.webp" width="240" height="240" alt="Mind Map panel 5, Breakdown and Breakthrough: coloured spheres" loading="lazy"><span><b>5</b>Breakdown / Breakthrough</span></li>
+          <li class="mm-st"><img src="img/mm-chaos.webp" width="240" height="240" alt="Mind Map panel 4, Chaos: tangled colored threads" loading="lazy"><span><b>4</b>Chaos</span></li>
+          <li class="mm-st"><img src="img/mm-breakthrough.webp" width="240" height="240" alt="Mind Map panel 5, Breakdown and Breakthrough: colored spheres" loading="lazy"><span><b>5</b>Breakdown / Breakthrough</span></li>
           <li class="mm-st"><img src="img/mm-defenses.webp" width="240" height="240" alt="Mind Map panel 6, Defenses: a sweeping red shape" loading="lazy"><span><b>6</b>Defenses</span></li>
         </ol>
       </div>
       <div class="mm-row" data-row>
-        <p class="mm-row-label">Recode your future</p>
+        <p class="mm-row-label"><span>III</span>Recode your future</p>
         <ol class="mm-stations" start="7">
-          <li class="mm-st"><img src="img/mm-paradigm.webp" width="240" height="240" alt="Mind Map panel 7, Paradigm Shift: four colours merging in light" loading="lazy"><span><b>7</b>Paradigm Shift</span></li>
+          <li class="mm-st"><img src="img/mm-paradigm.webp" width="240" height="240" alt="Mind Map panel 7, Paradigm Shift: four colors merging in light" loading="lazy"><span><b>7</b>Paradigm Shift</span></li>
           <li class="mm-st"><img src="img/mm-healing.webp" width="240" height="240" alt="Mind Map panel 8, Healing: a DNA strand above the earth" loading="lazy"><span><b>8</b>Healing</span></li>
           <li class="mm-st"><img src="img/mm-unity.webp" width="240" height="240" alt="Mind Map panel 9, Unity: the earth in blue light" loading="lazy"><span><b>9</b>Unity</span></li>
         </ol>
@@ -343,15 +470,40 @@
   </div>
 </section>
 
+<!-- ============ MEET DR. JUDY (mid-page video portal) ============ -->
+<section class="meet-portal" id="meet" aria-labelledby="meet-title">
+  <div class="motes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="wrap meet-grid">
+    <h2 id="meet-title" class="meet-title"><span class="mw mw-1 split">Meet</span> <span class="mw mw-2 split"><em>Dr. Judy</em></span></h2>
+    <div class="portal portal-tall" data-portal>
+      <div class="orbits" aria-hidden="true">
+        <svg class="orbit o1" viewBox="0 0 400 400"><ellipse cx="200" cy="200" rx="120" ry="196"/><circle class="od" cx="200" cy="4" r="3.2"/><circle class="od sm" cx="96" cy="300" r="2.2"/></svg>
+        <svg class="orbit o2" viewBox="0 0 400 400"><ellipse cx="200" cy="200" rx="190" ry="150"/><circle class="od" cx="10" cy="200" r="2.6"/><circle class="od sm" cx="350" cy="110" r="2"/></svg>
+        <svg class="orbit o3" viewBox="0 0 400 400"><ellipse cx="200" cy="200" rx="60" ry="198"/><circle class="od" cx="260" cy="200" r="2.4"/></svg>
+      </div>
+      <div class="portal-bloom" aria-hidden="true"></div>
+      <figure class="meet">
+        <div class="portal-ring" aria-hidden="true"></div>
+        <div class="meet-shell">
+          <video id="meetVideo" controls playsinline preload="none" poster="img/judy-poster.webp" width="480" height="669">
+            <source src="https://www.healingnarcissisticwounds.com/videos/intro-video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <figcaption>Meet Dr. Judy &middot; 22 seconds</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ============ THE PROGRAM ============ -->
 <section class="program section" id="program" aria-labelledby="pg-title">
   <div class="wrap program-grid">
-    <div class="program-visual" data-reveal>
-      <div class="stack">
+    <div class="program-visual">
+      <div class="stack" data-tilt>
         <img class="stack-dossier" src="img/dossier-hnw.webp" width="640" height="640" alt="The guided Healing from Narcissistic Abuse dossier cover, pink with an embossed woman drawing back a curtain" loading="lazy">
         <img class="stack-book" src="img/book-be-the-cause.webp" width="400" height="609" alt="Book cover: Be the Cause, Healing Human Disconnect, by Judy Rosenberg, PhD" loading="lazy">
       </div>
-      <div class="journal" aria-label="A peek inside the journal">
+      <div class="journal" aria-label="A peek inside the journal" data-reveal>
         <p class="journal-label">A peek inside the journal</p>
         <ul>
           <li>What multi-generational life did I inherit from my family?</li>
@@ -362,7 +514,7 @@
     </div>
     <div class="program-copy">
       <p class="eyebrow" data-reveal>The program</p>
-      <h2 id="pg-title" class="h2" data-reveal>Healing from Narcissistic Abuse</h2>
+      <h2 id="pg-title" class="h2 split">Healing from <em>Narcissistic Abuse</em></h2>
       <p class="program-lead" data-reveal>Break the trauma bond and return to yourself. This self-guided program brings together Dr. Judy's video teachings, companion book, and guided healing dossier, to help you understand the pattern, reclaim your power, and begin creating healthier relationships.</p>
       <ul class="includes" data-reveal>
         <li>The Healing from Narcissistic Abuse video program</li>
@@ -384,8 +536,7 @@
 <!-- ============ BOOKLET ============ -->
 <section class="booklet section" id="booklet" aria-labelledby="bk-title">
   <div class="wrap booklet-grid">
-    <div class="booklet-cover-wrap" data-reveal>
-      <!-- PLACEHOLDER COVER: CSS-drawn in the HNW palette. Swap for Dr. Judy's real booklet cover when it arrives. -->
+    <div class="booklet-cover-wrap" data-tilt>
       <div class="booklet-cover" role="img" aria-label="Booklet cover: Peaceful Healing Dialogue">
         <span class="bc-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="24" cy="26" r="14"/><circle cx="40" cy="26" r="14"/><circle cx="32" cy="40" r="14"/></g></svg></span>
         <span class="bc-top">Be the Cause<sup>®</sup></span>
@@ -398,7 +549,7 @@
     </div>
     <div class="booklet-copy">
       <p class="eyebrow" data-reveal>Start small</p>
-      <h2 id="bk-title" class="h2" data-reveal>How to talk to a narcissist <em>without blowing up.</em></h2>
+      <h2 id="bk-title" class="h2 split">How to talk to a narcissist <em>without blowing up.</em></h2>
       <blockquote class="booklet-quote" data-reveal>
         <p>“I'm sure you're struggling with how to talk to your narcissist. It's almost impossible. But here are ways to recognize if you could or can't make progress.”</p>
         <p class="small">“I know how hard it is to talk to a narcissist, because I've tried it myself.”</p>
@@ -423,7 +574,6 @@
         <a class="btn btn-wine btn-lg" href="#booklet-checkout" id="bookletBtn">Get the booklet &middot; $9.99</a>
         <p class="wink">Costs less than one more argument.</p>
       </div>
-      <!-- Placeholder target until the Authorize.net / GHL checkout exists. -->
       <p id="booklet-checkout" class="checkout-note" tabindex="-1" role="status" hidden>Checkout opens soon.</p>
     </div>
   </div>
@@ -431,31 +581,33 @@
 
 <!-- ============ DIVORCING A NARCISSIST ============ -->
 <section class="divorce" id="divorce" aria-labelledby="dv-title">
-  <div class="wrap divorce-inner" data-reveal>
+  <div class="wrap divorce-inner">
     <div>
-      <p class="eyebrow eyebrow-gold">Divorcing a narcissist?</p>
-      <h2 id="dv-title" class="h2 h2-light">Heal your mind. <em>Strengthen your case.</em></h2>
-      <p>Psychologist Dr. Judy Rosenberg + attorney Rebecca Zung. Two different kinds of protection, from two different experts.</p>
+      <p class="eyebrow" data-reveal>Divorcing a narcissist?</p>
+      <h2 id="dv-title" class="h2 split">Heal your mind. <em>Strengthen your case.</em></h2>
+      <p data-reveal>Psychologist Dr. Judy Rosenberg + attorney Rebecca Zung. Two different kinds of protection, from two different experts.</p>
     </div>
-    <div class="divorce-links">
-      <a class="btn btn-cream" href="https://www.healingnarcissisticwounds.com/divorcing-a-narcissist">See mind + case protection</a>
-      <a class="link-light" href="https://slaypro.ai/?am_id=judyrosenberg5235" rel="sponsored noopener" target="_blank">Rebecca Zung's program &rarr;</a>
-      <a class="link-light" href="https://www.healingnarcissisticwounds.com/blog/divorcing-a-narcissist-be-prepared">Read: Divorcing a narcissist, be prepared &rarr;</a>
+    <div class="divorce-links" data-reveal>
+      <a class="btn btn-wine" href="https://www.healingnarcissisticwounds.com/divorcing-a-narcissist">See mind + case protection</a>
+      <a class="link-wine" href="https://slaypro.ai/?am_id=judyrosenberg5235" rel="sponsored noopener" target="_blank">Rebecca Zung's program &rarr;</a>
+      <a class="link-wine" href="https://www.healingnarcissisticwounds.com/blog/divorcing-a-narcissist-be-prepared">Read: Divorcing a narcissist, be prepared &rarr;</a>
     </div>
   </div>
 </section>
 
-<!-- ============ REVIEWS ============ -->
+<!-- ============ REVIEWS (moving card rail) ============ -->
 <section class="reviews section" aria-labelledby="rv-title">
   <div class="wrap">
-    <div class="section-head center" data-reveal>
-      <p class="eyebrow">In their words</p>
-      <h2 id="rv-title" class="h2">What clients say</h2>
+    <div class="section-head center">
+      <p class="eyebrow" data-reveal>In their words</p>
+      <h2 id="rv-title" class="h2 h2-xl split">What clients <em>say</em></h2>
     </div>
-    <div class="rv-grid">
-      <figure class="rv" data-reveal><blockquote>“Dr. Judy is incredibly empathetic and professional. She was able to put into words many of my confusing emotions and guide me into clarity of both thought and purpose. She is a ‘no judgment zone’ individual.”</blockquote><figcaption>Cynthia Cowden</figcaption></figure>
-      <figure class="rv" data-reveal><blockquote>“Judy is a kind and spiritual human being who always seems to really relate and understand what a person is going through and their needs. Dr. Judy, through her own experiences and healing, has really made an important impact.”</blockquote><figcaption>Monica</figcaption></figure>
-      <figure class="rv" data-reveal><blockquote>“Dr. Judy is very comforting. She helped me open up and talk openly about my emotions. She is very approachable, welcoming, and inviting.”</blockquote><figcaption>5&#9733; Google Review</figcaption></figure>
+  </div>
+  <div class="rv-rail" data-marquee>
+    <div class="rv-grid marquee-track">
+      <figure class="rv"><blockquote>Dr. Judy is incredibly empathetic and professional. She was able to put into words many of my confusing emotions and guide me into clarity of both thought and purpose. She is a ‘no judgment zone’ individual.</blockquote><figcaption>Cynthia Cowden</figcaption></figure>
+      <figure class="rv"><blockquote>Judy is a kind and spiritual human being who always seems to really relate and understand what a person is going through and their needs. Dr. Judy, through her own experiences and healing, has really made an important impact.</blockquote><figcaption>Monica</figcaption></figure>
+      <figure class="rv"><blockquote>Dr. Judy is very comforting. She helped me open up and talk openly about my emotions. She is very approachable, welcoming, and inviting.</blockquote><figcaption>5&#9733; Google Review</figcaption></figure>
     </div>
   </div>
 </section>
@@ -463,11 +615,11 @@
 <!-- ============ REQUEST A PRIVATE SESSION ============ -->
 <section class="request section" id="request" aria-labelledby="rq-title">
   <div class="wrap request-grid">
-    <div class="request-copy" data-reveal>
-      <p class="eyebrow">Work with Dr. Judy personally</p>
-      <h2 id="rq-title" class="h2">Request a private session</h2>
-      <p class="note-judy">“Dr. Judy is very popular. Very busy. She will reach out to you personally to book your coordinated time.”</p>
-      <ul class="facts">
+    <div class="request-copy">
+      <p class="eyebrow" data-reveal>Work with Dr. Judy personally</p>
+      <h2 id="rq-title" class="h2 split">Request a <em>private session</em></h2>
+      <p class="note-judy" data-reveal>“Dr. Judy is very popular. Very busy. She will reach out to you personally to book your coordinated time.”</p>
+      <ul class="facts" data-reveal>
         <li>A private pay practice. Superbills available for out-of-network reimbursement.</li>
         <li>Psychotherapy only. Dr. Judy does not prescribe medication.</li>
         <li>Sherman Oaks &middot; Beverly Hills &middot; Bel Air &middot; Westwood</li>
@@ -493,13 +645,13 @@
 <!-- ============ ABOUT ============ -->
 <section class="about section" id="about" aria-labelledby="ab-title">
   <div class="wrap about-grid">
-    <div class="about-photo" data-reveal>
+    <div class="about-photo" data-curtain>
       <img src="img/judy-portrait.webp" width="640" height="960" alt="Dr. Judy Rosenberg smiling in her office doorway, in a striped sweater" loading="lazy">
       <span class="about-badge">Licensed Clinical Psychologist</span>
     </div>
     <div class="about-copy">
       <p class="eyebrow" data-reveal>About Dr. Judy Rosenberg</p>
-      <h2 id="ab-title" class="h2" data-reveal>A psychologist on a mission to heal human disconnect.</h2>
+      <h2 id="ab-title" class="h2 split">A psychologist on a mission to <em>heal human disconnect.</em></h2>
       <p data-reveal>Dr. Judy Rosenberg is a licensed clinical psychologist and the founder of the Psychological Healing Center. With more than 30 years of experience, she created the Be the Cause<sup>®</sup> Mind Map System and authored <i>Be the Cause: Healing Human Disconnect</i>.</p>
       <p data-reveal>Her specialty is getting to the root cause of symptoms rather than simply managing them. Those root causes are often part of a multigenerational blueprint passed down through families. Her mission: to heal human disconnect so we can heal global disconnect.</p>
       <ul class="cred" data-reveal>
@@ -518,29 +670,23 @@
         </ul>
       </div>
     </div>
-    <figure class="meet" data-reveal>
-      <video id="meetVideo" controls playsinline preload="none" poster="img/judy-poster.webp" width="480" height="669">
-        <source src="https://www.healingnarcissisticwounds.com/videos/intro-video.mp4" type="video/mp4">
-      </video>
-      <figcaption>Meet Dr. Judy &middot; 22 seconds</figcaption>
-    </figure>
   </div>
 </section>
 
 <!-- ============ THE SHOW ============ -->
 <section class="show" id="show" aria-labelledby="sh-title">
   <div class="wrap show-grid">
-    <a class="show-banner" href="https://www.youtube.com/@drjudywtf8793" data-reveal>
+    <a class="show-banner" href="https://www.youtube.com/@drjudywtf8793" data-curtain>
       <img src="img/wtfreud.webp" width="960" height="540" alt="Dr. Judy WTFreud! Healing Narcissistic Abuse, the show banner with Dr. Judy on a sofa" loading="lazy">
       <span class="show-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
     </a>
-    <div class="show-copy" data-reveal>
-      <p class="eyebrow eyebrow-gold">The show</p>
-      <h2 id="sh-title" class="h2 h2-light">Dr. Judy WTFreud!</h2>
-      <p>Weekly conversations that help you understand, heal, and reclaim your life. Free on YouTube.</p>
-      <div class="cta-row">
-        <a class="btn btn-cream" href="https://www.youtube.com/@drjudywtf8793">Watch on YouTube</a>
-        <a class="link-light" href="https://www.healingnarcissisticwounds.com/episodes">Browse all episodes &rarr;</a>
+    <div class="show-copy">
+      <p class="eyebrow" data-reveal>The show</p>
+      <h2 id="sh-title" class="h2 h2-xl split">Dr. Judy <em>WTFreud!</em></h2>
+      <p data-reveal>Weekly conversations that help you understand, heal, and reclaim your life. Free on YouTube.</p>
+      <div class="cta-row" data-reveal>
+        <a class="btn btn-wine" href="https://www.youtube.com/@drjudywtf8793">Watch on YouTube</a>
+        <a class="link-wine" href="https://www.healingnarcissisticwounds.com/episodes">Browse all episodes &rarr;</a>
       </div>
     </div>
   </div>
@@ -549,26 +695,26 @@
 <!-- ============ BOOKS ============ -->
 <section class="next section" id="books" aria-labelledby="nx-title">
   <div class="wrap">
-    <div class="section-head center" data-reveal>
-      <p class="eyebrow">Her books</p>
-      <h2 id="nx-title" class="h2">Books by Dr. Judy</h2>
+    <div class="section-head center">
+      <p class="eyebrow" data-reveal>Her books</p>
+      <h2 id="nx-title" class="h2 h2-xl split">Books by <em>Dr. Judy</em></h2>
     </div>
     <div class="books">
       <article class="book" data-reveal>
-        <img src="img/cover-hnw.webp" width="560" height="842" alt="Book cover: Healing from Narcissistic Abuse, Breaking the Trauma Bond and Returning to Yourself, written and illustrated by Dr. Judy Rosenberg" loading="lazy">
+        <div class="book-cover" data-tilt><img src="img/cover-hnw.webp" width="560" height="842" alt="Book cover: Healing from Narcissistic Abuse, Breaking the Trauma Bond and Returning to Yourself, written and illustrated by Dr. Judy Rosenberg" loading="lazy"></div>
         <p class="book-tag">In the works</p>
         <h3>Healing from Narcissistic Abuse</h3>
         <p>Breaking the trauma bond and returning to yourself. Written and illustrated by Dr. Judy.</p>
       </article>
       <article class="book" data-reveal>
-        <img src="img/book-hcw.webp" width="400" height="605" alt="Book cover: Be the Cause, Healing Childhood Wounds, The Be the Cause Mind Map System, Third Edition" loading="lazy">
+        <div class="book-cover" data-tilt><img src="img/book-hcw.webp" width="400" height="605" alt="Book cover: Be the Cause, Healing Childhood Wounds, The Be the Cause Mind Map System, Third Edition" loading="lazy"></div>
         <p class="book-tag">Coming soon</p>
         <h3>Healing Childhood Wounds</h3>
         <p>The Be the Cause<sup>®</sup> Mind Map System, third edition.</p>
         <a class="link-wine" href="https://healingchildhoodwounds.com">Visit healingchildhoodwounds.com &rarr;</a>
       </article>
       <article class="book" data-reveal>
-        <img src="img/book-be-the-cause.webp" width="400" height="609" alt="Book cover: Be the Cause, Healing Human Disconnect, by Judy Rosenberg, PhD" loading="lazy">
+        <div class="book-cover" data-tilt><img src="img/book-be-the-cause.webp" width="400" height="609" alt="Book cover: Be the Cause, Healing Human Disconnect, by Judy Rosenberg, PhD" loading="lazy"></div>
         <p class="book-tag">Available now</p>
         <h3>Be the Cause: Healing Human Disconnect</h3>
         <p>Paperback, available on Amazon.</p>
@@ -584,9 +730,9 @@
 <!-- ============ ARTICLES ============ -->
 <section class="articles section" id="articles" aria-labelledby="ar-title">
   <div class="wrap">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Articles</p>
-      <h2 id="ar-title" class="h2">Read, then breathe.</h2>
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>Articles</p>
+      <h2 id="ar-title" class="h2 h2-xl split">Read, <em>then breathe.</em></h2>
     </div>
     <div class="ar-grid">
       <a class="ar" href="https://www.healingnarcissisticwounds.com/blog/why-cant-i-leave-narcissist-trauma-bond" data-reveal>
@@ -617,9 +763,9 @@
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="wrap">
+    <p class="footer-name"><span>Healing</span> <em>Narcissistic</em> <span>Wounds</span></p>
     <div class="footer-top">
       <div class="footer-brand">
-        <p class="footer-name">Healing Narcissistic Wounds</p>
         <p class="footer-line">Healing Human Disconnect starts with you.</p>
         <p class="footer-area">Sherman Oaks &middot; Beverly Hills &middot; Bel Air &middot; Westwood</p>
         <p><a class="footer-mail" href="mailto:info@psychologicalhealingcenter.com">info@psychologicalhealingcenter.com</a></p>
@@ -637,7 +783,7 @@
         <li><a href="https://www.youtube.com/@drjudywtf8793" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1z"/></svg></a></li>
         <li><a href="https://www.instagram.com/drjudyrosenberg/" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M7 2.5h10A4.5 4.5 0 0 1 21.5 7v10a4.5 4.5 0 0 1-4.5 4.5H7A4.5 4.5 0 0 1 2.5 17V7A4.5 4.5 0 0 1 7 2.5z"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a></li>
         <li><a href="https://www.facebook.com/drjudyrosenberg" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.6 2 10.6 3.4 10.6 5.8V8H8.5v3h2.1v11H14V11h2.6l.4-3z"/></svg></a></li>
-        <li><a href="https://www.tiktok.com/@h2fpod" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.2 6.2 0 1 0 5.4 6.2V8.4a7.6 7.6 0 0 0 4.4 1.4V6.5a4.4 4.4 0 0 1-4.4-4.5z"/></svg></a></li>
+        <li><a href="https://www.tiktok.com/@drjudywtf" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.2 6.2 0 1 0 5.4 6.2V8.4a7.6 7.6 0 0 0 4.4 1.4V6.5a4.4 4.4 0 0 1-4.4-4.5z"/></svg></a></li>
         <li><a href="https://www.linkedin.com/in/dr-judy-rosenberg-5239277" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"/></svg></a></li>
       </ul>
     </div>
@@ -652,6 +798,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="js/site.js" defer></script>
+<script src="js/dossier.js" defer></script>
 </body>
 </html>

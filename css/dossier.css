@@ -1,0 +1,194 @@
+/* =========================================================
+   DOSSIER THEME: the look of Dr. Judy's journal
+   "Healing from Narcissistic Abuse": rose parchment pages, Trajan-style
+   capitals, rose-gold, and dark cinematic chapter pages.
+   Loads AFTER site.css. Remove this file + js/dossier.js + the #dossier
+   section to go back to the previous look.
+   ========================================================= */
+@property --g { syntax: "<color>"; inherits: true; initial-value: #b5566e; }
+
+:root {
+  --cream: #F3E7E3;      /* parchment rose */
+  --cream-2: #EBDAD5;
+  --blush: #E5CAC4;
+  --peach: #DDB8B0;
+  --peach-2: #C9968E;
+  --rose: #B27F80;
+  --wine: #4F1A2C;       /* plum wine: 12:1 on parchment */
+  --wine-2: #6F2A40;
+  --gold: #B98A5C;       /* rose-gold, decoration only */
+  --gold-lt: #E3BE8F;
+  --gold-ink: #7A5232;   /* rose-gold for small text: 5.9:1 on parchment */
+  --ink: #2A1B20;
+  --ink-soft: #57404A;
+  --paper: #F8EFEC;
+  --night: #0d0709;
+  --shadow: 0 20px 50px -24px rgba(79, 26, 44, .35);
+}
+
+/* buttons: site.css hard-codes the old red wine; re-tint to plum */
+.btn-wine { box-shadow: 0 14px 30px -14px rgba(79, 26, 44, .7); }
+.btn-wine:hover { box-shadow: 0 18px 36px -14px rgba(79, 26, 44, .8); }
+.btn-wine::after { background: radial-gradient(120% 140% at 50% 130%, #8a3a55 0%, var(--wine-2) 60%); }
+.btn-ghost { border-color: rgba(79, 26, 44, .35); }
+
+/* paper grain over the whole page, like the journal's pressed paper */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 94; pointer-events: none; opacity: .22;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .22 0 0 0 0 .25 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* the old peach washes, re-tinted to the journal's rose parchment */
+.hero-bg {
+  background:
+    radial-gradient(42% 46% at 50% 56%, rgba(250, 243, 240, 1) 0%, rgba(250, 243, 240, 0) 70%),
+    radial-gradient(50% 60% at 0% 100%, rgba(221, 184, 176, .7) 0%, rgba(221, 184, 176, 0) 70%),
+    radial-gradient(45% 50% at 100% 0%, rgba(229, 202, 196, .9) 0%, rgba(229, 202, 196, 0) 70%),
+    linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
+}
+#rb1 stop { stop-color: #c9968e; }
+#rb2 stop { stop-color: #faf3f0; }
+.journey { background: linear-gradient(180deg, var(--blush) 0%, #EDD9D4 30%, var(--cream) 70%, var(--cream-2) 100%); }
+.divorce { background: linear-gradient(115deg, var(--peach) 0%, var(--blush) 60%, #EEDDD8 100%); }
+.show { background: radial-gradient(60% 80% at 0% 100%, rgba(221, 184, 176, .9), transparent 70%), var(--blush); }
+.footer { background: radial-gradient(60% 60% at 50% 0%, rgba(250, 243, 240, .9), transparent 70%), linear-gradient(180deg, var(--blush) 0%, var(--peach) 100%); }
+
+/* journal-style capitals for small labels */
+.eyebrow { letter-spacing: .26em; }
+.eyebrow::before, .center .eyebrow::after { background: var(--gold); }
+
+/* =========================================================
+   #dossier: "Every journey begins with a map"
+   Default = calm stacked layout (phones, no JS, reduced motion).
+   html.dz-on = pinned cinematic scroll (desktop, set by dossier.js).
+   ========================================================= */
+.dz { position: relative; background: var(--night); color: #f3e7e3; isolation: isolate; }
+.dz-pin { position: relative; overflow: hidden; }
+.dz-dark, .dz-glow, .dz-embers { position: absolute; inset: 0; pointer-events: none; }
+.dz-dark { background: var(--night); z-index: 0; }
+.dz-glow {
+  z-index: 1;
+  background:
+    radial-gradient(38% 46% at 50% 52%, color-mix(in srgb, var(--g) 42%, transparent) 0%, transparent 70%),
+    radial-gradient(80% 60% at 50% 110%, color-mix(in srgb, var(--g) 18%, transparent) 0%, transparent 70%);
+  transition: --g 1.2s ease;
+}
+.dz-embers { z-index: 2; width: 100%; height: 100%; display: none; }
+html.dz-on .dz-embers { display: block; }
+
+/* ---------- intro: the road on parchment ---------- */
+.dz-intro {
+  position: relative; z-index: 3; display: grid; justify-items: center; gap: 28px;
+  padding: 110px var(--gutter) 150px; text-align: center;
+  background: linear-gradient(180deg, var(--cream) 0%, #EAD9D4 72%, var(--night) 100%);
+  color: var(--ink);
+}
+.dz-road { width: min(420px, 78vw); border-radius: 4px; box-shadow: 0 40px 80px -40px rgba(42, 27, 32, .55); }
+.dz-intro-copy { max-width: 760px; }
+.dz-kicker { font-family: var(--f-eyebrow); font-size: 12.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-ink); margin: 0 0 14px; }
+.dz-title { font-family: var(--f-eyebrow); font-weight: 500; font-size: clamp(25px, 5.2vw, 64px); line-height: 1.12; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); margin: 0; text-wrap: balance; }
+.dz-title span { display: block; }
+.dz-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.dz-hint { display: none; }
+
+/* ---------- chapters, stacked ---------- */
+.dz-chapters { position: relative; z-index: 4; display: grid; gap: 70px; padding: 80px var(--gutter) 100px; max-width: 1100px; margin: 0 auto; }
+.dz-ch { display: grid; gap: 22px; justify-items: center; text-align: center; }
+@media (min-width: 760px) { .dz-ch { grid-template-columns: 1fr 1fr; text-align: left; justify-items: start; align-items: center; gap: 50px; } .dz-ch:nth-child(2n) .dz-card { order: 2; } }
+.dz-card { position: relative; margin: 0; width: min(440px, 86vw); border-radius: 6px; overflow: hidden; box-shadow: 0 0 0 1px rgba(227, 190, 143, .35), 0 40px 90px -30px rgba(0, 0, 0, .9), 0 0 120px -20px color-mix(in srgb, var(--g) 60%, transparent); }
+.dz-card img { width: 100%; }
+.dz-sheen { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, transparent 38%, rgba(255, 236, 214, .32) 50%, transparent 62%); background-size: 260% 100%; background-position: 160% 0; mix-blend-mode: screen; }
+.dz-cap { max-width: 420px; }
+.dz-num {
+  font-family: var(--f-eyebrow); font-size: clamp(64px, 9vw, 130px); line-height: .9; margin: 0 0 10px; font-weight: 600;
+  background: linear-gradient(180deg, #f6dcb6 0%, #c9925c 55%, #7d4f2c 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 6px 26px color-mix(in srgb, var(--g) 55%, transparent));
+}
+.dz-cap h3 { font-family: var(--f-eyebrow); font-weight: 500; font-size: clamp(26px, 3vw, 40px); letter-spacing: .08em; text-transform: uppercase; color: #f6e3cf; margin: 0 0 12px; line-height: 1.1; }
+.dz-cap p:last-child { font-family: var(--f-display); font-style: italic; font-size: clamp(21px, 2.1vw, 27px); line-height: 1.3; color: #e2c6bf; margin: 0; }
+.dz-cap p:last-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.dz-hud, .dz-rail { display: none; }
+
+/* ---------- outro: back into the light ---------- */
+.dz-outro {
+  position: relative; z-index: 3; overflow: hidden; display: grid; place-items: center; text-align: center;
+  padding: 150px var(--gutter) 110px;
+  background: linear-gradient(180deg, var(--night) 0%, #3a2228 14%, #cfb1ab 38%, var(--cream) 62%);
+  color: var(--ink);
+}
+.dz-injury { position: relative; width: min(460px, 82vw); border-radius: 4px; margin: 0 auto 44px; box-shadow: 0 0 0 1px rgba(185, 138, 92, .35), 0 50px 100px -40px rgba(79, 26, 44, .55), 0 0 140px -30px rgba(201, 150, 142, .9); }
+.dz-outro-copy { position: relative; max-width: 860px; }
+/* the journal page says the line; keep the text for screen readers + search */
+.dz-outro-line { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; margin: 0; }
+.dz-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+@media (max-width: 759px) { .dz-outro { padding-bottom: 40px; } .dz-injury { margin-bottom: 32px; } }
+
+/* reveal for the stacked layout */
+.dz-js .dz-ch:not(.is-in) .dz-card { opacity: 0; transform: translateY(50px) scale(.96); }
+.dz-js .dz-ch:not(.is-in) .dz-cap > * { opacity: 0; transform: translateY(24px); }
+.dz-ch .dz-card { transition: opacity 1.1s var(--ease), transform 1.1s var(--ease); }
+.dz-ch .dz-cap > * { transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.dz-ch .dz-cap > :nth-child(2) { transition-delay: .12s; }
+.dz-ch .dz-cap > :nth-child(3) { transition-delay: .24s; }
+.dz-ch.is-in .dz-sheen { animation: dz-sheen 1.8s ease .4s 1 both; }
+@keyframes dz-sheen { from { background-position: 160% 0; } to { background-position: -60% 0; } }
+
+/* =========================================================
+   PINNED CINEMATIC MODE (desktop)
+   ========================================================= */
+html.dz-on .dz-pin { height: 100vh; height: 100svh; }
+html.dz-on .dz-intro {
+  position: absolute; inset: 0; z-index: 6; padding: 0; gap: 0; background: var(--cream); align-content: center;
+  grid-template-rows: auto 1fr; padding-top: calc(var(--header-h) + 3vh);
+}
+html.dz-on .dz-intro-copy { position: relative; z-index: 2; margin-top: 2.4vh; }
+html.dz-on .dz-kicker { margin: 0; }
+html.dz-on .dz-road { width: auto; height: 60vh; margin-top: 3vh; box-shadow: none; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%); mask-image: linear-gradient(180deg, transparent 0, #000 18%); transform-origin: 50% 70%; }
+html.dz-on .dz-hint { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 18px 0 0; font-family: var(--f-eyebrow); font-size: 11.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-soft); }
+html.dz-on .dz-hint span { width: 1px; height: 26px; background: linear-gradient(var(--gold), transparent); animation: dz-drip 1.8s ease-in-out infinite; transform-origin: top; }
+@keyframes dz-drip { 0% { scale: 1 0; } 50% { scale: 1 1; } 100% { scale: 1 1; opacity: 0; } }
+
+html.dz-on .dz-chapters { position: absolute; inset: 0; padding: 0; margin: 0; max-width: none; display: block; perspective: 1400px; }
+html.dz-on .dz-ch { position: absolute; inset: 0; display: block; }
+html.dz-on .dz-card {
+  position: absolute; left: 50%; top: 53%; width: auto; height: min(76vh, 900px); aspect-ratio: 820 / 1061;
+  /* centred by JS: xPercent/yPercent -50 */
+}
+html.dz-on .dz-card img { height: 100%; width: 100%; object-fit: cover; }
+html.dz-on .dz-cap { position: absolute; left: max(4vw, 32px); top: 50%; translate: 0 -50%; width: min(26vw, 380px); max-width: none; text-align: left; }
+html.dz-on .dz-ch:nth-child(2n) .dz-card { order: 0; }
+html.dz-on .dz-ch .dz-card, html.dz-on .dz-ch .dz-cap > * { transition: none; }
+html.dz-on .dz-ch.is-on .dz-sheen { animation: dz-sheen 1.6s ease .15s 1 both; }
+
+html.dz-on .dz-hud { display: flex; position: absolute; z-index: 7; left: 0; right: 0; top: calc(var(--header-h) + 22px); justify-content: center; align-items: center; gap: 26px; pointer-events: none; }
+.dz-act { margin: 0; font-family: var(--f-eyebrow); font-size: 12px; letter-spacing: .34em; text-transform: uppercase; color: #e3be8f; }
+.dz-count { display: flex; align-items: center; gap: 10px; font-family: var(--f-eyebrow); font-size: 12px; letter-spacing: .2em; color: rgba(243, 231, 227, .55); }
+.dz-count-now { color: #f6e3cf; min-width: 3ch; text-align: right; }
+.dz-count-sep { width: 34px; height: 1px; background: rgba(227, 190, 143, .6); }
+
+html.dz-on .dz-rail { display: grid; gap: 4px; position: absolute; z-index: 7; right: max(3vw, 24px); top: 50%; translate: 0 -50%; }
+.dz-rail button {
+  display: flex; align-items: center; justify-content: flex-end; gap: 12px; width: 100%; padding: 7px 0; border: 0; background: none; cursor: pointer;
+  font-family: var(--f-eyebrow); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(243, 231, 227, .68); transition: color .4s ease;
+}
+.dz-rail button::after { content: ""; width: 18px; height: 1px; background: currentColor; transition: width .5s var(--ease), background .4s; }
+.dz-rail button:hover, .dz-rail button:focus-visible { color: #f6e3cf; }
+.dz-rail button:focus-visible { outline: 1px solid #e3be8f; outline-offset: 4px; }
+.dz-rail button.is-on { color: #f6dcb6; }
+.dz-rail button.is-on::after { width: 46px; background: #e3be8f; }
+@media (max-width: 1180px) {
+  html.dz-on .dz-rail button { font-size: 0; gap: 0; }
+  html.dz-on .dz-rail button:hover, html.dz-on .dz-rail button:focus-visible { font-size: 11px; gap: 12px; }
+  html.dz-on .dz-cap { width: min(22vw, 260px); }
+  html.dz-on .dz-cap h3 { font-size: clamp(18px, 2.2vw, 24px); }
+  html.dz-on .dz-num { font-size: clamp(52px, 7vw, 84px); }
+}
+
+/* =========================================================
+   REDUCED MOTION: same look, no movement
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .dz-embers { display: none; }
+  .dz-js .dz-ch:not(.is-in) .dz-card, .dz-js .dz-ch:not(.is-in) .dz-cap > * { opacity: 1; transform: none; }
+  .dz-sheen, .dz-hint span { animation: none !important; }
+}
