@@ -26,7 +26,9 @@
     } catch (e) {}
     if (play) {
       d.classList.add('intro-on');
-      // Hard cap: even if scripts fail, the intro never covers the site for more than ~3 s.
+      try { sessionStorage.setItem('hnw-intro-seen', '1'); } catch (e) {}
+      // Hard cap: even if scripts fail, the intro fades by ~2.65 s and is gone at 2.7 s.
+      setTimeout(function () { d.classList.add('intro-out'); }, 2400);
       setTimeout(function () { d.classList.remove('intro-on'); }, 2700);
     }
   })();
@@ -141,7 +143,7 @@
 
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow" data-hero>Dr. Judy Rosenberg &middot; Licensed Clinical Psychologist</p>
+      <p class="eyebrow hero-eyebrow" data-hero><span>Dr. Judy Rosenberg</span><span class="eb-dot" aria-hidden="true"> &middot; </span><span>Licensed Clinical Psychologist</span></p>
       <h1 id="hero-title" class="display" data-hero>Trapped in a <em>narcissistic relationship?</em></h1>
       <p class="lead" data-hero>Being gaslit, manipulated, controlled? Losing your sense of self, and beginning to doubt your own mind?</p>
       <p class="lead-strong" data-hero>You've come to the right place.</p>

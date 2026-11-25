@@ -719,3 +719,10 @@ html.intro-on .intro {
 
 /* Balanced wrapping for short hero lines. */
 .hero .eyebrow, .hero-note { text-wrap: balance; }
+
+/* Head-script fade, so a capped intro fades instead of vanishing. */
+html.intro-out .intro { opacity: 0 !important; transition: opacity .25s ease; }
+/* Hero eyebrow: break cleanly between name and title on small screens. */
+.hero-eyebrow span { display: inline-block; }
+@media (max-width: 599px) { .hero-eyebrow .eb-dot { display: none; } .hero-eyebrow span:first-child { display: block; } }
+.checkout-note:focus { outline: none; }
