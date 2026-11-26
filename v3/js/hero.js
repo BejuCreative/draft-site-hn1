@@ -336,20 +336,11 @@
 
       this.trigger = window.ScrollTrigger.create({
         trigger: stage, start: 'top top',
-        end: function () { return '+=' + Math.round(window.innerHeight * (phone ? 1.0 : 1.1)); },
+        end: function () { return '+=' + Math.round(window.innerHeight * (phone ? 1.3 : 1.6)); },
         pin: true, scrub: 0.6, animation: tl, anticipatePin: 1
       });
 
-      /* Desktop: if the visitor has not scrolled after 1.5 s, open the veil on its own.
-         Scrolling before that still drives it. */
-      var self = this;
-      if (!phone) setTimeout(function () {
-        var t = self.trigger;
-        if (!t || t.progress > 0.02 || (window.scrollY || window.pageYOffset) > 2) return;
-        t.kill(true, true); self.trigger = null;
-        gsap.to(tl, { progress: 1, duration: 2.2, ease: 'power1.inOut' });
-        window.ScrollTrigger.refresh();
-      }, 1500);
+      /* SIMAS 11-26: the intro is a scrolling animation. Scroll alone drives it (no auto-play). */
 
       gsap.fromTo(stage.querySelector('.hero-inner'), { opacity: 0 }, { opacity: 1, duration: 1.1, ease: 'power2.out', delay: 0.15 });
       loadStart = performance.now();
