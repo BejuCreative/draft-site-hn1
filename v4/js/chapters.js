@@ -147,7 +147,7 @@
       sprites = [sprite(240, 205, 150), sprite(230, 130, 150), sprite(255, 240, 228)];
       var gsap = window.gsap, self = this;
       var hudAct = document.getElementById('hudAct'), hudNum = document.getElementById('hudNum'), hudBar = document.getElementById('hudBar');
-      var hud = stage.querySelector('.ch-hud'), burst = document.getElementById('chBurst');
+      var hud = stage.querySelector('.ch-hud');
       var intro = stage.querySelector('.ch-intro'), outro = stage.querySelector('.ch-outro');
       var slides = stage.querySelectorAll('.ch-list .ch-slide');
 
@@ -175,15 +175,14 @@
         .to(state, { f: 10, duration: 0.5, ease: 'power2.inOut' }, oS - 0.2)
         .fromTo(outro, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' }, oS + 0.1)
         .to(outro, { autoAlpha: 0, y: -30, duration: 0.25 }, oS + 1.25)
-        .fromTo(burst, { opacity: 0, scale: 0.15 }, { opacity: 1, scale: 1, duration: 0.55, ease: 'power2.in' }, oS + 1.25)
-        /* v4: the whole dark layer then fades away, so no dark corners end in a hard line above the next section */
-        .to(dark, { opacity: 0, duration: 0.4, ease: 'power1.in' }, oS + 1.5)
-        .set({}, {}, oS + 1.9);
+        /* v4: the dark layer fades with the outro and the pin ends right there, so the next section follows at once */
+        .to(dark, { opacity: 0, duration: 0.3, ease: 'power1.in' }, oS + 1.25);
       var total = tl.duration();
 
       ScrollTrigger.create({
         trigger: stage, start: 'top top',
-        end: function () { return '+=' + Math.round(window.innerHeight * 10.5); },
+        /* same scroll distance per timeline unit as before (10.5 vh for 12 units) */
+        end: function () { return '+=' + Math.round(window.innerHeight * 0.875 * total); },
         pin: true, scrub: 0.5, animation: tl,
         onLeave: function () { self.dark = false; },
         onLeaveBack: function () { self.dark = false; }
@@ -198,7 +197,7 @@
           }
           hudBar.style.transform = 'scaleX(' + clamp((tt - 2.0) / (oS - 2.0)).toFixed(4) + ')';
           var was = self.dark;
-          self.dark = tt > 0.45 && tt < oS + 1.5;
+          self.dark = tt > 0.45 && tt < oS + 1.35;
           if (was !== self.dark && NS.syncHeader) NS.syncHeader();
       });
       this.total = total;

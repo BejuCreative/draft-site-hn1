@@ -161,7 +161,7 @@ ul, ol { padding: 0; list-style: none; }
 .nav ul a:hover::after { transform: scaleX(1); transform-origin: left; }
 .nav-toggle { display: none; }
 
-@media (max-width: 1180px) {
+@media (max-width: 1400px) {
   :root { --hh: 60px; }
   .brand-mark { width: 30px; height: 30px; }
   .brand-text b { font-size: 12.5px; }
@@ -222,8 +222,6 @@ ul, ol { padding: 0; list-style: none; }
 .gate-title { font: 600 clamp(22px, 2.2vw, 30px)/1.1 var(--serif); color: var(--gold-2); }
 .gate-sub { font-size: 14px; opacity: .85; }
 .gate-form { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; justify-content: center; }
-.gate-form input { height: 42px; min-width: 210px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(227, 190, 143, .5); background: rgba(255, 255, 255, .95); color: var(--ink); font: 15px var(--sans); }
-.gate-err { min-height: 1.2em; font-size: 13px; color: #FFC7CF; }
 .gate-replay { color: var(--gold-2); }
 .vimeo-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .corner { position: absolute; width: 22px; height: 22px; border: 0 solid var(--gold); z-index: 2; pointer-events: none; }
@@ -411,7 +409,6 @@ html:not(.fx) .scroll-cue { display: none; }
 .ch-title em { font-style: normal; opacity: .7; }
 .ch-tag { margin-top: 20px; font: 600 clamp(13px, 1.1vw, 15.5px)/1.5 var(--caps); letter-spacing: .16em; text-transform: uppercase; color: var(--rose-glow); max-width: 21.56em; }
 .ch-body { margin-top: 14px; font: 500 clamp(19px, 1.6vw, 23px)/1.45 var(--serif); color: rgba(243, 231, 227, .84); max-width: 19.08em; }
-.ch-burst { display: none; }
 
 /* pinned cinematic mode (JS + motion only) */
 .fx .ch-stage { height: 100vh; height: 100svh; overflow: hidden; }
@@ -424,7 +421,6 @@ html:not(.fx) .scroll-cue { display: none; }
 .hud-bar i { display: block; height: 100%; background: var(--gold-2); transform-origin: 0 50%; transform: scaleX(0); box-shadow: 0 0 8px var(--gold-2); }
 .hud-num { color: rgba(243, 231, 227, .6); }
 .hud-num b { color: var(--gold-2); font-weight: 600; }
-.fx .ch-burst { display: block; position: absolute; left: 50%; top: 50%; width: 140vmax; height: 140vmax; margin: -70vmax 0 0 -70vmax; border-radius: 50%; pointer-events: none; opacity: 0; background: radial-gradient(circle, #FFFBF2 0%, #F8EDE4 30%, #F3E7E3 48%, rgba(243, 231, 227, 0) 70%); }
 @media (max-width: 760px) {
   .fx .ch-list .ch-slide { left: 20px; right: 20px; width: auto; bottom: 7vh; }
   .ch-title { font-size: clamp(36px, 11vw, 54px); }
@@ -693,7 +689,9 @@ html:not(.fx) .scroll-cue { display: none; }
 @media (max-height: 980px) and (min-width: 761px) { .scroll-cue { display: none; } }
 /* press: balance optical sizes of the different logos */
 .press-logos img[src*="huffpost"] { height: 17px; }
-.press-logos img[src*="dash-dolls"], .press-logos img[src*="animal-planet"] { height: 46px; filter: grayscale(1) sepia(.4) hue-rotate(-30deg) saturate(.8) contrast(2.2) brightness(.75); opacity: .7; }
+.press-logos img[src*="dash-dolls"] { height: 46px; filter: grayscale(1) sepia(.4) hue-rotate(-30deg) saturate(.8) contrast(2.2) brightness(.75); opacity: .7; }
+/* animal-planet.webp is a transparent dark logo, so it takes the same tint as the others */
+.press-logos img[src*="animal-planet"] { height: 46px; }
 /* act markers: numeral inside the disc, label under it (no transform, so scroll animations cannot move it) */
 .act .mk { grid-row: 1; }
 .act p { display: block; position: relative; transform: none; align-self: center; padding-top: 104px; text-align: center; line-height: 14px; }
@@ -849,7 +847,7 @@ html, body { overflow-x: clip; }
 
 /* Mobile menu: fully opaque panel. The header's backdrop blur would make the fixed menu
    size itself to the header, so drop the blur while the menu is open. */
-@media (max-width: 1180px) {
+@media (max-width: 1400px) {
   .nav { background: #F6ECE8; }
   .on-dark .nav { background: #10080B; }
   .site-header:has(.nav.open) { -webkit-backdrop-filter: none; backdrop-filter: none; }
@@ -1095,8 +1093,7 @@ html.hero-tight .hero-bk, html.hero-tight .hook { display: none; }
 
 /* ---------- end-of-video gate: solid, always fits inside the 16:9 frame ---------- */
 .video-gate { z-index: 3; gap: 6px; background: radial-gradient(ellipse 90% 80% at 50% 35%, #3a1524 0%, #240c14 60%, #1a0810 100%); }
-.gate-err:empty { display: none; }
-.gate-form .btn { gap: .3em; } /* one word space between "Unlock" and "the full introduction" */
+.gate-form .btn { gap: .3em; } /* one word space between "Watch" and "the full introduction" */
 .gate-ok { position: absolute; left: 50%; top: 12px; z-index: 4; transform: translateX(-50%); padding: 7px 14px; border-radius: 999px; background: rgba(26, 8, 16, .92); color: var(--gold-2); font: 600 11px var(--caps); letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; pointer-events: none; transition: opacity .6s ease; }
 .gate-ok.out { opacity: 0; }
 @media (max-width: 560px), (max-height: 500px) {
@@ -1104,9 +1101,46 @@ html.hero-tight .hero-bk, html.hero-tight .hook { display: none; }
   .gate-title { font-size: 19px; }
   .gate-sub { font-size: 13px; }
   .gate-form { flex-wrap: nowrap; width: 100%; max-width: 330px; margin-top: 4px; }
-  .gate-form input { flex: 1; min-width: 0; height: 44px; font-size: 16px; }
   .gate-form .btn { flex: none; padding-left: 18px; padding-right: 18px; }
-  .gl-more { display: none; }
-  .gate-err { font-size: 12px; }
   .gate-replay { position: absolute; top: 0; right: 6px; font-size: 12px; }
 }
+
+/* v4 r2: on phones a short buy button sits right under the booklet headline, so it is above the fold after the top CTA */
+.bk-quick { display: none; }
+@media (max-width: 900px) { .bk-quick { display: block; margin-top: 16px; } .bk-quick .btn { min-height: 48px; } }
+
+/* ======================= Judy 11-26: chocolate-mauve banner + her PHC logo, video program up front ======================= */
+:root { --mauve: #5A3943; --mauve-2: #74505C; }
+.site-header, .site-header.is-solid, .site-header.on-dark, .site-header.on-dark.is-solid {
+  background: linear-gradient(180deg, var(--mauve-2), var(--mauve)); color: #F7EDE9;
+  box-shadow: 0 1px 0 rgba(227, 190, 143, .35), 0 12px 26px -20px rgba(40, 18, 26, .9);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.site-header .brand, .on-dark .brand { color: #FBF3EF; gap: 14px; }
+.brand-logo { width: 48px; height: 48px; flex: none; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(30, 12, 18, .35)); }
+.site-header .brand-text b { font: 600 16px var(--caps); letter-spacing: .1em; text-transform: uppercase; color: #FBF3EF; }
+.site-header .brand-text small, .on-dark .brand-text small { margin-top: 3px; font: italic 500 14px var(--serif); letter-spacing: .02em; color: var(--gold-2); }
+.site-header .nav-cta { background: linear-gradient(180deg, #F6E3C3, #E3BE8F); color: var(--plum); box-shadow: 0 10px 22px -14px rgba(20, 8, 12, .9), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.nav ul a.nav-hot { padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(227, 190, 143, .75); color: #F6E3C3; font-weight: 600; }
+.nav ul a.nav-hot::after { display: none; }
+.vp-nudge { background: linear-gradient(180deg, var(--mauve-2), var(--mauve)); box-shadow: 0 20px 40px -24px rgba(53, 16, 30, .55), 0 0 0 1px rgba(227, 190, 143, .5); }
+.vp-nudge img { flex-basis: 64px; width: 64px; }
+.vp-nudge p { color: #F7EDE9; font-size: 17px; }
+.vp-nudge p b { display: block; font: 600 13px var(--caps); letter-spacing: .14em; text-transform: uppercase; font-style: normal; color: var(--gold-2); margin-bottom: 4px; }
+.vp-nudge .btn-plum { background: linear-gradient(180deg, #F6E3C3, #E3BE8F); color: var(--plum); }
+@media (max-width: 1400px) {
+  .brand-logo { width: 40px; height: 40px; }
+  .site-header .brand-text b { font-size: 12.5px; letter-spacing: .08em; }
+  .site-header .brand-text small { font-size: 12.5px; }
+  .site-header .nav { background: linear-gradient(180deg, var(--mauve-2), var(--mauve)); color: #F7EDE9; }
+  .nav ul a.nav-hot { font: 600 24px var(--serif); padding: 4px 18px; }
+}
+@media (max-width: 380px) { .site-header .brand-text b { font-size: 11.5px; letter-spacing: .06em; } .brand-logo { width: 34px; height: 34px; } }
+@media (max-width: 760px) { .vp-nudge img { flex-basis: 48px; width: 48px; } .vp-nudge p { font-size: 15px; } }
+@media (min-width: 1401px) {
+  .site-header { gap: 16px; }
+  .site-header .brand-text b, .nav ul a { white-space: nowrap; }
+  .nav { gap: 18px; }
+  .nav ul { gap: 15px; }
+}
+@media (min-width: 761px) and (max-width: 1400px) { .site-header .brand-text b { font-size: 15px; } .site-header .brand-text small { font-size: 13.5px; } .brand-logo { width: 44px; height: 44px; } }

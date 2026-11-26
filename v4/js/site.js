@@ -505,7 +505,7 @@
     if (cover) cover.hidden = true;
     if (teaser) teaser.controls = false;
     gate.hidden = false;
-    var em = $('#gateEmail'); if (em) em.focus({ preventScroll: true });
+    var go = $('#gateGo'); if (go) go.focus({ preventScroll: true });
   }
   var og = $('#openGate'); if (og) og.addEventListener('click', function () {
     if (!(NS.hero && NS.hero.trigger)) { showGate(); return; }
@@ -516,9 +516,7 @@
   var gf = $('#gateForm');
   if (gf) gf.addEventListener('submit', function (e) {
     e.preventDefault();
-    var em = $('#gateEmail'), err = $('#gateErr');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { err.textContent = 'Please enter a valid email.'; em.focus(); return; }
-    err.textContent = '';
+    /* v4 r2: no email is asked for or stored; the button just opens the full video. */
     var f = d.createElement('iframe');
     f.className = 'vimeo-frame'; f.src = VIMEO_SRC;
     f.title = 'Healing from Narcissistic Abuse, full introduction';
@@ -527,9 +525,9 @@
     if (cover) cover.remove();
     gate.hidden = true;
     shell.appendChild(f);
-    /* Success state: says only what happened (the full video is unlocked), nothing about a mailing list. */
+    /* Short status: says only what happened (the full video is now in the frame). */
     var ok = d.createElement('p');
-    ok.className = 'gate-ok'; ok.setAttribute('role', 'status'); ok.textContent = 'Unlocked · the full introduction';
+    ok.className = 'gate-ok'; ok.setAttribute('role', 'status'); ok.textContent = 'The full introduction';
     shell.appendChild(ok);
     setTimeout(function () { ok.classList.add('out'); }, 4500);
   });

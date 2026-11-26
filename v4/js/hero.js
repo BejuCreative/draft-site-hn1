@@ -327,16 +327,17 @@
       Array.prototype.forEach.call(orbs, function (o) { o.setAttribute('pathLength', '100'); o.style.strokeDasharray = '100'; o.style.strokeDashoffset = '100'; });
 
       var tl = gsap.timeline({ defaults: { ease: 'none' } });
-      /* Phones: the title is readable from the first frame (no blur, full opacity). */
-      if (!phone) tl.fromTo(q('title'), { opacity: 0.38, filter: 'blur(2px)', letterSpacing: '0.09em' }, { opacity: 1, filter: 'blur(0px)', letterSpacing: '0.045em', duration: 0.45, ease: 'power2.out' }, 0);
+      /* v4 r2: headline, text and CTA are sharp at full opacity from the first frame on every device;
+         desktop only keeps a small letter-spacing settle on the title. */
+      if (!phone) tl.fromTo(q('title'), { letterSpacing: '0.09em' }, { letterSpacing: '0.045em', duration: 0.45, ease: 'power2.out' }, 0);
       tl.to(state, { p: 1, duration: 1 }, 0)
-        .fromTo(q('eyebrow'), { opacity: phone ? 1 : 0.35, y: phone ? 0 : 6 }, { opacity: 1, y: 0, duration: 0.4 }, 0)
-        .fromTo(q('sub'), { opacity: phone ? 1 : 0.3 }, { opacity: 1, duration: 0.4 }, 0.08)
-        .fromTo(q('video'), phone ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : { opacity: 0.3, scale: 0.86, filter: 'blur(4px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.5, ease: 'power2.out',
+        .fromTo(q('eyebrow'), { opacity: 1, y: 0 }, { opacity: 1, y: 0, duration: 0.4 }, 0)
+        .fromTo(q('sub'), { opacity: 1 }, { opacity: 1, duration: 0.4 }, 0.08)
+        .fromTo(q('video'), { opacity: 1, scale: phone ? 1 : 0.86, filter: 'blur(0px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.5, ease: 'power2.out',
           /* v4: at rest the video carries no filter (a filter forces an extra paint layer while it plays) */
           onUpdate: function () { if (this.progress() >= 1) this.targets().forEach(function (t) { t.style.filter = 'none'; }); } }, 0.35)
         .to(orbs, { strokeDashoffset: 0, duration: 0.5, stagger: 0.08 }, 0.4)
-        .fromTo(q('cta'), { opacity: phone ? 1 : 0.25, y: phone ? 0 : 24 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 0.4)
+        .fromTo(q('cta'), { opacity: 1, y: 0 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 0.4)
         .fromTo(q('side')[0], { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35 }, 0.5)
         .fromTo(q('side')[1], { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.35 }, 0.55)
         .to(stage.querySelector('.scroll-cue'), { opacity: 0, duration: 0.15 }, 0)

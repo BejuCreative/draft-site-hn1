@@ -48,14 +48,14 @@
 <div class="progress" aria-hidden="true"><i></i></div>
 
 <header class="site-header" id="siteHeader">
-  <a class="brand" href="../" aria-label="Healing Narcissistic Wounds, back to top">
-    <svg class="brand-mark" aria-hidden="true"><use href="#trinity"/></svg>
-    <span class="brand-text"><b>Healing Narcissistic Wounds</b><small>Dr. Judy Rosenberg &middot; Be the Cause<sup>®</sup></small></span>
+  <a class="brand" href="../" aria-label="Psychological Healing Center, Healing Narcissistic Wounds, back to top">
+    <img class="brand-logo" src="../img/phc-logo.png" width="270" height="270" alt="">
+    <span class="brand-text"><b>Psychological Healing Center</b><small>Healing Narcissistic Wounds</small></span>
   </a>
   <nav class="nav" id="nav" aria-label="Main">
     <ul>
       <li><a href="../products/">Products</a></li>
-      <li><a href="../program/">Program</a></li>
+      <li><a class="nav-hot" href="../program/">Video Program</a></li>
       <li><a href="../free-video/" aria-current="page">Free Video</a></li>
       <li><a href="../request-session/">Request a Session</a></li>
       <li><a href="../articles/">Articles</a></li>
@@ -94,13 +94,10 @@
         </button>
         <div class="video-gate" id="videoGate" hidden>
           <p class="gate-title">That was just a sample.</p>
-          <p class="gate-sub">Want the rest? Leave your email.</p>
-          <form class="gate-form" id="gateForm" novalidate>
-            <label class="sr-only" for="gateEmail">Your email</label>
-            <input id="gateEmail" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
-            <button class="btn btn-plum btn-sm" type="submit">Unlock<span class="gl-more"> the full introduction</span></button>
+          <p class="gate-sub">Want the rest? The full introduction is free to watch.</p>
+          <form class="gate-form" id="gateForm">
+            <button class="btn btn-plum btn-sm" type="submit" id="gateGo">Watch<span class="gl-more"> the full introduction</span></button>
           </form>
-          <p class="gate-err" id="gateErr" role="alert"></p>
           <button type="button" class="link-btn gate-replay" id="gateReplay">Replay the minute</button>
         </div>
       </div>
@@ -136,7 +133,7 @@
         <p id="footerPhone" hidden></p>
       </div>
       <nav class="ft-nav" aria-label="Footer">
-        <a href="../program/">The program</a>
+        <a href="../program/">The video program</a>
         <a href="../products/">Products</a>
         <a href="../products/thanksgiving-feuding/">The booklet</a>
         <a href="../books/">Books</a>

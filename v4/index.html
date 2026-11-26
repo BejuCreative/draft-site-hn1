@@ -88,14 +88,14 @@
 
 <!-- ============ HEADER ============ -->
 <header class="site-header" id="siteHeader">
-  <a class="brand" href="#top" aria-label="Healing Narcissistic Wounds, back to top">
-    <svg class="brand-mark" aria-hidden="true"><use href="#trinity"/></svg>
-    <span class="brand-text"><b>Healing Narcissistic Wounds</b><small>Dr. Judy Rosenberg &middot; Be the Cause<sup>®</sup></small></span>
+  <a class="brand" href="#top" aria-label="Psychological Healing Center, Healing Narcissistic Wounds, back to top">
+    <img class="brand-logo" src="img/phc-logo.png" width="270" height="270" alt="">
+    <span class="brand-text"><b>Psychological Healing Center</b><small>Healing Narcissistic Wounds</small></span>
   </a>
   <nav class="nav" id="nav" aria-label="Main">
     <ul>
       <li><a href="products/">Products</a></li>
-      <li><a href="program/">Program</a></li>
+      <li><a class="nav-hot" href="program/">Video Program</a></li>
       <li><a href="free-video/">Free Video</a></li>
       <li><a href="request-session/">Request a Session</a></li>
       <li><a href="articles/">Articles</a></li>
@@ -144,13 +144,10 @@
           </button>
           <div class="video-gate" id="videoGate" hidden>
             <p class="gate-title">That was just a sample.</p>
-            <p class="gate-sub">Want the rest? Leave your email.</p>
-            <form class="gate-form" id="gateForm" novalidate>
-              <label class="sr-only" for="gateEmail">Your email</label>
-              <input id="gateEmail" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
-              <button class="btn btn-plum btn-sm" type="submit">Unlock<span class="gl-more"> the full introduction</span></button>
+            <p class="gate-sub">Want the rest? The full introduction is free to watch.</p>
+            <form class="gate-form" id="gateForm">
+              <button class="btn btn-plum btn-sm" type="submit" id="gateGo">Watch<span class="gl-more"> the full introduction</span></button>
             </form>
-            <p class="gate-err" id="gateErr" role="alert"></p>
             <button type="button" class="link-btn gate-replay" id="gateReplay">Replay the minute</button>
           </div>
         </div>
@@ -158,7 +155,7 @@
 
       <div class="hero-cta" data-hx="cta">
         <a class="btn btn-plum magnetic" href="#booklet" data-buy><span class="dot" aria-hidden="true"></span>Get the booklet &middot; $9.99</a>
-        <a class="btn btn-ghost magnetic" href="free-video/" data-tight="Free video">Watch the free video</a>
+        <a class="btn btn-ghost magnetic" href="#program" data-tight="Video program &middot; $497">The video program &middot; $497</a>
       </div>
       <p class="hero-bk" data-hx="cta">The booklet: 10 pages on how to talk to a narcissist, or whether to try at all.</p>
 
@@ -191,6 +188,7 @@
     <div class="bk-copy">
       <p class="eyebrow">Start small &middot; $9.99</p>
       <h2 id="bk-title" class="h2 split-words">How to talk to a narcissist without blowing up.</h2>
+      <p class="bk-quick"><a class="btn btn-plum magnetic" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=thanksgiving-feuding">Get the booklet &middot; $9.99</a></p>
       <p class="bk-product"><b>Thanksgiving Feuding: How to Survive Thanksgiving Dinner with a Narcissist.</b> An interactive Be The Cause<sup>®</sup> mini-dossier by Dr. Judy Rosenberg, Licensed Clinical Psychologist.</p>
       <blockquote class="bk-q">“I'm sure you're struggling with how to talk to your narcissist. It's almost impossible. But here are ways to recognize if you could or can't make progress.”</blockquote>
       <p class="bk-in">What's inside</p>
@@ -227,6 +225,12 @@
     <a class="inline" href="products/thanksgiving-feuding/">See the full booklet page &rarr;</a>
   </div>
 </section>
+
+<aside class="bk-nudge vp-nudge rv" aria-label="The video program">
+  <img src="img/dossier-hnw.webp" width="640" height="640" alt="" loading="lazy" decoding="async">
+  <p><b>Ready to go deeper? The video program.</b>Healing from Narcissistic Abuse: Dr. Judy's video teachings, the 72-page journal and her book.</p>
+  <a class="btn btn-plum btn-sm magnetic" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=narcissistic">Get the video program &middot; $497</a>
+</aside>
 
 
 <!-- ============ HER BOOKS ============ -->
@@ -455,7 +459,6 @@
           <a class="btn btn-ghost-light magnetic" href="request-session/">Request a session</a>
         </div>
       </div>
-      <div class="ch-burst" id="chBurst" aria-hidden="true"></div>
     </div>
   </div>
 </section>
@@ -483,13 +486,13 @@
       </div>
     </div>
     <div class="pg-copy">
-      <p class="eyebrow">The program</p>
+      <p class="eyebrow">The video program</p>
       <h2 id="pg-title" class="h2 split-words">Healing from Narcissistic Abuse</h2>
       <p class="lead">Break the trauma bond and return to yourself. Dr. Judy's video teachings, the guided 72-page dossier and her book, in one self-guided program.</p>
       <div class="price-card spot rv">
         <div class="price"><span class="cur">$</span><span class="amt" data-count="497">497</span></div>
         <p class="price-note">one payment &middot; lifetime access</p>
-        <a class="btn btn-plum btn-lg magnetic" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=narcissistic">Get the program</a>
+        <a class="btn btn-plum btn-lg magnetic" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=narcissistic">Get the video program &middot; $497</a>
         <p class="secure"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Secure checkout hosted by Authorize.Net</p>
       </div>
       <p class="bundle"><a class="inline" href="program/">Learn more about the program &rarr;</a></p>
@@ -609,7 +612,7 @@
         <p id="footerPhone" hidden></p>
       </div>
       <nav class="ft-nav" aria-label="Footer">
-        <a href="program/">The program</a>
+        <a href="program/">The video program</a>
         <a href="products/">Products</a>
         <a href="products/thanksgiving-feuding/">The booklet</a>
         <a href="books/">Books</a>
