@@ -44,16 +44,18 @@
   var buyAnchor = buyBar && buyBar.getAttribute('data-anchor') ? $(buyBar.getAttribute('data-anchor')) : null;
   var buyBtns = buyBar ? $$('.btn, input, textarea, select').filter(function (el) { return !buyBar.contains(el) && !el.closest('.site-header'); }) : [];
   var buyHide = $$((buyBar && buyBar.getAttribute('data-hide')) || '#booklet, #books, #program, #footer, .bk-nudge');
+  /* v4: runs at most once per frame (rAF); all layout reads happen before any class or style writes */
+  var scrollQueued = 0;
+  function queueScroll() { if (!scrollQueued) scrollQueued = requestAnimationFrame(onScroll); }
   function onScroll() {
+    scrollQueued = 0;
     var y = window.scrollY || window.pageYOffset;
-    header.classList.toggle('is-solid', y > 40);
     var max = d.documentElement.scrollHeight - window.innerHeight;
-    if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0).toFixed(4) + ')';
     var hh = header.offsetHeight, dark = !!(NS.chapters && NS.chapters.dark);
     if (!dark) for (var i = 0; i < darkEls.length; i++) { var r = darkEls[i].getBoundingClientRect(); if (r.top <= hh && r.bottom > hh) { dark = true; break; } }
     var chEl = $('#chapters');
     if (!dark && !motion && chEl) { var c = chEl.getBoundingClientRect(); dark = c.top <= hh && c.bottom > hh; }
-    header.classList.toggle('on-dark', dark);
+    var show = null;
     if (buyBar) {
       var vh = window.innerHeight, hide = (nav && nav.classList.contains('open'));
       if (!hide) for (var k = 0; k < buyHide.length; k++) { var q = buyHide[k].getBoundingClientRect(); if (q.top < vh && q.bottom > 0) { hide = true; break; } }
@@ -62,15 +64,18 @@
         var zb = buyBar.getBoundingClientRect(), zt = vh - (zb.height || 70) - 24;
         for (var m = 0; m < buyBtns.length; m++) { var br = buyBtns[m].getBoundingClientRect(); if (br.height && br.bottom > zt && br.top < vh && br.right > zb.left && br.left < zb.right) { hide = true; break; } }
       }
-      var topEl = $('#top'), show = buyAnchor ? (!hide && buyAnchor.getBoundingClientRect().bottom < hh)
+      var topEl = $('#top');
+      show = buyAnchor ? (!hide && buyAnchor.getBoundingClientRect().bottom < hh)
         : (!hide && !!topEl && topEl.getBoundingClientRect().bottom < vh * 0.3);
-      buyBar.classList.toggle('on', show);
-      buyBar.inert = !show;
     }
+    header.classList.toggle('is-solid', y > 40);
+    if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0).toFixed(4) + ')';
+    header.classList.toggle('on-dark', dark);
+    if (buyBar) { buyBar.classList.toggle('on', show); buyBar.inert = !show; }
   }
   NS.syncHeader = onScroll;
-  if (lenis) lenis.on('scroll', onScroll);
-  window.addEventListener('scroll', onScroll, { passive: true });
+  if (lenis) lenis.on('scroll', queueScroll);
+  window.addEventListener('scroll', queueScroll, { passive: true });
   onScroll();
 
   var toggle = $('#navToggle');
@@ -84,18 +89,37 @@
   d.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('open')) { setNav(false); toggle.focus(); } });
   $$('a', nav).forEach(function (a) { a.addEventListener('click', function () { if (nav.classList.contains('open')) setNav(false); }); });
 
-  /* in-page anchors through Lenis */
-  if (lenis) {
-    $$('a[href^="#"]').forEach(function (a) {
-      var id = a.getAttribute('href');
-      if (id.length < 2 || a.hasAttribute('data-free-video')) return;
-      a.addEventListener('click', function (e) {
-        var t = $(id); if (!t) return;
-        e.preventDefault();
-        lenis.scrollTo(t, { offset: id === '#top' ? 0 : -header.offsetHeight + 1, duration: 1.4 });
-      });
+  /* in-page anchors: smooth scroll (instant with reduced motion); the target lands just under the sticky header.
+     Positions are measured at click time, so the pinned hero's extra scroll length is counted. */
+  function anchorY(t, id) { return id === '#top' ? 0 : Math.max(0, t.getBoundingClientRect().top + (window.scrollY || window.pageYOffset) - header.offsetHeight + 1); }
+  $$('a[href^="#"]').forEach(function (a) {
+    var id = a.getAttribute('href');
+    if (id.length < 2 || a.hasAttribute('data-free-video') || a.classList.contains('skip')) return;
+    a.addEventListener('click', function (e) {
+      var t = $(id); if (!t) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(anchorY(t, id), { duration: 1.4 });
+      else scrollToY(anchorY(t, id));
+      if (history.replaceState) history.replaceState(null, '', id);
     });
-  }
+  });
+  /* Arriving with a hash (e.g. ../#booklet from another page): the browser jumps before the hero pin adds its
+     scroll length, so it would land mid-hero. Re-place the target once the page and the pins are ready. */
+  (function () {
+    var id = location.hash, t = null;
+    if (id.length < 2) return;
+    try { t = $(id); } catch (err) { return; }
+    if (!t) return;
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    function land() {
+      if (ST && motion) ST.refresh();
+      var y = anchorY(t, id);
+      if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, y);
+    }
+    function go() { land(); setTimeout(land, 350); }
+    if (d.readyState === 'complete') requestAnimationFrame(go);
+    else window.addEventListener('load', function () { requestAnimationFrame(go); });
+  })();
 
   /* ---------- word-mask headlines ---------- */
   function splitWords(el) {
@@ -420,6 +444,7 @@
   }
   function wire(v, cv, onEnd) {
     if (!v) return;
+    if (cv && !cv.hidden) v.controls = false;
     v.addEventListener('play', function () {
       vids.forEach(function (o) { if (o !== v && !o.paused) o.pause(); });
       if (cv) cv.hidden = true;
@@ -427,20 +452,26 @@
       v.controls = true;
       quiet(true);
     });
+    /* Only one control layer at a time: native controls while playing, our cover or gate otherwise. */
     v.addEventListener('pause', function () {
-      if (!v.ended && cv) { label(cv, 'Paused · tap to continue'); cv.hidden = false; }
+      if (!v.ended && cv) { v.controls = false; label(cv, 'Paused · tap to continue'); cv.hidden = false; }
       if (!anyPlaying()) quiet(false);
     });
-    v.addEventListener('ended', function () { if (!anyPlaying()) quiet(false); onEnd(); });
-    /* Tap on the picture toggles play/pause. The native control bar (bottom strip) keeps its own clicks.
-       If the browser already toggled on its own, we leave it alone. */
-    var downPaused = null;
-    v.addEventListener('pointerdown', function () { downPaused = v.paused; });
-    v.addEventListener('click', function (e) {
+    v.addEventListener('ended', function () { v.controls = false; if (!anyPlaying()) quiet(false); onEnd(); });
+    /* Tap on the picture toggles play/pause, on touch and mouse alike (Android Chrome sends no click
+       on a video that shows controls, so we act on pointerup). The native control strip at the bottom keeps
+       its own taps. A drag or scroll (pointercancel / movement) is not a tap. If the browser already
+       toggled by itself, we leave it alone, so there is never a double toggle. */
+    var tap = null;
+    v.addEventListener('pointerdown', function (e) { tap = { x: e.clientX, y: e.clientY, paused: v.paused, t: Date.now() }; });
+    v.addEventListener('pointercancel', function () { tap = null; });
+    v.addEventListener('pointerup', function (e) {
+      var t = tap; tap = null;
+      if (!t || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      if (Math.abs(e.clientX - t.x) > 10 || Math.abs(e.clientY - t.y) > 10 || Date.now() - t.t > 600) return;
       var r = v.getBoundingClientRect();
       if (e.clientY > r.bottom - 56) return;
-      var was = downPaused === null ? v.paused : downPaused; downPaused = null;
-      setTimeout(function () { if (v.paused !== was) return; if (v.paused) start(v); else v.pause(); }, 60);
+      setTimeout(function () { if (v.paused !== t.paused) return; if (v.paused) start(v); else v.pause(); }, 80);
     });
     /* Scrolled away: pause, so nothing plays off screen. */
     if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { if (es[0].intersectionRatio < 0.25 && !v.paused) v.pause(); }, { threshold: [0, 0.25] }).observe(v);
@@ -472,6 +503,7 @@
   function showGate() {
     if (!gate) return;
     if (cover) cover.hidden = true;
+    if (teaser) teaser.controls = false;
     gate.hidden = false;
     var em = $('#gateEmail'); if (em) em.focus({ preventScroll: true });
   }
@@ -495,6 +527,11 @@
     if (cover) cover.remove();
     gate.hidden = true;
     shell.appendChild(f);
+    /* Success state: says only what happened (the full video is unlocked), nothing about a mailing list. */
+    var ok = d.createElement('p');
+    ok.className = 'gate-ok'; ok.setAttribute('role', 'status'); ok.textContent = 'Unlocked · the full introduction';
+    shell.appendChild(ok);
+    setTimeout(function () { ok.classList.add('out'); }, 4500);
   });
 
   /* ---------- product gallery: thumbnails swap the main image ---------- */

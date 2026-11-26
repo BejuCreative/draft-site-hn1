@@ -94,9 +94,10 @@
   function layout() {
     W = canvas.clientWidth; H = canvas.clientHeight;
     if (!W || !H) return;
-    dpr = Math.min(1.5, window.devicePixelRatio || 1);
-    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     phone = W < 760;
+    /* v4 perf: the particles are soft glows, so phones draw them at 1x density */
+    dpr = Math.min(phone ? 1 : 1.5, window.devicePixelRatio || 1);
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     cx = W * (phone ? 0.5 : 0.62); cy = H * (phone ? 0.34 : 0.5);
     R = phone ? Math.min(W * 0.36, H * 0.2) : Math.min(W * 0.26, H * 0.34);
     var n = phone ? 500 : 900;
@@ -152,8 +153,9 @@
 
       gsap.set([intro, outro], { xPercent: -50, yPercent: -50 });
       var tl = gsap.timeline({ defaults: { ease: 'none' } });
-      tl.fromTo(dark, { clipPath: 'circle(0% at 50% 50%)' }, { clipPath: 'circle(75% at 50% 50%)', duration: 0.8, ease: 'power2.in' }, 0)
-        .fromTo(intro, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' }, 0.5)
+      /* v4: the dark circle opens from a visible size and faster, so the block never starts with a near-empty screen */
+      tl.fromTo(dark, { clipPath: 'circle(14% at 50% 50%)' }, { clipPath: 'circle(75% at 50% 50%)', duration: 0.55, ease: 'power1.inOut' }, 0)
+        .fromTo(intro, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' }, 0.2)
         .to(intro, { autoAlpha: 0, y: -40, duration: 0.3, ease: 'power2.in' }, 1.7)
         .to(hud, { opacity: 1, duration: 0.3 }, 1.8)
         .to(state, { f: 0, duration: 0.01 }, 0);
@@ -174,6 +176,8 @@
         .fromTo(outro, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' }, oS + 0.1)
         .to(outro, { autoAlpha: 0, y: -30, duration: 0.25 }, oS + 1.25)
         .fromTo(burst, { opacity: 0, scale: 0.15 }, { opacity: 1, scale: 1, duration: 0.55, ease: 'power2.in' }, oS + 1.25)
+        /* v4: the whole dark layer then fades away, so no dark corners end in a hard line above the next section */
+        .to(dark, { opacity: 0, duration: 0.4, ease: 'power1.in' }, oS + 1.5)
         .set({}, {}, oS + 1.9);
       var total = tl.duration();
 

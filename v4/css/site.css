@@ -7,10 +7,15 @@
 @font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 500 700; font-display: swap; src: url("../fonts/cormorant.woff2") format("woff2"); }
 @font-face { font-family: "Cormorant Garamond"; font-style: italic; font-weight: 500 600; font-display: swap; src: url("../fonts/cormorant-italic.woff2") format("woff2"); }
 @font-face { font-family: "Manrope"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/manrope.woff2") format("woff2"); }
-@font-face { font-family: "Cinzel Fallback"; src: local("Georgia"); size-adjust: 121.51%; ascent-override: 80.32%; descent-override: 30.62%; line-gap-override: 0%; }
-@font-face { font-family: "Cormorant Fallback"; font-style: normal; src: local("Georgia"); size-adjust: 89.69%; ascent-override: 103.03%; descent-override: 32%; line-gap-override: 0%; }
-@font-face { font-family: "Cormorant Fallback"; font-style: italic; src: local("Georgia Italic"), local("Georgia-Italic"); size-adjust: 80.16%; ascent-override: 115.27%; descent-override: 35.8%; line-gap-override: 0%; }
-@font-face { font-family: "Manrope Fallback"; src: local("Arial"), local("ArialMT"); size-adjust: 101.95%; ascent-override: 104.56%; descent-override: 29.43%; line-gap-override: 0%; }
+@font-face { font-family: "Cinzel Fallback"; font-weight: 100 550; src: local("Georgia"); size-adjust: 101.07%; ascent-override: 96.56%; descent-override: 36.81%; line-gap-override: 0%; }
+@font-face { font-family: "Cinzel Fallback"; font-weight: 551 900; src: local("Georgia Bold"), local("Georgia-Bold"); size-adjust: 93.4%; ascent-override: 104.49%; descent-override: 39.84%; line-gap-override: 0%; }
+/* Fallbacks are measured per weight against Georgia/Arial (regular and bold), so lines break the same before and after the swap. */
+@font-face { font-family: "Cormorant Fallback"; font-style: normal; font-weight: 100 550; src: local("Georgia"); size-adjust: 88.54%; ascent-override: 104.37%; descent-override: 32.41%; line-gap-override: 0%; }
+@font-face { font-family: "Cormorant Fallback"; font-style: normal; font-weight: 551 900; src: local("Georgia Bold"), local("Georgia-Bold"); size-adjust: 76.4%; ascent-override: 120.96%; descent-override: 37.57%; line-gap-override: 0%; }
+@font-face { font-family: "Cormorant Fallback"; font-style: italic; font-weight: 100 550; src: local("Georgia Italic"), local("Georgia-Italic"); size-adjust: 78.73%; ascent-override: 117.38%; descent-override: 36.45%; line-gap-override: 0%; }
+@font-face { font-family: "Cormorant Fallback"; font-style: italic; font-weight: 551 900; src: local("Georgia Bold Italic"), local("Georgia-BoldItalic"); size-adjust: 68.06%; ascent-override: 135.78%; descent-override: 42.17%; line-gap-override: 0%; }
+@font-face { font-family: "Manrope Fallback"; font-style: normal; font-weight: 100 550; src: local("Arial"), local("ArialMT"); size-adjust: 103.38%; ascent-override: 103.11%; descent-override: 29.02%; line-gap-override: 0%; }
+@font-face { font-family: "Manrope Fallback"; font-style: normal; font-weight: 551 900; src: local("Arial Bold"), local("Arial-BoldMT"); size-adjust: 99.15%; ascent-override: 107.51%; descent-override: 30.26%; line-gap-override: 0%; }
 
 :root {
   --cream: #F3E7E3;
@@ -93,10 +98,11 @@ ul, ol { padding: 0; list-style: none; }
 .h2-quote { font-style: italic; font-weight: 500; font-size: clamp(32px, 4.2vw, 58px); }
 .h2.light, .h3.light { color: var(--paper); text-shadow: none; }
 .h3 { font: 600 clamp(28px, 3vw, 40px)/1.1 var(--serif); color: var(--plum); }
-.lead { font-size: clamp(17px, 1.35vw, 19px); color: var(--ink-soft); max-width: 60ch; }
+/* Text widths in em, not ch: ch depends on the loaded font, so it jumped when the web font swapped in. Same widths as before. */
+.lead { font-size: clamp(17px, 1.35vw, 19px); color: var(--ink-soft); max-width: 36.6em; }
 .lead.light, p.light { color: rgba(243, 231, 227, .82); }
 .sec-head { margin-bottom: clamp(40px, 6vw, 80px); }
-.sec-head.center .h2 { max-width: 20ch; margin-left: auto; margin-right: auto; }
+.sec-head.center .h2 { max-width: 9.54em; margin-left: auto; margin-right: auto; }
 .sec-lead { margin-top: 18px; font: italic 500 clamp(19px, 1.6vw, 23px)/1.4 var(--serif); color: var(--ink-soft); }
 .divider { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 26px; color: var(--gold); }
 .divider i { display: block; width: 72px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
@@ -403,8 +409,8 @@ html:not(.fx) .scroll-cue { display: none; }
 }
 .ch-title small { display: block; font-size: .3em; letter-spacing: .3em; margin-bottom: .3em; }
 .ch-title em { font-style: normal; opacity: .7; }
-.ch-tag { margin-top: 20px; font: 600 clamp(13px, 1.1vw, 15.5px)/1.5 var(--caps); letter-spacing: .16em; text-transform: uppercase; color: var(--rose-glow); max-width: 34ch; }
-.ch-body { margin-top: 14px; font: 500 clamp(19px, 1.6vw, 23px)/1.45 var(--serif); color: rgba(243, 231, 227, .84); max-width: 40ch; }
+.ch-tag { margin-top: 20px; font: 600 clamp(13px, 1.1vw, 15.5px)/1.5 var(--caps); letter-spacing: .16em; text-transform: uppercase; color: var(--rose-glow); max-width: 21.56em; }
+.ch-body { margin-top: 14px; font: 500 clamp(19px, 1.6vw, 23px)/1.45 var(--serif); color: rgba(243, 231, 227, .84); max-width: 19.08em; }
 .ch-burst { display: none; }
 
 /* pinned cinematic mode (JS + motion only) */
@@ -461,6 +467,7 @@ html:not(.fx) .scroll-cue { display: none; }
   .program-grid { grid-template-columns: 1fr; }
   .pg-stack { width: min(100%, 420px); }
   .pg-page li { font-size: 11px; }
+  .pg-page { right: 6px; } /* the 4deg tilt pushed the card 3px past a 375px screen */
 }
 
 /* spotlight cards (desktop pointer) */
@@ -472,7 +479,7 @@ html:not(.fx) .scroll-cue { display: none; }
 .meet { background: radial-gradient(ellipse 70% 80% at 70% 50%, #3d1626 0%, #220d15 55%, #12070b 100%); color: var(--paper); overflow: hidden; }
 .motes { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .meet-grid { position: relative; display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(30px, 5vw, 80px); align-items: center; }
-.meet-copy .h2 { max-width: 14ch; }
+.meet-copy .h2 { max-width: 6.68em; }
 .meet-copy .lead { margin-top: 22px; }
 .portal { position: relative; width: min(100%, 600px); aspect-ratio: 1; margin: 0 auto; }
 .portal-art { position: absolute; inset: -4%; width: 108%; height: 108%; overflow: visible; }
@@ -583,7 +590,7 @@ html:not(.fx) .scroll-cue { display: none; }
 .arch-line { position: absolute; left: 50%; top: 50%; width: 112%; height: 108%; transform: translate(-46%, -48%); overflow: visible; pointer-events: none; }
 .arch-line path { fill: none; stroke: var(--gold); stroke-width: 1.2; }
 .badge { position: absolute; left: 50%; bottom: -18px; transform: translateX(-50%); white-space: nowrap; padding: 10px 18px; border-radius: 999px; background: var(--plum); color: var(--gold-2); font: 600 11px var(--caps); letter-spacing: .18em; text-transform: uppercase; box-shadow: 0 14px 24px -12px rgba(79, 26, 44, .7); }
-.ab-copy > p { margin-top: 18px; color: var(--ink-soft); max-width: 62ch; }
+.ab-copy > p { margin-top: 18px; color: var(--ink-soft); max-width: 37.82em; }
 .creds { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 30px; }
 .creds li { display: flex; gap: 14px; align-items: center; padding: 16px 18px; border-radius: 18px; background: rgba(255, 252, 250, .7); box-shadow: var(--emboss); font-size: 14.5px; line-height: 1.35; }
 .creds b { flex: none; min-width: 58px; font: 600 30px/1 var(--serif); color: var(--plum); text-align: center; }
@@ -796,8 +803,8 @@ html:not(.fx) .scroll-cue { display: none; }
 @media (max-width: 420px) { .wl-row { flex-direction: column; } .wl-row .btn { width: 100%; } }
 
 .page-hero { padding: calc(var(--hh) + clamp(44px, 7vw, 96px)) 0 clamp(20px, 4vw, 44px); text-align: center; background: linear-gradient(#E9D6CF, var(--cream)); }
-.page-hero .h2 { max-width: 18ch; margin: 0 auto; }
-.page-hero .sec-lead { max-width: 40ch; margin-left: auto; margin-right: auto; }
+.page-hero .h2 { max-width: 8.59em; margin: 0 auto; }
+.page-hero .sec-lead { max-width: 17.66em; margin-left: auto; margin-right: auto; }
 .crumb { margin-bottom: 22px; font-size: 14px; color: var(--ink-soft); }
 .crumb a { color: var(--plum); }
 .prod-feature { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(24px, 5vw, 72px); align-items: center; padding: clamp(22px, 4vw, 52px); border-radius: 28px; background: rgba(255, 252, 249, .82); box-shadow: var(--emboss), 0 0 0 1px rgba(185, 138, 92, .4); }
@@ -989,10 +996,10 @@ html, body { overflow-x: clip; }
 .dv-card .dv-sub { margin-top: 4px; font-weight: 600; color: var(--gold-ink); font-size: 14.5px; }
 .dv-card .dv-price { display: flex; align-items: center; gap: 14px; margin-top: 18px; }
 .dv-card .cta-row { margin-top: 20px; }
-.dv-note { max-width: 70ch; margin: clamp(28px, 4vw, 44px) auto 0; text-align: center; font-size: 14.5px; color: var(--ink-soft); }
+.dv-note { max-width: 42.7em; margin: clamp(28px, 4vw, 44px) auto 0; text-align: center; font-size: 14.5px; color: var(--ink-soft); }
 
 /* =====================================================================
-   v4 polish (Benas): video, page transitions, section blends, layout, mobile
+   v4 polish: video, page transitions, section blends, layout, mobile
    ===================================================================== */
 
 /* The hidden attribute always wins (the play overlay used display:grid, which kept it on screen). */
@@ -1067,7 +1074,7 @@ p, li, blockquote, figcaption { text-wrap: pretty; }
 @media (min-width: 360px) and (max-width: 760px) { .hero-title .ht-l { white-space: nowrap; } }
 
 /* ---------- ?hero=tight (copy test, same design) ---------- */
-html.hero-tight .hero-bk { display: none; }
+html.hero-tight .hero-bk, html.hero-tight .hook { display: none; }
 
 /* ---------- tap targets: 44px minimum on touch screens ---------- */
 @media (pointer: coarse), (max-width: 900px) {
@@ -1085,3 +1092,21 @@ html.hero-tight .hero-bk { display: none; }
 
 /* Brand link: full 44px tap height. */
 .brand { min-height: 44px; }
+
+/* ---------- end-of-video gate: solid, always fits inside the 16:9 frame ---------- */
+.video-gate { z-index: 3; gap: 6px; background: radial-gradient(ellipse 90% 80% at 50% 35%, #3a1524 0%, #240c14 60%, #1a0810 100%); }
+.gate-err:empty { display: none; }
+.gate-form .btn { gap: .3em; } /* one word space between "Unlock" and "the full introduction" */
+.gate-ok { position: absolute; left: 50%; top: 12px; z-index: 4; transform: translateX(-50%); padding: 7px 14px; border-radius: 999px; background: rgba(26, 8, 16, .92); color: var(--gold-2); font: 600 11px var(--caps); letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; pointer-events: none; transition: opacity .6s ease; }
+.gate-ok.out { opacity: 0; }
+@media (max-width: 560px), (max-height: 500px) {
+  .video-gate { gap: 4px; padding: 10px 14px; }
+  .gate-title { font-size: 19px; }
+  .gate-sub { font-size: 13px; }
+  .gate-form { flex-wrap: nowrap; width: 100%; max-width: 330px; margin-top: 4px; }
+  .gate-form input { flex: 1; min-width: 0; height: 44px; font-size: 16px; }
+  .gate-form .btn { flex: none; padding-left: 18px; padding-right: 18px; }
+  .gl-more { display: none; }
+  .gate-err { font-size: 12px; }
+  .gate-replay { position: absolute; top: 0; right: 6px; font-size: 12px; }
+}

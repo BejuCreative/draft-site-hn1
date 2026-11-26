@@ -27,9 +27,10 @@
 
   function layout() {
     W = stage.clientWidth; H = stage.clientHeight;
-    dpr = Math.min(1.5, window.devicePixelRatio || 1);
-    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     phone = W < 760;
+    /* v4 perf: phones draw the soft silk at 1x density (about half the pixels of 1.5x) */
+    dpr = Math.min(phone ? 1 : 1.5, window.devicePixelRatio || 1);
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     if (phone) {
       hand.x = W * 0.62; hand.y = H * 0.93; s = 0.42;
     } else {
@@ -276,14 +277,19 @@
       var a = time * (0.35 + i * 0.12) + i * 2.1;
       var big = i !== 1;
       var rx = big ? 49 : 46, ry = big ? 48.3 : 45;
-      sparks[i].style.left = (50 + rx * Math.cos(a)) + '%';
-      sparks[i].style.top = (50 + ry * Math.sin(a)) + '%';
+      /* Moved with transform from the CSS spot (left 50%, top 2%), so the motion is not counted as layout shift. */
+      var pw = sparks[i].parentNode.clientWidth, ph = sparks[i].parentNode.clientHeight;
+      sparks[i].style.transform = 'translate(' + (rx * Math.cos(a) * pw / 100).toFixed(1) + 'px,' + ((48 + ry * Math.sin(a)) * ph / 100).toFixed(1) + 'px)';
     }
   }
 
+  var lastDraw = 0;
   function frame() {
     if (!visible || held) return;
     var now = performance.now();
+    /* v4 perf: phones redraw at 30 fps; the motion is slow, so the eye cannot tell */
+    if (phone && now - lastDraw < 30) return;
+    lastDraw = now;
     if (loadT < 1) loadT = Math.min(1, (now - loadStart) / 1400);
     var time = now / 1000;
     draw(time);
@@ -339,10 +345,10 @@
       this.trigger = window.ScrollTrigger.create({
         trigger: stage, start: 'top top',
         end: function () { return '+=' + Math.round(window.innerHeight * (phone ? 1.3 : 1.6)); },
-        pin: true, scrub: 0.6, animation: tl, anticipatePin: 1
+        pin: true, pinSpacer: document.getElementById('heroPin') || undefined, scrub: 0.6, animation: tl, anticipatePin: 1
       });
 
-      /* SIMAS 11-26: the intro is a scrolling animation. Scroll alone drives it (no auto-play). */
+      /* The intro is a scrolling animation. Scroll alone drives it (no auto-play). */
 
       gsap.fromTo(stage.querySelector('.hero-inner'), { opacity: 0 }, { opacity: 1, duration: 1.1, ease: 'power2.out', delay: 0.15 });
       loadStart = performance.now();
