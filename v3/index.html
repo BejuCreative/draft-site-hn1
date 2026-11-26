@@ -59,7 +59,7 @@
 <div class="buybar" id="buyBar" role="region" aria-label="Get the booklet">
   <img src="img/booklet-cover.webp" width="560" height="612" alt="" loading="lazy">
   <p><b>The $9.99 booklet</b><span>How to talk to a narcissist</span></p>
-  <a class="btn btn-plum btn-sm" href="#booklet" data-buy>Get it &middot; $9.99</a>
+  <a class="btn btn-plum btn-sm" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=thanksgiving-feuding" data-buy>Get it &middot; $9.99</a>
 </div>
 
 <!-- Reusable vector symbols (drawn in code, no raster art) -->
@@ -91,14 +91,14 @@
   <nav class="nav" id="nav" aria-label="Main">
     <ul>
       <li><a href="products/">Products</a></li>
-      <li><a href="#program">Program</a></li>
-      <li><a href="#top" data-free-video>Free Video</a></li>
-      <li><a href="#request">Request a Session</a></li>
-      <li><a href="#articles">Articles</a></li>
-      <li><a href="#divorce">Divorcing a Narcissist</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="program/">Program</a></li>
+      <li><a href="free-video/">Free Video</a></li>
+      <li><a href="request-session/">Request a Session</a></li>
+      <li><a href="articles/">Articles</a></li>
+      <li><a href="divorcing-a-narcissist/">Divorcing a Narcissist</a></li>
+      <li><a href="about/">About</a></li>
     </ul>
-    <a class="btn btn-plum btn-sm nav-cta" href="#booklet" data-buy>Get the booklet &middot; $9.99</a>
+    <a class="btn btn-plum btn-sm nav-cta" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=thanksgiving-feuding" data-buy>Get the booklet &middot; $9.99</a>
   </nav>
   <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="nav"><span class="sr-only">Menu</span><i></i><i></i></button>
 </header>
@@ -108,8 +108,9 @@
 <!-- ============ HERO: embossed paper, the woman draws back the fabric ============ -->
 <section class="hero" id="top" aria-labelledby="heroTitle">
   <div class="hero-stage" id="heroStage">
-    <!-- The woman, her hair and the fabric are drawn live in this canvas (js/hero.js). No photo. -->
+    <!-- The silk is drawn live (js/hero.js). The woman is cut from the book cover and moved in WebGL. -->
     <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+    <canvas class="hero-woman" id="heroWoman" aria-hidden="true" data-src="img/hero-woman.webp"></canvas>
     <div class="hero-inner">
       <p class="eyebrow hero-eyebrow" data-hx="eyebrow">Dr. Judy Rosenberg &middot; Licensed Clinical Psychologist</p>
       <h1 class="hero-title" id="heroTitle" data-hx="title"><span class="ht-l">Healing from</span> <span class="ht-l">Narcissistic Abuse</span></h1>
@@ -150,8 +151,8 @@
       </figure>
 
       <div class="hero-cta" data-hx="cta">
-        <a class="btn btn-plum magnetic" href="#booklet" data-buy><span class="dot" aria-hidden="true"></span>Get the booklet &middot; $9.99</a>
-        <button type="button" class="btn btn-ghost magnetic" id="playTeaser">Watch the free video</button>
+        <a class="btn btn-plum magnetic" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=thanksgiving-feuding" data-buy><span class="dot" aria-hidden="true"></span>Get the booklet &middot; $9.99</a>
+        <a class="btn btn-ghost magnetic" href="free-video/">Watch the free video</a>
       </div>
       <p class="hero-bk">The booklet: 10 pages on how to talk to a narcissist, or whether to try at all.</p>
 
@@ -161,7 +162,7 @@
       </div>
       <div class="hero-side hero-side-r" data-hx="side">
         <p class="q">“Narcissists seek fillment. Healthy people seek fulfillment.”</p>
-        <button type="button" class="link-btn" id="openGate">Get the full introduction &rarr;</button>
+        <a class="link-btn" href="free-video/">Get the full introduction &rarr;</a>
       </div>
     </div>
     <p class="scroll-cue" aria-hidden="true"><span>Scroll to unveil</span><i></i></p>
@@ -198,14 +199,12 @@
           <p class="bk-format">10-page interactive PDF<br>Read it on your phone or print it</p>
         </div>
         <div class="bk-buy">
-          <a class="btn btn-plum btn-lg magnetic" href="products/thanksgiving-feuding/">Get the booklet &middot; $9.99</a>
+          <a class="btn btn-plum btn-lg magnetic" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=thanksgiving-feuding">Get the booklet &middot; $9.99</a>
           <p class="wink">Costs less than one more argument.</p>
         </div>
         <ul class="pd-trust">
-          <!-- PLACEHOLDER (founders): confirm the checkout sends the PDF right away. -->
-          <li><svg aria-hidden="true"><use href="#i-download"/></svg>Instant PDF download</li>
-          <!-- PLACEHOLDER (founders): confirm the checkout provider before launch. -->
-          <li><svg aria-hidden="true"><use href="#i-lock"/></svg>Secure checkout</li>
+          <li><svg aria-hidden="true"><use href="#i-lock"/></svg>Secure checkout by Authorize.Net</li>
+          <li><svg aria-hidden="true"><use href="#i-download"/></svg>Download emailed to you after purchase</li>
           <li><svg aria-hidden="true"><use href="#i-phone"/></svg>Read on your phone or print it</li>
         </ul>
         <p class="bk-trust"><svg aria-hidden="true"><use href="#trinity"/></svg><span>By Dr. Judy Rosenberg, Licensed Clinical Psychologist, creator of the Be The Cause<sup>®</sup> Mind Map. As seen on CBS, CNN and HuffPost.</span></p>
@@ -227,41 +226,24 @@
       <p class="eyebrow">Her books</p>
       <h2 id="bo-title" class="h2 split-words">Books by Dr. Judy</h2>
     </header>
-    <div class="book-grid">
-      <article class="book rv">
+    <div class="book-grid tz-books">
+      <a class="book tz-book rv" href="books/">
         <div class="book-3d"><img src="img/book-hnw-3d-sm.webp" srcset="img/book-hnw-3d-sm.webp 800w, img/book-hnw-3d.webp 1639w" sizes="(max-width: 900px) 62vw, 260px" width="1639" height="2468" alt="Healing from Narcissistic Abuse, the book" loading="lazy" decoding="async"></div>
         <p class="tag">Coming soon</p>
         <h3>Healing from Narcissistic Abuse</h3>
-        <p>Breaking the trauma bond and returning to yourself. Written and illustrated by Dr. Judy.</p>
-        <!-- PLACEHOLDER: no list backend yet. Joining opens the visitor's email app (mailto) with the request filled in. -->
-        <form class="waitlist" data-waitlist="Healing from Narcissistic Abuse" novalidate>
-          <label class="sr-only" for="wlHnw">Your email</label>
-          <div class="wl-row"><input id="wlHnw" type="email" autocomplete="email" placeholder="Your email" required><button class="btn btn-plum btn-sm" type="submit">Join the waitlist</button></div>
-          <p class="form-err" role="alert"></p>
-        </form>
-        <p class="wl-thanks" tabindex="-1" hidden>Thank you. Your email app should open now. Press send there and you are on the list.</p>
-      </article>
-      <article class="book rv">
+      </a>
+      <a class="book tz-book rv" href="books/">
         <div class="book-3d"><img src="img/book-hcw-3d-sm.webp" srcset="img/book-hcw-3d-sm.webp 800w, img/book-hcw-3d.webp 1639w" sizes="(max-width: 900px) 62vw, 260px" width="1639" height="2478" alt="Healing Childhood Wounds, the book" loading="lazy" decoding="async"></div>
         <p class="tag">Coming soon</p>
         <h3>Healing Childhood Wounds</h3>
-        <p>The Be the Cause<sup>®</sup> Mind Map System, third edition.</p>
-        <!-- PLACEHOLDER: no list backend yet. Joining opens the visitor's email app (mailto) with the request filled in. -->
-        <form class="waitlist" data-waitlist="Healing Childhood Wounds" novalidate>
-          <label class="sr-only" for="wlHcw">Your email</label>
-          <div class="wl-row"><input id="wlHcw" type="email" autocomplete="email" placeholder="Your email" required><button class="btn btn-plum btn-sm" type="submit">Join the waitlist</button></div>
-          <p class="form-err" role="alert"></p>
-        </form>
-        <p class="wl-thanks" tabindex="-1" hidden>Thank you. Your email app should open now. Press send there and you are on the list.</p>
-      </article>
-      <article class="book rv">
+      </a>
+      <a class="book tz-book rv" href="books/">
         <div class="book-3d"><img src="img/book-btc-3d-sm.webp" srcset="img/book-btc-3d-sm.webp 800w, img/book-btc-3d.webp 1639w" sizes="(max-width: 900px) 62vw, 260px" width="1639" height="2493" alt="Be the Cause: Healing Human Disconnect, the book" loading="lazy" decoding="async"></div>
+        <p class="tag gold">Paperback</p>
         <h3>Be the Cause: Healing Human Disconnect</h3>
-        <p>Paperback.</p>
-        <p class="book-links"><a class="quiet" href="https://a.co/d/0dzZqwvJ">On Amazon</a> &middot; <a class="quiet" href="https://www.healingnarcissisticwounds.com/Be_The_Cause_Free_Sample.pdf">Free sample (PDF)</a></p>
-      </article>
+      </a>
     </div>
-    <p class="center books-more"><a class="btn btn-ghost magnetic" href="products/">See all products</a></p>
+    <p class="center books-more"><a class="btn btn-ghost magnetic" href="books/">Learn more about her books</a></p>
   </div>
 </section>
 
@@ -331,7 +313,7 @@
     </div>
     <div class="recog-foot rv">
       <p>Narcissistic abuse begins in a family system gone wrong, where parents lack empathy, control and manipulate, and put their own needs before their children. The Be the Cause<sup>®</sup> Mind Map is your pathway back to wholeness.</p>
-      <a class="btn btn-ghost magnetic" href="#top" data-free-video>Start with the free video</a>
+      <a class="btn btn-ghost magnetic" href="free-video/">Start with the free video</a>
     </div>
   </div>
 </section>
@@ -339,7 +321,7 @@
 <aside class="bk-nudge rv" aria-label="The $9.99 booklet">
   <img src="img/booklet-cover.webp" width="560" height="612" alt="" loading="lazy">
   <p>Learn whether a talk with them can go anywhere at all.</p>
-  <a class="btn btn-plum btn-sm magnetic" href="#booklet" data-buy>Get the booklet &middot; $9.99</a>
+  <a class="btn btn-plum btn-sm magnetic" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=thanksgiving-feuding" data-buy>Get the booklet &middot; $9.99</a>
 </aside>
 
 
@@ -379,8 +361,8 @@
       </svg>
     </div>
     <div class="cta-row center rv">
-      <a class="btn btn-plum magnetic" href="#top" data-free-video>Watch the free video</a>
-      <a class="btn btn-ghost magnetic" href="#program">See the program</a>
+      <a class="btn btn-plum magnetic" href="free-video/">Watch the free video</a>
+      <a class="btn btn-ghost magnetic" href="program/">See the program</a>
     </div>
   </div>
 </section>
@@ -459,8 +441,8 @@
       <div class="ch-outro ch-slide" data-k="outro">
         <p class="ch-big sm">The narcissistic injury is where your healing from narcissistic abuse begins.</p>
         <div class="cta-row center">
-          <a class="btn btn-gold magnetic" href="#top" data-free-video>Watch the free video</a>
-          <a class="btn btn-ghost-light magnetic" href="#request">Request a session</a>
+          <a class="btn btn-gold magnetic" href="free-video/">Watch the free video</a>
+          <a class="btn btn-ghost-light magnetic" href="request-session/">Request a session</a>
         </div>
       </div>
       <div class="ch-burst" id="chBurst" aria-hidden="true"></div>
@@ -493,21 +475,14 @@
     <div class="pg-copy">
       <p class="eyebrow">The program</p>
       <h2 id="pg-title" class="h2 split-words">Healing from Narcissistic Abuse</h2>
-      <p class="lead">Break the trauma bond and return to yourself. This self-guided program brings together Dr. Judy's video teachings, companion book, and guided healing dossier, to help you understand the pattern, reclaim your power, and begin creating healthier relationships.</p>
-      <ul class="includes">
-        <li class="rv">The Healing from Narcissistic Abuse video program</li>
-        <li class="rv">The guided Healing from Narcissistic Abuse dossier: a 72-page journal you write in as you watch</li>
-        <li class="rv">The book <em>Be the Cause: Healing Human Disconnect</em> (PDF)</li>
-        <li class="rv">Lifetime access</li>
-      </ul>
-      <figure class="pull rv"><blockquote>“It's very deep work.”</blockquote><figcaption>Dr. Judy</figcaption></figure>
+      <p class="lead">Break the trauma bond and return to yourself. Dr. Judy's video teachings, the guided 72-page dossier and her book, in one self-guided program.</p>
       <div class="price-card spot rv">
         <div class="price"><span class="cur">$</span><span class="amt" data-count="497">497</span></div>
         <p class="price-note">one payment &middot; lifetime access</p>
-        <a class="btn btn-plum btn-lg magnetic" href="https://www.healingnarcissisticwounds.com/healing-from-narcissistic-abuse-course">Get the program</a>
+        <a class="btn btn-plum btn-lg magnetic" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=narcissistic">Get the program</a>
         <p class="secure"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Secure checkout hosted by Authorize.Net</p>
       </div>
-      <p class="bundle"><a class="inline" href="https://www.healingnarcissisticwounds.com/healing-programs-bundle">Healing childhood wounds too? See both programs together &rarr;</a></p>
+      <p class="bundle"><a class="inline" href="program/">Learn more about the program &rarr;</a></p>
     </div>
   </div>
 </section>
@@ -515,7 +490,7 @@
 <aside class="bk-nudge rv" aria-label="The $9.99 booklet">
   <img src="img/booklet-cover.webp" width="560" height="612" alt="" loading="lazy">
   <p>Not ready for the full program? Start with the booklet.</p>
-  <a class="btn btn-plum btn-sm magnetic" href="#booklet" data-buy>Get the booklet &middot; $9.99</a>
+  <a class="btn btn-plum btn-sm magnetic" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=thanksgiving-feuding" data-buy>Get the booklet &middot; $9.99</a>
 </aside>
 
 
@@ -528,8 +503,8 @@
       <h2 id="meet-title" class="h2 light split-words">Get to the root cause, not just the symptoms.</h2>
       <p class="lead light">Dr. Judy Rosenberg is a licensed clinical psychologist and the creator and illustrator of the Be the Cause<sup>®</sup> Mind Map System. Her specialty is getting to the root cause of symptoms rather than simply managing them.</p>
       <div class="cta-row">
-        <a class="btn btn-gold magnetic" href="#request">Request a private session</a>
-        <a class="btn btn-ghost-light magnetic" href="#about">About Dr. Judy</a>
+        <a class="btn btn-gold magnetic" href="request-session/">Request a private session</a>
+        <a class="btn btn-ghost-light magnetic" href="about/">About Dr. Judy</a>
       </div>
     </div>
     <div class="portal" id="portal">
@@ -570,123 +545,36 @@
       <p class="light">Dr. Judy Rosenberg, Licensed Clinical Psychologist, + attorney Rebecca Zung. Two different kinds of protection, from two different experts.</p>
     </div>
     <div class="dv-links">
-      <a class="btn btn-gold magnetic" href="https://www.healingnarcissisticwounds.com/divorcing-a-narcissist">See mind + case protection</a>
-      <a class="inline light" href="https://slaypro.ai/?am_id=judyrosenberg5235" rel="sponsored noopener" target="_blank">Rebecca Zung's program &rarr;</a>
-      <a class="inline light" href="https://www.healingnarcissisticwounds.com/blog/divorcing-a-narcissist-be-prepared">Read: Divorcing a narcissist, be prepared &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ REVIEWS (verified, from her existing pages) ============ -->
-<section class="sec reviews" id="reviews" aria-labelledby="rv-title">
-  <div class="wrap">
-    <header class="sec-head center">
-      <p class="eyebrow">In their words</p>
-      <h2 id="rv-title" class="h2 split-words">What clients say</h2>
-    </header>
-    <div class="rv-grid">
-      <figure class="review spot rv"><span class="qm" aria-hidden="true">“</span><blockquote>Dr. Judy is incredibly empathetic and professional. She was able to put into words many of my confusing emotions and guide me into clarity of both thought and purpose. She is a ‘no judgment zone’ individual.</blockquote><figcaption>Cynthia Cowden</figcaption></figure>
-      <figure class="review spot rv"><span class="qm" aria-hidden="true">“</span><blockquote>Judy is a kind and spiritual human being who always seems to really relate and understand what a person is going through and their needs. Dr. Judy, through her own experiences and healing, has really made an important impact.</blockquote><figcaption>Monica</figcaption></figure>
-      <figure class="review spot rv"><span class="qm" aria-hidden="true">“</span><blockquote>Dr. Judy is very comforting. She helped me open up and talk openly about my emotions. She is very approachable, welcoming, and inviting.</blockquote><figcaption>Google review</figcaption></figure>
+      <a class="btn btn-gold magnetic" href="divorcing-a-narcissist/">Learn more</a>
     </div>
   </div>
 </section>
 
 
-<!-- ============ REQUEST A PRIVATE SESSION (form only) ============ -->
-<section class="sec request" id="request" aria-labelledby="rq-title">
-  <div class="wrap request-grid">
-    <div class="rq-copy">
-      <p class="eyebrow">Work with Dr. Judy personally</p>
-      <h2 id="rq-title" class="h2 split-words">Request a private session</h2>
-      <p class="rq-note">“Dr. Judy is very popular. Very busy. She will reach out to you personally to book your coordinated time.”</p>
-      <ul class="facts">
-        <li>A private pay practice. Superbills available for out-of-network reimbursement.</li>
-        <li>Psychotherapy only. Dr. Judy does not prescribe medication.</li>
-        <li>Sherman Oaks &middot; Beverly Hills &middot; Bel Air &middot; Westwood</li>
-      </ul>
-      <!-- Shown only when SHOW_PHONE is true in js/site.js -->
-      <p class="rq-call" id="rqCall" hidden>Call now: <a id="rqCallLink" href="#request"></a></p>
-    </div>
-    <div class="rq-card spot">
-      <!-- PLACEHOLDER: no form backend yet. Submitting opens the visitor's email app (mailto) with the request filled in. -->
-      <form id="requestForm" novalidate>
-        <div class="field"><label for="rqName">Your name</label><input id="rqName" name="name" type="text" autocomplete="name" required></div>
-        <div class="field"><label for="rqPhone">Phone</label><input id="rqPhone" name="phone" type="tel" autocomplete="tel" required></div>
-        <div class="field"><label for="rqEmail">Email <span>(optional)</span></label><input id="rqEmail" name="email" type="email" autocomplete="email"></div>
-        <div class="field"><label for="rqNote">Anything you'd like Dr. Judy to know <span>(optional)</span></label><textarea id="rqNote" name="note" rows="3"></textarea></div>
-        <p class="form-err" id="rqErr" role="alert"></p>
-        <button class="btn btn-plum btn-lg btn-block magnetic" type="submit">Request a private session</button>
-        <p class="form-small">Sending opens your email app with the request filled in. Press send there.</p>
-      </form>
-      <div class="rq-thanks" id="rqThanks" tabindex="-1" hidden>
-        <p class="t-big">Thank you.</p>
-        <p>Your email app should open now with your request. Press send there. If it did not open, write to <a href="mailto:info@psychologicalhealingcenter.com">info@psychologicalhealingcenter.com</a>.</p>
-        <p>Dr. Judy is very popular. Very busy. She will reach out to you personally to book your coordinated time.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ABOUT + THE SHOW ============ -->
-<section class="sec about" id="about" aria-labelledby="ab-title">
-  <div class="wrap about-grid">
-    <div class="ab-portrait">
-      <div class="arch">
-        <img src="img/judy-portrait.webp" width="640" height="960" alt="Dr. Judy Rosenberg smiling in her office doorway, in a striped sweater" loading="lazy">
-      </div>
-      <svg class="arch-line" viewBox="0 0 320 470" aria-hidden="true"><path d="M10 470V160A150 150 0 0 1 310 160V470"/></svg>
-      <p class="badge">Licensed Clinical Psychologist</p>
-    </div>
-    <div class="ab-copy">
-      <p class="eyebrow">About Dr. Judy Rosenberg</p>
-      <h2 id="ab-title" class="h2 split-words">On a mission to heal human disconnect.</h2>
-      <p>Dr. Judy Rosenberg is a licensed clinical psychologist and the founder of the Psychological Healing Center. With more than 30 years of experience, she created the Be the Cause<sup>®</sup> Mind Map System and authored <em>Be the Cause: Healing Human Disconnect</em>.</p>
-      <p>Her specialty is getting to the root cause of symptoms rather than simply managing them. Those root causes are often part of a multigenerational blueprint passed down through families. Her mission: to heal human disconnect so we can heal global disconnect.</p>
-      <ul class="creds">
-        <li class="rv"><b>CA</b><span>Licensed in California</span></li>
-        <li class="rv"><b><span data-count="30">30</span>+</b><span>years of practice</span></li>
-        <li class="rv"><b><svg><use href="#trinity"/></svg></b><span>Creator and illustrator of the Be the Cause<sup>®</sup> Mind Map</span></li>
-        <li class="rv"><b><span data-count="500">500</span>+</b><span>videos on YouTube as host of Dr. Judy WTF</span></li>
-      </ul>
-      <figure class="fun rv">
-        <blockquote>“Not only am I a psychologist. I have a license to cut hair.”</blockquote>
-        <ul><li>Paul Mitchell graduate</li><li>Taekwondo black belt</li><li>Dog lover</li><li>Born in Hungary</li></ul>
-      </figure>
-    </div>
-  </div>
-  <div class="wrap show">
-    <a class="show-card spot" href="https://www.youtube.com/@drjudywtf8793">
-      <img src="img/wtfreud.webp" width="960" height="540" alt="Dr. Judy WTFreud! Healing Narcissistic Abuse, the show banner with Dr. Judy on a sofa" loading="lazy">
-      <span class="show-play" aria-hidden="true"><svg><use href="#play"/></svg></span>
+<!-- ============ MORE: about, sessions, articles (each has its own page) ============ -->
+<section class="sec tz" id="more" aria-label="More from Dr. Judy">
+  <div class="wrap tz-grid">
+    <a class="tz-card spot rv" href="about/">
+      <svg class="tz-ic" aria-hidden="true"><use href="#trinity"/></svg>
+      <p class="eyebrow">About Dr. Judy</p>
+      <h3>On a mission to heal human disconnect.</h3>
+      <p>Licensed clinical psychologist for more than 30 years, and creator of the Be the Cause<sup>®</sup> Mind Map System.</p>
+      <span class="more">Learn more &rarr;</span>
     </a>
-    <div class="show-copy">
-      <p class="eyebrow">The show</p>
-      <h3 class="h3">Dr. Judy WTFreud!</h3>
-      <p>Weekly conversations that help you understand, heal, and reclaim your life. Free on YouTube.</p>
-      <div class="cta-row">
-        <a class="btn btn-plum magnetic" href="https://www.youtube.com/@drjudywtf8793">Watch on YouTube</a>
-        <a class="inline" href="https://www.healingnarcissisticwounds.com/episodes">Browse all episodes &rarr;</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- ============ ARTICLES ============ -->
-<section class="sec articles" id="articles" aria-labelledby="ar-title">
-  <div class="wrap">
-    <header class="sec-head center">
+    <a class="tz-card spot rv" href="request-session/">
+      <svg class="tz-ic" aria-hidden="true"><use href="#i-chat"/></svg>
+      <p class="eyebrow">Work with her personally</p>
+      <h3>Request a private session</h3>
+      <p>Dr. Judy's schedule fills quickly. After you send your request, she will contact you personally to arrange a time that suits you.</p>
+      <span class="more">Request a session &rarr;</span>
+    </a>
+    <a class="tz-card spot rv" href="articles/">
+      <svg class="tz-ic" aria-hidden="true"><use href="#i-map"/></svg>
       <p class="eyebrow">Articles</p>
-      <h2 id="ar-title" class="h2 split-words">Read, then breathe.</h2>
-    </header>
-    <div class="ar-grid">
-      <a class="article spot rv" href="https://www.healingnarcissisticwounds.com/blog/why-cant-i-leave-narcissist-trauma-bond"><span class="tag">Narcissistic abuse</span><h3>Why Can't I Leave My Narcissist? (The Real Reason)</h3><p>The real reason isn't logical. It's psychological. Here's what keeps you stuck and how to break free.</p><span class="more">Read &rarr;</span></a>
-      <a class="article spot rv" href="https://www.healingnarcissisticwounds.com/blog/how-childhood-wounds-make-you-vulnerable-to-narcissistic-abuse"><span class="tag">Childhood wounds</span><h3>How Childhood Wounds Make You Vulnerable to Narcissistic Abuse</h3><p>Early disconnection and repetition compulsion, and how to break the cycle.</p><span class="more">Read &rarr;</span></a>
-      <a class="article spot rv" href="https://www.healingnarcissisticwounds.com/blog/narcissistic-abuse-by-proxy"><span class="tag">Abuse</span><h3>Narcissistic Abuse by Proxy</h3><p>One of the most devastating and least discussed forms of narcissistic abuse.</p><span class="more">Read &rarr;</span></a>
-    </div>
-    <p class="center"><a class="btn btn-ghost magnetic" href="https://www.healingnarcissisticwounds.com/blog">All articles</a></p>
+      <h3>Read, then breathe.</h3>
+      <p>Why you can't leave, how childhood wounds make you vulnerable, and narcissistic abuse by proxy.</p>
+      <span class="more">Read the articles &rarr;</span>
+    </a>
   </div>
 </section>
 
@@ -711,11 +599,12 @@
         <p id="footerPhone" hidden></p>
       </div>
       <nav class="ft-nav" aria-label="Footer">
-        <a href="#program">The program</a>
+        <a href="program/">The program</a>
         <a href="products/">Products</a>
-        <a href="#booklet">The booklet</a>
-        <a href="#request">Request a session</a>
-        <a href="https://www.healingnarcissisticwounds.com/divorcing-a-narcissist">Divorcing a narcissist</a>
+        <a href="products/thanksgiving-feuding/">The booklet</a>
+        <a href="books/">Books</a>
+        <a href="request-session/">Request a session</a>
+        <a href="divorcing-a-narcissist/">Divorcing a narcissist</a>
         <a href="https://healingchildhoodwounds.com">Healing Childhood Wounds</a>
         <a href="https://psychologicalhealingcenter.com">Psychological Healing Center</a>
       </nav>

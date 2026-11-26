@@ -4,7 +4,7 @@
 
   /* ---- Phone: kept behind one flag. Only the public office number may ever go here. ---- */
   var SHOW_PHONE = false;
-  var PUBLIC_PHONE = "310-651-7644";
+  var PUBLIC_PHONE = ""; /* set the public number here only if SHOW_PHONE is turned on */
   var CONTACT_EMAIL = 'info@psychologicalhealingcenter.com';
   var VIMEO_SRC = 'https://player.vimeo.com/video/857633766?h=b1ca4e1d99&dnt=1&autoplay=1&title=0&byline=0&portrait=0';
 
@@ -82,7 +82,7 @@
   if (lenis) {
     $$('a[href^="#"]').forEach(function (a) {
       var id = a.getAttribute('href');
-      if (id.length < 2 || a.hasAttribute('data-free-video') || id === '#booklet-checkout') return;
+      if (id.length < 2 || a.hasAttribute('data-free-video')) return;
       a.addEventListener('click', function (e) {
         var t = $(id); if (!t) return;
         e.preventDefault();
@@ -405,6 +405,7 @@
     if (pr && pr.catch) pr.catch(function () {});
   }
   function goPlay() {
+    if (!(NS.hero && NS.hero.trigger)) { playTeaser(); return; }
     var y = revealY(), cur = window.scrollY || window.pageYOffset;
     if (Math.abs(cur - y) < 8) { playTeaser(); return; }
     scrollToY(y, playTeaser);
@@ -420,6 +421,7 @@
   }
   if (teaser) teaser.addEventListener('ended', showGate);
   var og = $('#openGate'); if (og) og.addEventListener('click', function () {
+    if (!(NS.hero && NS.hero.trigger)) { showGate(); return; }
     var y = revealY(), cur = window.scrollY || window.pageYOffset;
     if (Math.abs(cur - y) < 8) showGate(); else scrollToY(y, showGate);
   });
@@ -441,20 +443,6 @@
   });
   var mv = $('#meetVideo'), mc = $('#meetCover');
   if (mc && mv) mc.addEventListener('click', function () { mc.hidden = true; var p = mv.play(); if (p && p.catch) p.catch(function () {}); });
-
-  /* ---------- booklet placeholder checkout ---------- */
-  var bc = $('#booklet-checkout');
-  if (bc) $$('.js-checkout').forEach(function (bb) { bb.addEventListener('click', function (e) {
-    e.preventDefault();
-    var note = bb.parentNode.querySelector('.checkout-note');
-    if (note && note !== bc) { note.hidden = false; return; }
-    bc.hidden = false; bc.classList.remove('flash'); void bc.offsetWidth; bc.classList.add('flash');
-    bc.focus({ preventScroll: true });
-    var br = bc.getBoundingClientRect();
-    if (br.top < header.offsetHeight || br.bottom > window.innerHeight) {
-      if (lenis) lenis.scrollTo(bc, { offset: -window.innerHeight / 3, duration: 1 }); else bc.scrollIntoView({ block: 'center' });
-    }
-  }); });
 
   /* ---------- product gallery: thumbnails swap the main image ---------- */
   var pdMain = $('#pdMain'), pdThumbs = $$('.pd-thumb');
