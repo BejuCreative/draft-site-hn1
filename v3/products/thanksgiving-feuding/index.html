@@ -32,8 +32,22 @@
     <symbol id="diamond" viewBox="0 0 10 10"><path d="M5 0 10 5 5 10 0 5z" fill="currentColor"/></symbol>
     <symbol id="lotus" viewBox="0 0 40 24"><g fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 22C14 16 14 8 20 2c6 6 6 14 0 20z"/><path d="M20 22C12 20 7 14 6 7c7 1 12 6 14 15z"/><path d="M20 22c8-2 13-8 14-15-7 1-12 6-14 15z"/><path d="M4 22h32"/></g></symbol>
     <symbol id="play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="10" r="5"/><circle cx="15" cy="10" r="5"/><circle cx="12" cy="15" r="5"/></g></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5z" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
   </defs>
 </svg>
+
+<!-- Sticky buy bar: shows once the main button scrolls away; never covers the footer, the last buy box or the $497 price. -->
+<div class="buybar" id="buyBar" role="region" aria-label="Get the booklet" data-anchor="#bookletBtn" data-hide="#footer, .pp-buy2, #pdCross">
+  <img src="../../img/booklet-cover.webp" width="560" height="612" alt="" loading="lazy">
+  <p><b>The $9.99 booklet</b><span>How to talk to a narcissist</span></p>
+  <!-- PLACEHOLDER (founders): #booklet-checkout until the real checkout link exists. -->
+  <a class="btn btn-plum btn-sm js-checkout" href="#booklet-checkout">Get it &middot; $9.99</a>
+</div>
 
 <div class="grain" aria-hidden="true"></div>
 <div class="cursor-light" aria-hidden="true"></div>
@@ -60,45 +74,113 @@
 </header>
 
 <main id="main">
-<section class="sec booklet pp-hero" id="booklet" aria-labelledby="bk-title">
-  <div class="wrap booklet-grid">
-    <div class="bk-visual">
-      <!-- 3D mockup built from the booklet's own cover and pages. -->
-      <div class="bk-3d">
-        <img src="../../img/booklet-3d-sm.webp" srcset="../../img/booklet-3d-sm.webp 800w, ../../img/booklet-3d.webp 1672w" sizes="(max-width: 900px) 86vw, 540px" width="1672" height="1860" alt="The booklet Thanksgiving Feuding, standing, with inside pages behind it" fetchpriority="high" decoding="async">
+<!-- ============ BUY BOX ============ -->
+<section class="sec booklet pd-hero" id="booklet" aria-labelledby="bk-title">
+  <div class="wrap pd-grid">
+    <div class="pd-gallery">
+      <!-- 3D mockups built from the booklet's own cover and pages. Crops only, never full pages. -->
+      <div class="pd-stage">
+        <img id="pdMain" src="../../img/booklet-3d-sm.webp" srcset="../../img/booklet-3d-sm.webp 800w, ../../img/booklet-3d.webp 1672w" sizes="(max-width: 900px) 92vw, 600px" width="1672" height="1860" alt="The booklet Thanksgiving Feuding, standing, with inside pages behind it" fetchpriority="high" decoding="async">
       </div>
+      <ul class="pd-thumbs" aria-label="More views of the booklet">
+        <li><button type="button" class="pd-thumb is-on" aria-pressed="true" data-src="../../img/booklet-3d-sm.webp" data-srcset="../../img/booklet-3d-sm.webp 800w, ../../img/booklet-3d.webp 1672w" data-alt="The booklet Thanksgiving Feuding, standing, with inside pages behind it"><img src="../../img/pd-thumb-3d.webp" width="173" height="192" alt=""><span class="sr-only">Cover</span></button></li>
+        <li><button type="button" class="pd-thumb" aria-pressed="false" data-src="../../img/booklet-fan-sm.webp" data-srcset="../../img/booklet-fan-sm.webp 800w, ../../img/booklet-fan.webp 1800w" data-alt="The booklet cover with two inside pages fanned out behind it"><img src="../../img/pd-thumb-fan.webp" width="192" height="102" alt=""><span class="sr-only">Cover and pages</span></button></li>
+        <li><button type="button" class="pd-thumb" aria-pressed="false" data-src="../../img/booklet-open-sm.webp" data-srcset="../../img/booklet-open-sm.webp 800w, ../../img/booklet-open.webp 1676w" data-alt="The booklet lying open: Mind Map Yourself and The Silver Platter"><img src="../../img/pd-thumb-open.webp" width="192" height="101" alt=""><span class="sr-only">Open spread</span></button></li>
+        <li><button type="button" class="pd-thumb" aria-pressed="false" data-src="../../img/bk-peek-communicating.webp" data-srcset="" data-alt="Detail from the booklet: Communicating with a Narcissist, steps 1 and 2"><img src="../../img/pd-thumb-comm.webp" width="192" height="141" alt=""><span class="sr-only">Page detail: six steps</span></button></li>
+        <li><button type="button" class="pd-thumb" aria-pressed="false" data-src="../../img/bk-peek-dialogue.webp" data-srcset="" data-alt="Detail from the booklet: Dialogue or a Boundary? example replies"><img src="../../img/pd-thumb-dialogue.webp" width="192" height="103" alt=""><span class="sr-only">Page detail: example replies</span></button></li>
+        <li><button type="button" class="pd-thumb" aria-pressed="false" data-src="../../img/bk-peek-platter.webp" data-srcset="" data-alt="Detail from the booklet: The Silver Platter, a nine-course menu"><img src="../../img/pd-thumb-platter.webp" width="192" height="102" alt=""><span class="sr-only">Page detail: the Silver Platter</span></button></li>
+      </ul>
     </div>
-    <div class="bk-copy">
+
+    <div class="pd-info">
       <p class="crumb"><a href="../../">Home</a> &middot; <a href="../">Products</a> &middot; The booklet</p>
-      <p class="eyebrow">The booklet &middot; $9.99</p>
-      <h1 id="bk-title" class="h2 split-words">How to talk to a narcissist without blowing up.</h1>
-      <!-- Phones: price and buy button right under the headline. PLACEHOLDER: #booklet-checkout until the real checkout link exists. -->
-      <div class="pp-quick">
-        <a class="btn btn-plum magnetic js-checkout" href="#booklet-checkout">Get the booklet &middot; $9.99</a>
-        <p class="pp-quick-note">10-page interactive PDF</p>
-        <p class="checkout-note" role="status" hidden>Checkout opens soon.</p>
+      <p class="eyebrow">The booklet &middot; by Dr. Judy</p>
+      <h1 id="bk-title" class="pd-title">How to talk to a narcissist without blowing up.</h1>
+      <p class="pd-sub"><b>Thanksgiving Feuding: How to Survive Thanksgiving Dinner with a Narcissist.</b> An interactive Be The Cause<sup>&reg;</sup> mini-dossier by Dr. Judy Rosenberg, Licensed Clinical Psychologist. Built around one family dinner; the tools work for any hard conversation.</p>
+      <div class="pd-price">
+        <p class="bk-amount"><span>$</span>9.99</p>
+        <p class="pd-price-note">One payment<br>10-page PDF</p>
       </div>
-      <p class="bk-product"><b>Thanksgiving Feuding: How to Survive Thanksgiving Dinner with a Narcissist.</b> An interactive Be The Cause<sup>&reg;</sup> mini-dossier by Dr. Judy Rosenberg, Licensed Clinical Psychologist.</p>
-      <blockquote class="bk-q">&ldquo;I'm sure you're struggling with how to talk to your narcissist. It's almost impossible. But here are ways to recognize if you could or can't make progress.&rdquo;</blockquote>
-      <div class="bk-price spot" id="bkPrice">
-        <div class="bk-price-row">
-          <p class="bk-amount"><span>$</span>9.99</p>
-          <!-- PLACEHOLDER: confirm format and delivery once the checkout exists. -->
-          <p class="bk-format">10-page interactive PDF<br>Read it on your phone or print it</p>
-        </div>
-        <div class="bk-buy">
-          <!-- PLACEHOLDER: #booklet-checkout until the real checkout link exists. -->
-          <a class="btn btn-plum btn-lg magnetic js-checkout" href="#booklet-checkout" id="bookletBtn">Get the booklet &middot; $9.99</a>
-          <p class="wink">Costs less than one more argument.</p>
-        </div>
+      <ul class="pd-benefits">
+        <li><svg aria-hidden="true"><use href="#i-map"/></svg><span><b>Know your triggers before you sit down.</b> A nine-question Mind Map worksheet you can type into.</span></li>
+        <li><svg aria-hidden="true"><use href="#i-chat"/></svg><span><b>Calm words, ready to use.</b> Replies for criticism, gaslighting, guilt trips, control and more.</span></li>
+        <li><svg aria-hidden="true"><use href="#i-shield"/></svg><span><b>Talk, or set a boundary?</b> Six steps to see if repair is possible, with word-for-word examples for both.</span></li>
+        <li><svg aria-hidden="true"><use href="#play"/></svg><span><b>Bonus one-minute video</b> from Dr. Judy: <i>Stuffing Your Feelings</i>.</span></li>
+      </ul>
+      <div class="pd-cta">
+        <!-- PLACEHOLDER (founders): #booklet-checkout until the real checkout link exists. -->
+        <a class="btn btn-plum btn-lg btn-block magnetic js-checkout" href="#booklet-checkout" id="bookletBtn">Get the booklet &middot; $9.99</a>
         <p id="booklet-checkout" class="checkout-note" tabindex="-1" role="status" hidden>Checkout opens soon.</p>
-        <p class="bk-trust"><svg aria-hidden="true"><use href="#trinity"/></svg><span>By Dr. Judy Rosenberg, Licensed Clinical Psychologist, creator of the Be The Cause<sup>&reg;</sup> Mind Map. As seen on CBS, CNN and HuffPost.</span></p>
+      </div>
+      <ul class="pd-trust">
+        <!-- PLACEHOLDER (founders): confirm the checkout sends the PDF right away. -->
+        <li><svg aria-hidden="true"><use href="#i-download"/></svg>Instant PDF download</li>
+        <!-- PLACEHOLDER (founders): confirm the checkout provider before launch. -->
+        <li><svg aria-hidden="true"><use href="#i-lock"/></svg>Secure checkout</li>
+        <li><svg aria-hidden="true"><use href="#i-phone"/></svg>Read on your phone or print it</li>
+      </ul>
+      <p class="pd-anchor">Costs less than a single therapy session. And less than one more argument.</p>
+      <div class="pd-chips">
+        <p class="pd-chips-h">What you get</p>
+        <ul>
+          <li>10-page PDF</li>
+          <li>Fillable Mind Map worksheet</li>
+          <li>Six-step guide</li>
+          <li>Communication menu</li>
+          <li>Bonus 1-minute video</li>
+          <li>Letter size, ready to print</li>
+        </ul>
+      </div>
+      <!-- Real review from her existing site. It is about Dr. Judy's work with clients, not about this booklet. -->
+      <figure class="pd-proof">
+        <p class="pd-proof-h">What clients say about Dr. Judy</p>
+        <blockquote>&ldquo;She was able to put into words many of my confusing emotions and guide me into clarity of both thought and purpose.&rdquo;</blockquote>
+        <figcaption>Cynthia Cowden</figcaption>
+      </figure>
+      <div class="pd-press">
+        <p>As seen on</p>
+        <ul>
+          <li><img src="../../img/press/cbs-news.webp" width="411" height="120" alt="CBS News" loading="lazy"></li>
+          <li><img src="../../img/press/cnn.webp" width="252" height="120" alt="CNN" loading="lazy"></li>
+          <li><img src="../../img/press/huffpost.webp" width="513" height="60" alt="HuffPost" loading="lazy"></li>
+          <li><img src="../../img/press/kcal-news.webp" width="286" height="120" alt="KCAL News" loading="lazy"></li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec pp-open" aria-labelledby="li-title" style="padding-top:clamp(64px,8vw,110px)">
+<!-- ============ WHO IT'S FOR ============ -->
+<section class="sec pd-fit" aria-labelledby="fit-title">
+  <div class="wrap">
+    <header class="sec-head center">
+      <p class="eyebrow">Is it for you?</p>
+      <h2 id="fit-title" class="h2 split-words">Made for the person who dreads the dinner.</h2>
+    </header>
+    <div class="pd-fit-grid">
+      <div class="pd-fit-card">
+        <h3>It's for you if</h3>
+        <ul class="pd-yes">
+          <li>You have a family gathering coming up with a narcissist at the table.</li>
+          <li>You keep getting pulled into the same argument.</li>
+          <li>You want calm words ready before you walk in.</li>
+          <li>You want to know if talking can work at all, or if a boundary is the answer.</li>
+        </ul>
+      </div>
+      <div class="pd-fit-card no">
+        <h3>It's not for you if</h3>
+        <ul class="pd-no">
+          <li>You need therapy or a diagnosis. This is an educational booklet.</li>
+          <li>You are in crisis or unsafe right now. Call or text 988, or 911 in an emergency.</li>
+          <li>You want to win the argument. This is about protecting your peace.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INSIDE ============ -->
+<section class="sec booklet pp-open" aria-labelledby="li-title">
   <div class="wrap">
     <header class="sec-head center">
       <p class="eyebrow">A look inside</p>
@@ -106,21 +188,19 @@
     </header>
     <img src="../../img/booklet-open-sm.webp" srcset="../../img/booklet-open-sm.webp 800w, ../../img/booklet-open.webp 1676w" sizes="(max-width: 1100px) 92vw, 1040px" width="1676" height="885" alt="The booklet lying open: Mind Map Yourself and The Silver Platter" loading="lazy" decoding="async">
   </div>
-</section>
-
-<section class="sec booklet" aria-labelledby="wi-title" style="padding-top:clamp(56px,7vw,100px)">
-  <div class="wrap pp-cols">
+  <div class="wrap pp-cols pd-inside">
     <div>
       <p class="eyebrow">What's inside</p>
       <h2 id="wi-title" class="h3">Know yourself first. Then decide: a dialogue, or a boundary.</h2>
-      <ul class="bk-list" style="margin-top:24px">
-        <li><b>Know Thyself.</b> The nine-panel Be The Cause<sup>&reg;</sup> Mind Map.</li>
-        <li><b>Mind Map Yourself.</b> A worksheet to spot what might get triggered.</li>
-        <li><b>The Silver Platter.</b> A nine-course menu for self-awareness, protection and healing.</li>
-        <li><b>Communicating with a Narcissist.</b> Six steps, from the capacity to repair to your level of contact.</li>
-        <li><b>Dialogue or a Boundary?</b> Word-for-word examples for both.</li>
-        <li><b>Your Communication Menu.</b> Calm replies to criticism, gaslighting, guilt trips and more.</li>
-        <li><b>Bonus.</b> A one-minute video from Dr. Judy.</li>
+      <ul class="pd-check">
+        <li><span class="pg">p. 2</span><span><b>A welcome from Dr. Judy</b> and your bonus one-minute video.</span></li>
+        <li><span class="pg">p. 3</span><span><b>Know Thyself.</b> The nine-panel Be The Cause<sup>&reg;</sup> Mind Map.</span></li>
+        <li><span class="pg">p. 4</span><span><b>Mind Map Yourself.</b> A fillable worksheet to spot what might get triggered.</span></li>
+        <li><span class="pg">p. 5&ndash;6</span><span><b>The Silver Platter.</b> A nine-course menu for self-awareness, protection and healing, with examples.</span></li>
+        <li><span class="pg">p. 7</span><span><b>Communicating with a Narcissist.</b> Six steps, from the capacity to repair to your level of contact.</span></li>
+        <li><span class="pg">p. 8</span><span><b>Dialogue or a Boundary?</b> Word-for-word examples for both.</span></li>
+        <li><span class="pg">p. 9</span><span><b>Your Communication Menu.</b> Calm replies to criticism, gaslighting, guilt trips and more.</span></li>
+        <li><span class="pg">p. 10</span><span><b>And for dessert.</b> Permission to leave when you're not safe, and where to get support.</span></li>
       </ul>
       <blockquote class="bk-q">&ldquo;State a boundary, not a character judgment.&rdquo;</blockquote>
     </div>
@@ -133,8 +213,55 @@
       </ul>
     </div>
   </div>
+</section>
+
+<!-- ============ ABOUT THE AUTHOR ============ -->
+<section class="pd-author" aria-labelledby="au-title">
+  <div class="wrap pd-author-in">
+    <img src="../../img/judy-portrait.webp" width="640" height="960" alt="Dr. Judy Rosenberg smiling in her office doorway" loading="lazy">
+    <div>
+      <p class="eyebrow">About the author</p>
+      <h2 id="au-title" class="h3">Dr. Judy Rosenberg, Licensed Clinical Psychologist</h2>
+      <p>Licensed in California, with more than 30 years of practice. She created and illustrated the Be the Cause<sup>&reg;</sup> Mind Map, and hosts Dr. Judy WTF on YouTube (500+ videos). Founder of the Psychological Healing Center.</p>
+      <p class="pd-author-q">&ldquo;I know how hard it is to talk to a narcissist, because I've tried it myself.&rdquo;</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS (verified, from her existing pages) + FAQ + BUY AGAIN ============ -->
+<section class="sec booklet" aria-labelledby="faq-title">
   <div class="wrap">
-    <div class="bk-faq" style="max-width:760px;margin:clamp(56px,7vw,96px) auto 0">
+    <div class="pd-reviews">
+      <p class="eyebrow center">In their words</p>
+      <h2 class="h3 center">What clients say about Dr. Judy</h2>
+      <p class="pd-reviews-note">Reviews of her work with clients, from her existing site. The booklet is new.</p>
+      <div class="rv-grid">
+        <figure class="review"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote>Dr. Judy is incredibly empathetic and professional. She was able to put into words many of my confusing emotions and guide me into clarity of both thought and purpose. She is a &lsquo;no judgment zone&rsquo; individual.</blockquote><figcaption>Cynthia Cowden</figcaption></figure>
+        <figure class="review"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote>Judy is a kind and spiritual human being who always seems to really relate and understand what a person is going through and their needs.</blockquote><figcaption>Monica</figcaption></figure>
+        <figure class="review"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote>Dr. Judy is very comforting. She helped me open up and talk openly about my emotions. She is very approachable, welcoming, and inviting.</blockquote><figcaption>Google review</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="bk-faq pd-faq">
+      <h2 id="faq-title" class="h3 center">Questions</h2>
+      <details>
+        <summary>What exactly do I get?</summary>
+        <p>A 10-page PDF, letter size. The Mind Map worksheet has nine fields you can type into. Page 2 points you to a bonus one-minute video from Dr. Judy.</p>
+      </details>
+      <details>
+        <summary>Can I read it on my phone?</summary>
+        <p>Yes. It opens in any PDF reader on a phone, tablet or computer. To type into the worksheet, use a reader that supports fillable forms, or print it and write by hand.</p>
+      </details>
+      <details>
+        <summary>How do I get it after I pay?</summary>
+        <!-- PLACEHOLDER (founders): write the real delivery steps once the checkout exists. -->
+        <p>Checkout opens soon. When it does, this answer will show exactly how the PDF reaches you.</p>
+      </details>
+      <details>
+        <summary>What if it's not right for me?</summary>
+        <!-- PLACEHOLDER (founders): refund policy not decided. Do not promise a refund until it is. -->
+        <p>Questions about your order? Email <a class="inline" href="mailto:info@psychologicalhealingcenter.com">info@psychologicalhealingcenter.com</a>.</p>
+      </details>
       <details>
         <summary>&ldquo;I've tried talking. It never works.&rdquo;</summary>
         <p>Dr. Judy: &ldquo;I know how hard it is to talk to a narcissist, because I've tried it myself.&rdquo; The booklet starts there. It helps you see whether a conversation can go anywhere at all, before you spend more of yourself on it.</p>
@@ -152,16 +279,80 @@
         <p>No. It is an educational booklet, not therapy or a diagnosis. If you are in crisis, call or text 988.</p>
       </details>
     </div>
+
     <div class="pp-buy2">
       <img src="../../img/booklet-card-sm.webp" srcset="../../img/booklet-card-sm.webp 800w, ../../img/booklet-card.webp 1796w" sizes="200px" width="1796" height="2184" alt="" loading="lazy" decoding="async" style="width:180px;margin:0 auto 18px">
       <div class="bk-price-row"><p class="bk-amount"><span>$</span>9.99</p><p class="bk-format">10-page interactive PDF</p></div>
-      <!-- PLACEHOLDER: #booklet-checkout until the real checkout link exists. -->
+      <!-- PLACEHOLDER (founders): order-bump slot, visual only. No add-on product is decided; the box cannot be ticked. -->
+      <label class="pd-bump" aria-disabled="true">
+        <input type="checkbox" disabled>
+        <span><b>Add the &hellip;</b> A matching add-on can go here.</span>
+      </label>
+      <!-- PLACEHOLDER (founders): #booklet-checkout until the real checkout link exists. -->
       <div class="bk-buy"><a class="btn btn-plum btn-lg magnetic js-checkout" href="#booklet-checkout">Get the booklet &middot; $9.99</a><p class="checkout-note" role="status" hidden>Checkout opens soon.</p></div>
-      <p class="books-more"><a class="inline" href="../">See all products &rarr;</a></p>
     </div>
   </div>
 </section>
 
+<!-- ============ COMPLETE YOUR HEALING (cross-sell) ============ -->
+<section class="sec pd-cross" id="pdCross" aria-labelledby="cx-title">
+  <div class="wrap">
+    <header class="sec-head center">
+      <p class="eyebrow">Complete your healing</p>
+      <h2 id="cx-title" class="h2 split-words">The booklet gets you through dinner. The program goes deeper.</h2>
+    </header>
+    <article class="pd-prog">
+      <img src="../../img/dossier-hnw.webp" width="640" height="640" alt="The guided Healing from Narcissistic Abuse dossier cover" loading="lazy">
+      <div>
+        <p class="tag gold">The program</p>
+        <h3>Healing from Narcissistic Abuse</h3>
+        <ul class="includes">
+          <li>The Healing from Narcissistic Abuse video program</li>
+          <li>The guided dossier: a 72-page journal you write in as you watch</li>
+          <li>The book <em>Be the Cause: Healing Human Disconnect</em> (PDF)</li>
+          <li>Lifetime access</li>
+        </ul>
+        <div class="pd-prog-buy">
+          <p class="bk-amount"><span>$</span>497</p>
+          <p class="pd-price-note">one payment<br>lifetime access</p>
+          <a class="btn btn-ghost magnetic" href="../../#program">See the program</a>
+        </div>
+      </div>
+    </article>
+
+    <div class="pd-books">
+      <p class="eyebrow center">Coming soon</p>
+      <h3 class="h3 center">Her next books</h3>
+      <div class="book-grid two">
+        <article class="book">
+          <div class="book-3d"><img src="../../img/book-hnw-3d-sm.webp" srcset="../../img/book-hnw-3d-sm.webp 800w, ../../img/book-hnw-3d.webp 1639w" sizes="(max-width: 900px) 52vw, 220px" width="1639" height="2468" alt="Healing from Narcissistic Abuse, the book" loading="lazy" decoding="async"></div>
+          <p class="tag">Coming soon</p>
+          <h3>Healing from Narcissistic Abuse</h3>
+          <!-- PLACEHOLDER: no list backend yet. Joining opens the visitor's email app (mailto) with the request filled in. -->
+          <form class="waitlist" data-waitlist="Healing from Narcissistic Abuse" novalidate>
+            <label class="sr-only" for="wlHnw">Your email</label>
+            <div class="wl-row"><input id="wlHnw" type="email" autocomplete="email" placeholder="Your email" required><button class="btn btn-plum btn-sm" type="submit">Join the waitlist</button></div>
+            <p class="form-err" role="alert"></p>
+          </form>
+          <p class="wl-thanks" tabindex="-1" hidden>Thank you. Your email app should open now. Press send there and you are on the list.</p>
+        </article>
+        <article class="book">
+          <div class="book-3d"><img src="../../img/book-hcw-3d-sm.webp" srcset="../../img/book-hcw-3d-sm.webp 800w, ../../img/book-hcw-3d.webp 1639w" sizes="(max-width: 900px) 52vw, 220px" width="1639" height="2478" alt="Healing Childhood Wounds, the book" loading="lazy" decoding="async"></div>
+          <p class="tag">Coming soon</p>
+          <h3>Healing Childhood Wounds</h3>
+          <!-- PLACEHOLDER: no list backend yet. Joining opens the visitor's email app (mailto) with the request filled in. -->
+          <form class="waitlist" data-waitlist="Healing Childhood Wounds" novalidate>
+            <label class="sr-only" for="wlHcw">Your email</label>
+            <div class="wl-row"><input id="wlHcw" type="email" autocomplete="email" placeholder="Your email" required><button class="btn btn-plum btn-sm" type="submit">Join the waitlist</button></div>
+            <p class="form-err" role="alert"></p>
+          </form>
+          <p class="wl-thanks" tabindex="-1" hidden>Thank you. Your email app should open now. Press send there and you are on the list.</p>
+        </article>
+      </div>
+      <p class="center books-more"><a class="inline" href="../">See all products &rarr;</a></p>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer class="footer" id="footer">

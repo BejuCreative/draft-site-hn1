@@ -39,7 +39,10 @@
   /* ---------- header, progress, nav ---------- */
   var header = $('#siteHeader'), bar = $('.progress i');
   var darkEls = $$('#meet, #divorce, #footer');
-  var buyBar = $('#buyBar'), buyHide = $$('#booklet, #books, #program, #footer, .bk-nudge'), nav = $('#nav');
+  var buyBar = $('#buyBar'), nav = $('#nav');
+  /* Product pages set data-anchor (show once this scrolls above the header) and data-hide (never cover these). */
+  var buyAnchor = buyBar && buyBar.getAttribute('data-anchor') ? $(buyBar.getAttribute('data-anchor')) : null;
+  var buyHide = $$((buyBar && buyBar.getAttribute('data-hide')) || '#booklet, #books, #program, #footer, .bk-nudge');
   function onScroll() {
     var y = window.scrollY || window.pageYOffset;
     header.classList.toggle('is-solid', y > 40);
@@ -53,7 +56,8 @@
     if (buyBar) {
       var vh = window.innerHeight, hide = (nav && nav.classList.contains('open'));
       if (!hide) for (var k = 0; k < buyHide.length; k++) { var q = buyHide[k].getBoundingClientRect(); if (q.top < vh && q.bottom > 0) { hide = true; break; } }
-      var topEl = $('#top'), show = !hide && !!topEl && topEl.getBoundingClientRect().bottom < vh * 0.3;
+      var topEl = $('#top'), show = buyAnchor ? (!hide && buyAnchor.getBoundingClientRect().bottom < hh)
+        : (!hide && !!topEl && topEl.getBoundingClientRect().bottom < vh * 0.3);
       buyBar.classList.toggle('on', show);
       buyBar.inert = !show;
     }
@@ -446,7 +450,32 @@
     if (note && note !== bc) { note.hidden = false; return; }
     bc.hidden = false; bc.classList.remove('flash'); void bc.offsetWidth; bc.classList.add('flash');
     bc.focus({ preventScroll: true });
+    var br = bc.getBoundingClientRect();
+    if (br.top < header.offsetHeight || br.bottom > window.innerHeight) {
+      if (lenis) lenis.scrollTo(bc, { offset: -window.innerHeight / 3, duration: 1 }); else bc.scrollIntoView({ block: 'center' });
+    }
   }); });
+
+  /* ---------- product gallery: thumbnails swap the main image ---------- */
+  var pdMain = $('#pdMain'), pdThumbs = $$('.pd-thumb');
+  function pdShow(i) {
+    var t = pdThumbs[i]; if (!t || !pdMain) return;
+    pdMain.removeAttribute('srcset');
+    if (t.getAttribute('data-srcset')) pdMain.setAttribute('srcset', t.getAttribute('data-srcset'));
+    pdMain.src = t.getAttribute('data-src'); pdMain.alt = t.getAttribute('data-alt');
+    pdThumbs.forEach(function (b, j) { b.classList.toggle('is-on', j === i); b.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
+  }
+  pdThumbs.forEach(function (b, i) { b.addEventListener('click', function () { pdShow(i); }); });
+  if (pdMain) (function () {
+    var x0 = null, stage = pdMain.parentNode;
+    function cur() { for (var i = 0; i < pdThumbs.length; i++) if (pdThumbs[i].classList.contains('is-on')) return i; return 0; }
+    stage.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+      if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) < 40) return; var n = pdThumbs.length;
+      pdShow((cur() + (dx < 0 ? 1 : n - 1)) % n);
+    }, { passive: true });
+  })();
 
   /* ---------- request form (mailto placeholder) ---------- */
   var rf = $('#requestForm');
