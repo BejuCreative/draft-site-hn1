@@ -87,7 +87,9 @@
     },
     function outro(i, t, a, b) { /* gather into one point of light */
       var an = a * TAU, r = 0.04 + b * 0.08;
-      return [Math.cos(an) * r, Math.sin(an) * r, 1.2];
+      /* v4 r2: on desktop the point sits centred above the outro text, not on top of it (phones already are) */
+      var ox = phone ? 0 : (W * 0.5 - cx) / R, oy = phone ? 0 : -0.62;
+      return [ox + Math.cos(an) * r, oy + Math.sin(an) * r, 1.2];
     }
   ];
 
@@ -174,9 +176,9 @@
       tl.to(hud, { opacity: 0, duration: 0.2 }, oS - 0.1)
         .to(state, { f: 10, duration: 0.5, ease: 'power2.inOut' }, oS - 0.2)
         .fromTo(outro, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' }, oS + 0.1)
-        .to(outro, { autoAlpha: 0, y: -30, duration: 0.25 }, oS + 1.25)
-        /* v4: the dark layer fades with the outro and the pin ends right there, so the next section follows at once */
-        .to(dark, { opacity: 0, duration: 0.3, ease: 'power1.in' }, oS + 1.25);
+        /* v4 r2: the outro stays on the dark layer until the pin ends; then the dark block scrolls away
+           like any section, straight into the next one (no fade-out tail, no empty screen) */
+        .set({}, {}, oS + 1.0);
       var total = tl.duration();
 
       ScrollTrigger.create({
@@ -197,7 +199,7 @@
           }
           hudBar.style.transform = 'scaleX(' + clamp((tt - 2.0) / (oS - 2.0)).toFixed(4) + ')';
           var was = self.dark;
-          self.dark = tt > 0.45 && tt < oS + 1.35;
+          self.dark = tt > 0.45;
           if (was !== self.dark && NS.syncHeader) NS.syncHeader();
       });
       this.total = total;
