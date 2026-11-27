@@ -1259,3 +1259,26 @@ html.hero-tight .hero-bk, html.hero-tight .hook { display: none; }
   .site-header.hb5 .brand-text b { font-size: 21px; }
   .site-header.hb5 .brand-text small.brand-umb { font-size: 9.5px; letter-spacing: .1em; }
 }
+
+/* 11-27 21:3x Judy's layout (her phone sketch): centred stack = PHC logo -> "Psychological Healing Center" small ->
+   "Healing Narcissistic Abuse" big -> "The Abuse of Apathy and Manipulation" small. Header grows to fit. */
+:root { --hh: 212px; }
+@media (max-width: 1400px) { :root { --hh: 198px; } }
+@media (max-width: 760px) { :root { --hh: 176px; } }
+.site-header.hb5, .site-header.hb5.is-solid, .site-header.hb5.on-dark, .site-header.hb5.on-dark.is-solid { padding-top: 14px; }
+.hb5 .hj { padding-bottom: 10px; }
+.hb5 .brand-text.hj { line-height: 1.1; }
+.hb5 .hj .brand-phc { width: 40px; height: 40px; margin-bottom: 6px; }
+.site-header.hb5 .hj small.brand-umb, .hb5.on-dark .hj small.brand-umb { margin-top: 0; }
+.site-header.hb5 .hj b { margin-top: 5px; }
+.hb5 .hj .brand-tag { margin-top: 5px; font: italic 500 19px/1.2 var(--serif); letter-spacing: .03em; color: rgba(255, 248, 238, .92); white-space: nowrap; }
+@media (max-width: 1400px) {
+  .hb5 .hj .brand-phc { width: 34px; height: 34px; margin-bottom: 5px; }
+  .hb5 .hj .brand-tag { font-size: 16.5px; }
+}
+@media (max-width: 760px) {
+  .hb5 .hj .brand-phc { width: 28px; height: 28px; margin-bottom: 4px; }
+  .site-header.hb5 .hj b { margin-top: 3px; }
+  .hb5 .hj .brand-tag { margin-top: 3px; font-size: 13.5px; }
+}
+@media (max-width: 380px) { .hb5 .hj .brand-tag { font-size: 12.5px; } }
