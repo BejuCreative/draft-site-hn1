@@ -1282,3 +1282,22 @@ html.hero-tight .hero-bk, html.hero-tight .hook { display: none; }
   .hb5 .hj .brand-tag { margin-top: 3px; font-size: 13.5px; }
 }
 @media (max-width: 380px) { .hb5 .hj .brand-tag { font-size: 12.5px; } }
+
+/* 11-27 SIMAS: the whole hero (title, video, both buttons, the book line) fits one screen, no scrolling.
+   The eyebrow, the sub line and the "Trapped..." pill above the video are cut; the gaps are tighter
+   and the video takes the height that is left under the header. */
+.hero-eyebrow, .hero-sub, .teaser .hook { display: none; }
+.hero-inner { padding-top: calc(var(--hh) + 2vh); }
+.teaser { margin-top: 2vh; width: min(640px, 46vw, calc((100svh - var(--hh) - 330px) * 1.7778)); }
+.hero-cta { margin-top: 2.2vh; }
+.hero-bk { margin-top: 1vh; }
+@media (max-width: 760px) {
+  .hero-inner { padding-top: calc(var(--hh) + 2.4vh); }
+  .teaser { width: 100%; margin-top: 16px; }
+  .hero-cta { margin-top: 16px; }
+  .hero-bk { margin-top: 8px; }
+}
+@media (max-width: 760px) and (max-height: 740px) {
+  .teaser { width: 90%; margin-top: 12px; }
+  .hero-cta { margin-top: 12px; }
+}
