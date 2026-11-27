@@ -287,7 +287,11 @@ html:not(.fx) .scroll-cue { display: none; }
 .cracks path { stroke: var(--plum-2); stroke-width: 2.2; }
 .cracks path.thin { stroke-width: 1.2; opacity: .8; }
 .impact { fill: var(--plum); }
-.lens-cap { margin-top: 18px; text-align: center; font: 600 12px var(--caps); letter-spacing: .22em; text-transform: uppercase; color: var(--gold-ink); }
+.lens-stage { position: relative; }
+.li-img { position: absolute; left: 11.5%; top: 11.5%; width: 77%; height: 77%; border-radius: 50%; object-fit: cover; opacity: 0; pointer-events: none; box-shadow: 0 26px 40px -18px rgba(79, 26, 44, .45); }
+.lens-cap { margin-top: 18px; display: grid; text-align: center; font: italic 500 clamp(19px, 1.6vw, 23px)/1.3 var(--serif); color: var(--plum-2); }
+.lens-cap .lc { grid-area: 1 / 1; transition: none; }
+.lens-cap .lc-2, .lens-cap .lc-3 { opacity: 0; }
 .recog-foot { max-width: 760px; margin: clamp(48px, 7vw, 90px) auto 0; text-align: center; }
 .recog-foot p { font: italic 500 clamp(20px, 1.8vw, 25px)/1.45 var(--serif); color: var(--ink); margin-bottom: 28px; }
 @media (max-width: 900px) {
@@ -1340,3 +1344,44 @@ body { font-size: 18px; }
 .ch-big.ch-type .tw-past, .ch-big.ch-type .tw-dots { color: #CDBB8A; text-shadow: 0 0 18px rgba(205, 187, 138, .28); }
 .ch-big.ch-type .tw-future { color: #FFFFFF; text-shadow: 0 0 26px rgba(255, 255, 255, .55), 0 0 60px rgba(227, 190, 143, .3); }
 .ch-big.ch-type .tw-c.off { visibility: hidden; }
+
+/* ---------- 11-28 JUDY item 12: Reclaim yourself (BIG I -> little i -> BIG I) ---------- */
+.reclaim { position: relative; height: 260vh; background: radial-gradient(120% 80% at 70% 40%, #3a1a24 0%, var(--night-2) 55%, var(--night) 100%); color: var(--cream); }
+.rcl-stage { position: sticky; top: 0; height: 100vh; height: 100svh; box-sizing: border-box; padding: var(--hh) 0 24px; display: flex; align-items: center; overflow: hidden; }
+.rcl-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: center; width: 100%; }
+.rcl-lens { position: relative; width: min(460px, 100%); aspect-ratio: 1; margin: 0 auto; }
+.rcl-img { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; box-shadow: 0 0 80px -10px rgba(227, 190, 143, .35); }
+.rcl-small { opacity: 0; }
+.reclaim .eyebrow { color: var(--gold-2); }
+.reclaim .h2 { color: #fff; }
+.rcl-gold { color: var(--gold-2); text-shadow: 0 0 24px rgba(227, 190, 143, .45); }
+.rcl-lines { display: grid; margin: 22px 0 30px; min-height: 4.4em; font: italic 500 clamp(22px, 2.1vw, 30px)/1.35 var(--serif); }
+.rcl-lines .rl { grid-area: 1 / 1; }
+.rcl-lines b { font-style: normal; font-weight: 600; color: var(--gold-2); }
+.rcl-lines .rl-2, .rcl-lines .rl-3 { opacity: 0; }
+.btn-gold { background: linear-gradient(135deg, #F0D3A6, #B98A5C); color: var(--plum); border: 0; }
+.rcl-note { margin-top: 14px; font-size: 14px; color: rgba(243, 231, 227, .7); }
+@media (max-width: 900px) {
+  .reclaim { height: 240vh; }
+  .rcl-grid { grid-template-columns: 1fr; gap: 18px; text-align: center; }
+  .rcl-lens { width: min(300px, 62vw, 36svh); }
+  .rcl-lines { margin: 12px 0 18px; min-height: 4.2em; }
+  .reclaim .h2 { font-size: clamp(28px, 7.4vw, 40px); }
+  .rcl-stage { padding-bottom: 76px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reclaim { height: auto; }
+  .rcl-stage { position: static; height: auto; padding: 90px 0; }
+  .rcl-lines .rl { grid-area: auto; opacity: 1 !important; margin-bottom: 10px; }
+}
+
+/* ---------- 11-28 JUDY item 14: Google reviews ---------- */
+.greviews { padding: clamp(40px, 6vw, 72px) 0; background: var(--paper-2); text-align: center; }
+.gr-score { font: 600 13px var(--caps); letter-spacing: .14em; text-transform: uppercase; color: var(--gold-ink); }
+.gr-score b { font: 600 22px var(--serif); color: var(--plum); margin: 0 6px; letter-spacing: 0; }
+.gr-stars { color: var(--gold); font-size: 18px; letter-spacing: .12em; }
+.gr-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); max-width: 960px; margin: 26px auto 18px; }
+.gr-card { margin: 0; padding: 26px 28px; border-radius: 18px; background: #fff; box-shadow: var(--emboss); text-align: left; }
+.gr-card blockquote { margin: 0 0 12px; font: italic 500 clamp(18px, 1.5vw, 21px)/1.45 var(--serif); color: var(--ink); }
+.gr-card figcaption { font-size: 13px; color: var(--gold-ink); }
+@media (max-width: 760px) { .gr-grid { grid-template-columns: 1fr; } }

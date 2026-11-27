@@ -38,7 +38,7 @@
 
   /* ---------- header, progress, nav ---------- */
   var header = $('#siteHeader'), bar = $('.progress i');
-  var darkEls = $$('#meet, #divorce, #footer');
+  var darkEls = $$('#meet, #divorce, #footer, #reclaim');
   var buyBar = $('#buyBar'), nav = $('#nav');
   /* Product pages set data-anchor (show once this scrolls above the header) and data-hide (never cover these). */
   var buyAnchor = buyBar && buyBar.getAttribute('data-anchor') ? $(buyBar.getAttribute('data-anchor')) : null;
@@ -215,11 +215,39 @@
   var cracks = $$('#lensSvg .cracks path');
   cracks.forEach(function (p) { p.setAttribute('pathLength', '1'); p.style.strokeDasharray = '1'; p.style.strokeDashoffset = motion ? '1' : '0'; });
   if (motion && cracks.length) {
-    var ctl = gsap.timeline({ scrollTrigger: { trigger: '#lensSvg', start: 'top 80%', end: 'bottom 40%', scrub: 0.6 } });
+    var ctl = gsap.timeline({ scrollTrigger: { trigger: '.lens-stage', start: 'top 85%', end: 'center 30%', scrub: 0.6 } });
     ctl.fromTo('#lensSvg .impact', { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.15, ease: 'back.out(3)' }, 0)
        .to(cracks.filter(function (p) { return !p.classList.contains('thin'); }), { strokeDashoffset: 0, duration: 0.6, stagger: 0.05 }, 0.1)
        .to(cracks.filter(function (p) { return p.classList.contains('thin'); }), { strokeDashoffset: 0, duration: 0.3, stagger: 0.04 }, 0.55);
+    /* 11-28 JUDY: after the crack, the little i appears, then it expands into the BIG I (her 2 images) */
+    var itl = ctl, o = 0.95;
+    itl.fromTo('#lensLittle', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3 }, o)
+       .to('.lens-cap .lc-1', { opacity: 0, duration: 0.15 }, o + 0.05)
+       .to('.lens-cap .lc-2', { opacity: 1, duration: 0.15 }, o + 0.2)
+       .fromTo('#lensBig', { opacity: 0, scale: 0.35 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'power2.out' }, o + 0.55)
+       .to('#lensLittle', { opacity: 0, duration: 0.2 }, o + 0.85)
+       .to('.lens-cap .lc-2', { opacity: 0, duration: 0.12 }, o + 0.6)
+       .to('.lens-cap .lc-3', { opacity: 1, duration: 0.15 }, o + 0.75).to({}, { duration: 0.25 }, o + 1);
+  } else {
+    ['lensBig'].forEach(function (id) { var e = document.getElementById(id); if (e) e.style.opacity = 1; });
+    document.querySelectorAll('.lens-cap .lc').forEach(function (e, k) { e.style.opacity = k === 2 ? 1 : 0; });
+  }
+  if (motion && cracks.length) {
     gsap.fromTo('#lensSvg', { rotation: -8 }, { rotation: 4, ease: 'none', scrollTrigger: { trigger: '#recognize', start: 'top bottom', end: 'bottom top', scrub: true } });
+  }
+
+  /* ---------- 11-28 JUDY item 12: reclaim yourself, BIG I -> little i -> BIG I ---------- */
+  if (motion && document.getElementById('reclaim')) {
+    var rtl = gsap.timeline({ scrollTrigger: { trigger: '#reclaim', start: 'top top', end: 'bottom bottom', scrub: 0.6 } });
+    rtl.to('.rcl-big', { scale: 0.5, opacity: 0, duration: 0.3, ease: 'power1.in' }, 0.1)
+       .fromTo('.rcl-small', { scale: 0.5, opacity: 0 }, { scale: 0.62, opacity: 1, duration: 0.2 }, 0.25)
+       .to('.rcl-lines .rl-1', { opacity: 0, y: -10, duration: 0.1 }, 0.15)
+       .fromTo('.rcl-lines .rl-2', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.1 }, 0.25)
+       .to('.rcl-small', { opacity: 0, scale: 0.7, duration: 0.15 }, 0.6)
+       .fromTo('.rcl-big', { scale: 0.55, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'power2.out', immediateRender: false }, 0.6)
+       .to('.rcl-lines .rl-2', { opacity: 0, y: -10, duration: 0.1 }, 0.6)
+       .fromTo('.rcl-lines .rl-3', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.1 }, 0.7)
+       .to({}, { duration: 0.1 }, 0.9);
   }
 
   /* ---------- journey road ---------- */
