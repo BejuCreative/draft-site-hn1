@@ -655,3 +655,6 @@
 
   html.classList.add('ready');
 })();
+
+/* 11-28 JUDY item 18: hide the holiday badge after Dec 31 (LA time) */
+(function () { var now = Date.now(); document.querySelectorAll('.holiday[data-until]').forEach(function (e) { if (now > Date.parse(e.getAttribute('data-until'))) e.classList.add('is-over'); }); })();
