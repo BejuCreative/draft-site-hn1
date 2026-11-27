@@ -1335,3 +1335,8 @@ html.hero-tight .hero-bk, html.hero-tight .hook { display: none; }
 @media (max-width: 760px) and (max-height: 740px) { .teaser { width: 86%; } .hero-sub.hero-cred { font-size: 14px; margin-top: 4px; } }
 body { font-size: 18px; }
 .lead { font-size: clamp(18px, 1.45vw, 20.5px); }
+
+/* 11-28 JUDY: typewriter intro line (chapters film) */
+.ch-big.ch-type .tw-past, .ch-big.ch-type .tw-dots { color: #CDBB8A; text-shadow: 0 0 18px rgba(205, 187, 138, .28); }
+.ch-big.ch-type .tw-future { color: #FFFFFF; text-shadow: 0 0 26px rgba(255, 255, 255, .55), 0 0 60px rgba(227, 190, 143, .3); }
+.ch-big.ch-type .tw-c.off { visibility: hidden; }

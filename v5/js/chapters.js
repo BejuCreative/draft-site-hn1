@@ -65,10 +65,14 @@
       if (tear && c > 0.3) { r = 0.6 + ((t * 0.12 + a * 3 + b) % 1) * 1.1; return [Math.cos(an) * r, Math.sin(an) * r, 1.15]; }
       return [Math.cos(an) * r, Math.sin(an) * r, 0.75];
     },
-    function paradigm(i, t, a, b, c) { /* four overlapping discs */
-      var j = i % 4, C = [[-0.3, -0.3], [0.3, -0.3], [-0.3, 0.3], [0.3, 0.3]][j];
-      var an = a * TAU + t * 0.1 * (j % 2 ? 1 : -1), r = c < 0.75 ? 0.56 : Math.sqrt(b) * 0.56;
-      return [C[0] + Math.cos(an) * r, C[1] + Math.sin(an) * r, c < 0.75 ? 1 : 0.5];
+    function paradigm(i, t, a, b, c) { /* 11-28 JUDY: three overlapping discs like her logo (one on top) + a small sparkle where they meet */
+      if (c > 0.955) { /* sparkle: a few points in a tight, softly pulsing cluster at the centre */
+        var sa = a * TAU + t * 0.6, sr = (0.03 + b * 0.07) * (0.85 + 0.15 * Math.sin(t * 2.4 + a * 6));
+        return [Math.cos(sa) * sr, 0.05 + Math.sin(sa) * sr, 1.25];
+      }
+      var j = i % 3, C = [[0, -0.22], [-0.26, 0.23], [0.26, 0.23]][j];
+      var an = a * TAU + t * 0.1 * (j % 2 ? 1 : -1), r = c < 0.72 ? 0.5 : Math.sqrt(b) * 0.5;
+      return [C[0] + Math.cos(an) * r, C[1] + Math.sin(an) * r, c < 0.72 ? 1 : 0.5];
     },
     function healing(i, t, a, b, c) { /* rising helix stair */
       var s = a, y = 1.15 - s * 2.3, an = s * 4 * Math.PI + t * 0.5, rr = 0.55;
@@ -154,10 +158,35 @@
       var slides = stage.querySelectorAll('.ch-list .ch-slide');
 
       gsap.set([intro, outro], { xPercent: -50, yPercent: -50 });
+      /* 11-28 JUDY: the intro line types itself on scroll: "Decode your past" (ashy yellow), "..." one dot at a time,
+         a short pause, then "Recode your future" (bright white). Static pages (no motion) show the whole line. */
+      var twEl = intro && intro.querySelector('.ch-type'), tw = [], twW = 0;
+      if (twEl) {
+        (function walk(n) {
+          Array.prototype.slice.call(n.childNodes).forEach(function (c) {
+            if (c.nodeType !== 3) return walk(c);
+            var fr = document.createDocumentFragment(), dots = c.parentNode.className === 'tw-dots';
+            c.textContent.split('').forEach(function (ch) {
+              var sp = document.createElement('span');
+              sp.className = 'tw-c'; sp.setAttribute('aria-hidden', 'true'); sp.textContent = ch; fr.appendChild(sp);
+              twW += dots ? 3 : (ch === ' ' && tw.length && tw[tw.length - 1].d ? 4 : 1);
+              tw.push({ el: sp, w: twW, d: dots });
+            });
+            n.replaceChild(fr, c);
+          });
+        })(twEl);
+      }
+      var twP = { p: 0 };
+      function twDraw() {
+        var lim = twP.p * twW;
+        for (var q = 0; q < tw.length; q++) tw[q].el.classList.toggle('off', tw[q].w > lim + 0.001);
+      }
+      twDraw();
       var tl = gsap.timeline({ defaults: { ease: 'none' } });
       /* v4: the dark circle opens from a visible size and faster, so the block never starts with a near-empty screen */
       tl.fromTo(dark, { clipPath: 'circle(14% at 50% 50%)' }, { clipPath: 'circle(75% at 50% 50%)', duration: 0.55, ease: 'power1.inOut' }, 0)
         .fromTo(intro, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' }, 0.2)
+        .to(twP, { p: 1, duration: 1.1, ease: 'none', onUpdate: twDraw }, 0.32)
         .to(intro, { autoAlpha: 0, y: -40, duration: 0.3, ease: 'power2.in' }, 1.7)
         .to(hud, { opacity: 1, duration: 0.3 }, 1.8)
         .to(state, { f: 0, duration: 0.01 }, 0);
