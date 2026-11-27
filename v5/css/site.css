@@ -1235,3 +1235,27 @@ html.hero-tight .hero-bk, html.hero-tight .hook { display: none; }
     mask-image: linear-gradient(180deg, #000 calc(100% - 110px), transparent calc(100% - 6px));
   }
 }
+
+/* 11-27 Judy: "Healing Narcissistic Wounds" is the main title; her real PHC logo sits with the umbrella line */
+.hb5 .brand::after { content: none; }
+.site-header.hb5 .brand-text b { font-size: 42px; }
+.hb5 .brand-umb + .brand-by { margin-top: 3px; }
+.site-header.hb5 .brand-text small.brand-umb, .hb5.on-dark .brand-text small.brand-umb {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 3px;
+  font: 600 13px/1.2 var(--caps); font-style: normal; letter-spacing: .16em; text-transform: uppercase; color: rgba(255, 248, 238, .92);
+}
+.brand-phc { width: 24px; height: 24px; flex: none; object-fit: contain; filter: drop-shadow(0 0 6px rgba(214, 230, 150, .35)); }
+@media (max-width: 1400px) {
+  .site-header.hb5 .brand-text b { font-size: 33px; }
+  .site-header.hb5 .brand-text small.brand-umb { font-size: 11.5px; }
+  .brand-phc { width: 20px; height: 20px; }
+}
+@media (max-width: 760px) {
+  .site-header.hb5 .brand-text b { font-size: 24px; letter-spacing: .02em; }
+  .site-header.hb5 .brand-text small.brand-umb { margin-top: 3px; gap: 6px; font-size: 10.5px; letter-spacing: .12em; }
+  .brand-phc { width: 20px; height: 20px; }
+}
+@media (max-width: 380px) {
+  .site-header.hb5 .brand-text b { font-size: 21px; }
+  .site-header.hb5 .brand-text small.brand-umb { font-size: 9.5px; letter-spacing: .1em; }
+}
