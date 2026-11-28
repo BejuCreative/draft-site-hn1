@@ -226,7 +226,7 @@ ul, ol { padding: 0; list-style: none; }
 .vimeo-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .corner { position: absolute; width: 22px; height: 22px; border: 0 solid var(--gold); z-index: 2; pointer-events: none; }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 2.6vh; }
-.hero-bk { margin-top: 1.2vh; max-width: 36em; font: italic 500 clamp(15px, 1.15vw, 17px)/1.35 var(--serif); color: var(--ink-soft); padding: 6px 16px; border-radius: 999px; background: rgba(255, 251, 248, .78); box-shadow: var(--emboss); }
+.hero-bk { margin-top: 1.2vh; max-width: 36em; font: italic 500 clamp(16.5px, 1.25vw, 18.5px)/1.35 var(--serif); color: var(--ink-soft); padding: 6px 16px; border-radius: 999px; background: rgba(255, 251, 248, .78); box-shadow: var(--emboss); }
 .hero-side { position: absolute; top: 40%; width: min(250px, 17vw); text-align: left; font: italic 500 19px/1.4 var(--serif); color: var(--ink-soft); }
 .hero-side-l { left: clamp(24px, 4vw, 64px); top: 32%; }
 .hero-side-r { right: clamp(24px, 4vw, 64px); text-align: right; }
@@ -402,7 +402,7 @@ html:not(.fx) .scroll-cue { display: none; }
 .ch-big { font: 500 clamp(30px, 4.4vw, 64px)/1.1 var(--caps); letter-spacing: .03em; color: var(--gold-2); text-shadow: 0 0 22px rgba(227, 190, 143, .4); text-wrap: balance; }
 .ch-big.sm { font: italic 500 clamp(26px, 3.2vw, 44px)/1.25 var(--serif); letter-spacing: 0; color: var(--paper); text-shadow: 0 0 30px rgba(227, 190, 143, .35); }
 .ch-lines { margin-top: 26px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; font: italic 500 clamp(20px, 2vw, 28px) var(--serif); color: var(--rose-glow); }
-.ch-kick { display: flex; align-items: center; gap: 14px; font: 600 12px var(--caps); letter-spacing: .26em; text-transform: uppercase; color: rgba(243, 231, 227, .66); }
+.ch-kick { display: flex; align-items: center; gap: 14px; font: 600 13.5px var(--caps); letter-spacing: .26em; text-transform: uppercase; color: rgba(243, 231, 227, .66); }
 .ch-num { font: 600 15px var(--caps); color: var(--gold-2); letter-spacing: .1em; padding-right: 14px; border-right: 1px solid rgba(227, 190, 143, .4); }
 .ch-title {
   margin-top: 14px; font: 600 clamp(44px, 6.6vw, 104px)/.98 var(--caps); letter-spacing: .04em; text-transform: uppercase;
@@ -411,7 +411,7 @@ html:not(.fx) .scroll-cue { display: none; }
 }
 .ch-title small { display: block; font-size: .3em; letter-spacing: .3em; margin-bottom: .3em; }
 .ch-title em { font-style: normal; opacity: .7; }
-.ch-tag { margin-top: 20px; font: 600 clamp(13px, 1.1vw, 15.5px)/1.5 var(--caps); letter-spacing: .16em; text-transform: uppercase; color: var(--rose-glow); max-width: 21.56em; }
+.ch-tag { margin-top: 20px; font: 600 clamp(14.5px, 1.2vw, 17px)/1.5 var(--caps); letter-spacing: .16em; text-transform: uppercase; color: var(--rose-glow); max-width: 21.56em; }
 .ch-body { margin-top: 14px; font: 500 clamp(19px, 1.6vw, 23px)/1.45 var(--serif); color: rgba(243, 231, 227, .84); max-width: 19.08em; }
 
 /* pinned cinematic mode (JS + motion only) */
@@ -731,7 +731,7 @@ html:not(.fx) .scroll-cue { display: none; }
 .bk-amount span { font-size: .5em; vertical-align: .7em; margin-right: 2px; }
 .bk-format { font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); }
 .bk-price .bk-buy { margin-top: 18px; }
-.bk-trust { display: flex; gap: 12px; align-items: flex-start; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(185, 138, 92, .3); font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); }
+.bk-trust { display: flex; gap: 12px; align-items: flex-start; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(185, 138, 92, .3); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
 .bk-trust svg { flex: 0 0 28px; width: 28px; height: 28px; color: var(--gold); }
 .bk-faq { margin-top: 22px; }
 .bk-faq details { border-bottom: 1px solid rgba(185, 138, 92, .35); }
@@ -1303,28 +1303,28 @@ html.hero-tight .hero-bk, html.hero-tight .hook { display: none; }
 
 /* 11-28 JUDY (Benas call): header bigger, her credentials line back under the title, text a bit bigger.
    The bigger header only on screens 821px+ tall, so the hero still fits one screen on short laptops (Simas 11-27). */
-@media (min-height: 821px) {
+@media all {
   :root { --hh: 244px; }
   .hb5 .hj .brand-phc { width: 52px; height: 52px; margin-bottom: 7px; }
   .site-header.hb5 .brand-text small.brand-umb, .hb5.on-dark .brand-text small.brand-umb { font-size: 16px; }
   .site-header.hb5 .brand-text b { font-size: 50px; }
   .hb5 .hj .brand-tag { font-size: 23px; }
 }
-@media (min-height: 821px) and (max-width: 1400px) {
+@media (max-width: 1400px) {
   :root { --hh: 228px; }
   .hb5 .hj .brand-phc { width: 44px; height: 44px; margin-bottom: 6px; }
   .site-header.hb5 .brand-text small.brand-umb, .hb5.on-dark .brand-text small.brand-umb { font-size: 14px; }
   .site-header.hb5 .brand-text b { font-size: 42px; }
   .hb5 .hj .brand-tag { font-size: 20px; }
 }
-@media (min-height: 700px) and (max-width: 760px) {
+@media (max-width: 760px) {
   :root { --hh: 196px; }
   .hb5 .hj .brand-phc { width: 34px; height: 34px; margin-bottom: 4px; }
   .site-header.hb5 .brand-text small.brand-umb, .hb5.on-dark .brand-text small.brand-umb { font-size: 12px; }
   .site-header.hb5 .brand-text b { font-size: 28px; }
   .hb5 .hj .brand-tag { font-size: 16px; }
 }
-@media (min-height: 700px) and (max-width: 380px) {
+@media (max-width: 380px) {
   .site-header.hb5 .brand-text b { font-size: 24px; }
   .hb5 .hj .brand-tag { font-size: 14.5px; }
 }
@@ -1378,7 +1378,7 @@ body { font-size: 18px; }
 .gr-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); max-width: 960px; margin: 26px auto 18px; }
 .gr-card { margin: 0; padding: 26px 28px; border-radius: 18px; background: #fff; box-shadow: var(--emboss); text-align: left; }
 .gr-card blockquote { margin: 0 0 12px; font: italic 500 clamp(18px, 1.5vw, 21px)/1.45 var(--serif); color: var(--ink); }
-.gr-card figcaption { font-size: 13px; color: var(--gold-ink); }
+.gr-card figcaption { font-size: 14.5px; color: var(--gold-ink); }
 @media (max-width: 760px) { .gr-grid { grid-template-columns: 1fr; } }
 
 /* ---------- 11-28 JUDY item 18: holiday badge on the $497 button ---------- */
@@ -1435,3 +1435,9 @@ body { font-size: 18px; }
 @media (max-width: 640px) { .fb-book { transform: none; } .fb-offer { margin-top: -10%; } }
 @media (prefers-reduced-motion: reduce) { .fb-leaf.is-turning, .fb-leaf.is-turning .fb-shade { animation: none; } }
 .pg-cover-solo { position: relative; width: min(100%, 460px); margin: 0 auto; display: block; border-radius: 10px; box-shadow: 0 30px 60px -28px rgba(79, 26, 44, .55); }
+/* A08 holiday badge on $497 buttons (Judy call 11-27) */
+.hol-badge { display: inline-block; margin-left: .6em; padding: .15em .55em; border-radius: 999px; background: #E9C77B; color: #3A1F26; font-size: .78em; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
+@media (max-width: 760px) { .hol-badge { display: block; margin: .35em auto 0; width: max-content; } }
+.fb-page img.is-cover, .fb-face img.is-cover { filter: none; } /* A25 cover stays sharp */
+.fb-offer { transition: opacity .8s ease, transform .8s ease; }
+.fb-offer.fb-wait { opacity: 0; transform: translateY(24px); pointer-events: none; } /* A26 */

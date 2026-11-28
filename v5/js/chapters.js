@@ -136,6 +136,11 @@
       /* wound: more rose; healing/unity: more gold */
       var col = p.col;
       if (f < 1.5 && f > 0.5 && p.c < 0.35) col = 1;
+      if (f > 7.5 && f < 8.5) { /* A17 healing helix: dark rose at the bottom -> light gold at the top */
+        var h = clamp((cy + 1.15 * R - p.y) / (2.3 * R));
+        col = h < 0.33 ? 3 : h < 0.66 ? 1 : 0;
+        ctx.globalAlpha *= 0.45 + 0.55 * h;
+      }
       ctx.drawImage(sprites[col], p.x - sz / 2, p.y - sz / 2, sz, sz);
     }
     ctx.globalAlpha = 1;
@@ -150,7 +155,7 @@
       canvas = document.getElementById('chCanvas');
       if (!stage || !canvas || !(opts && opts.motion)) return; /* static stacked chapters (CSS) */
       ctx = canvas.getContext('2d');
-      sprites = [sprite(240, 205, 150), sprite(230, 130, 150), sprite(255, 240, 228)];
+      sprites = [sprite(240, 205, 150), sprite(230, 130, 150), sprite(255, 240, 228), sprite(140, 50, 75)];
       var gsap = window.gsap, self = this;
       var hudAct = document.getElementById('hudAct'), hudNum = document.getElementById('hudNum'), hudBar = document.getElementById('hudBar');
       var hud = stage.querySelector('.ch-hud');

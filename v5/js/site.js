@@ -5,7 +5,7 @@
   /* ---- Phone: kept behind one flag. Only the public office number may ever go here. ---- */
   var SHOW_PHONE = false;
   var PUBLIC_PHONE = ""; /* set the public number here only if SHOW_PHONE is turned on */
-  var CONTACT_EMAIL = 'info@psychologicalhealingcenter.com';
+  var CONTACT_EMAIL = 'drjudyrosenberg@gmail.com';
   var VIMEO_SRC = 'https://player.vimeo.com/video/857633766?h=b1ca4e1d99&dnt=1&autoplay=1&title=0&byline=0&portrait=0';
 
   var d = document, html = d.documentElement, NS = window.HNW = window.HNW || {};
