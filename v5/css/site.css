@@ -1401,3 +1401,20 @@ body { font-size: 18px; }
 .bc-price { margin: 0 0 14px; font: 600 22px var(--serif); color: var(--plum); }
 .bc-price s { font-weight: 400; color: var(--ink-soft); margin-right: 6px; }
 .bc-btn { border: 1.5px solid var(--plum); color: var(--plum); background: transparent; }
+
+/* 11-28 JUDY item 17: flipping book of her journal */
+.flipbook { position: relative; width: min(100%, 440px); margin: 0 auto; perspective: 2200px; }
+.fb-book { position: relative; aspect-ratio: 720 / 932; transform-style: preserve-3d; }
+.fb-book::before { content: ""; position: absolute; inset: 4% -3% -4% 3%; border-radius: 6px; background: rgba(79, 26, 44, .28); filter: blur(22px); }
+.fb-sheet { position: absolute; inset: 0; border-radius: 4px 10px 10px 4px; overflow: hidden; background: #F7EDEA; transform-origin: 0 50%; transition: transform 1.1s cubic-bezier(.6, .05, .25, 1), opacity .3s 0.85s; backface-visibility: hidden; box-shadow: inset 6px 0 14px -8px rgba(0, 0, 0, .35); }
+.fb-sheet img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fb-sheet.is-turned { transform: rotateY(-165deg); opacity: 0; }
+.fb-cover img { object-position: 50% 50%; }
+.fb-pop { position: absolute; inset: auto 6% 8% 6%; z-index: 30; padding: 20px 18px; border-radius: 16px; text-align: center; background: rgba(255, 250, 247, .94); box-shadow: 0 24px 50px -20px rgba(79, 26, 44, .55); backdrop-filter: blur(6px); animation: fbIn .5s ease both; }
+.fb-pop[hidden] { display: none; }
+.fb-pop-k { font: 600 12px/1.4 var(--caps); letter-spacing: .18em; text-transform: uppercase; color: var(--gold-ink); margin-bottom: 12px; }
+.fb-pop .holiday.fb-pop-hol { margin: 12px 0 8px; padding: 8px 10px; font-size: 14px; color: var(--plum); }
+.fb-pop-down { display: block; margin-top: 6px; font-size: 15px; }
+.fb-replay { margin-top: 10px; background: none; border: 0; color: var(--gold-ink); font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer; }
+@keyframes fbIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .fb-sheet { transition: none; } .fb-pop { animation: none; } }

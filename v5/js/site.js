@@ -366,13 +366,6 @@
     });
   }
 
-  /* ---------- program stack parallax ---------- */
-  if (motion) {
-    [['.peek-1', -60, -6], ['.peek-2', -110, 5], ['.peek-3', -30, 3], ['.pg-page', -80, 3], ['.pg-cover', -40, -2]].forEach(function (c) {
-      gsap.fromTo(c[0], { y: 60 }, { y: c[1], rotation: '+=' + c[2], ease: 'none', scrollTrigger: { trigger: '#pgStack', start: 'top bottom', end: 'bottom top', scrub: true } });
-    });
-  }
-
   /* ---------- meet: golden spiral + motes ---------- */
   (function spiral() {
     var p = $('#spiral'); if (!p) return;

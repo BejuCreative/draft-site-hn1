@@ -505,21 +505,25 @@
 <section class="sec program" id="program" aria-labelledby="pg-title">
   <div class="wrap program-grid">
     <div class="pg-visual" aria-hidden="false">
-      <div class="pg-stack" id="pgStack">
-        <!-- Small art fragments only. Never full journal pages (paid product). -->
-        <figure class="peek peek-1"><img src="img/peek-wound.webp" width="420" height="345" alt="Fragment of the dossier art for The Wound: a rose-gold burst on black" loading="lazy" decoding="async"></figure>
-        <figure class="peek peek-2"><img src="img/peek-healing.webp" width="300" height="582" alt="Fragment of the dossier art for Healing: golden figures climbing a DNA staircase" loading="lazy" decoding="async"></figure>
-        <figure class="peek peek-3"><img src="img/peek-unity.webp" width="360" height="435" alt="Fragment of the dossier art for Unity: a figure standing on the earth inside rings of light" loading="lazy" decoding="async"></figure>
-        <div class="pg-page" aria-hidden="true">
-          <p class="pp-kick">Reflection</p>
-          <ol>
-            <li>What multi-generational life did I inherit from my family?</li>
-            <li>Which family member withheld love or made you feel unseen, and how did that affect you?</li>
-            <li>What did I learn to do in my family to protect myself from narcissistic abuse?</li>
-          </ol>
-          <i class="pp-lines"></i>
+      <!-- 11-28 JUDY item 17: flipping book of her journal (dossier). Art pages only, no worksheet pages. -->
+      <div class="flipbook" id="flipbook" aria-label="Flip through Dr. Judy's journal">
+        <div class="fb-book">
+          <div class="fb-sheet"><img src="img/flip/p11.webp" width="720" height="932" alt="A page from the dossier: The Wound" loading="lazy" decoding="async"></div>
+          <div class="fb-sheet"><img src="img/flip/p15.webp" width="720" height="932" alt="A page from the dossier: The Reaction" loading="lazy" decoding="async"></div>
+          <div class="fb-sheet"><img src="img/flip/p21.webp" width="720" height="932" alt="A page from the dossier: The Encoding" loading="lazy" decoding="async"></div>
+          <div class="fb-sheet"><img src="img/flip/p27.webp" width="720" height="932" alt="A page from the dossier: Chaos" loading="lazy" decoding="async"></div>
+          <div class="fb-sheet"><img src="img/flip/p41.webp" width="720" height="932" alt="A page from the dossier: Breakdown / Breakthrough" loading="lazy" decoding="async"></div>
+          <div class="fb-sheet"><img src="img/flip/p57.webp" width="720" height="932" alt="A page from the dossier: Healing" loading="lazy" decoding="async"></div>
+          <div class="fb-sheet"><img src="img/flip/p63.webp" width="720" height="932" alt="A page from the dossier: Unity" loading="lazy" decoding="async"></div>
+          <div class="fb-sheet fb-cover"><img src="img/dossier-hnw.webp" width="640" height="640" alt="The Healing from Narcissistic Abuse dossier cover: a woman drawing back a curtain" loading="lazy" decoding="async"></div>
         </div>
-        <img class="pg-cover" src="img/dossier-hnw.webp" width="640" height="640" alt="The guided Healing from Narcissistic Abuse dossier cover, pink with an embossed woman drawing back a curtain" loading="lazy" decoding="async">
+        <div class="fb-pop" hidden>
+          <p class="fb-pop-k">All 72 pages are inside the program</p>
+          <a class="btn btn-plum magnetic" href="https://www.healingnarcissisticwounds.com/authorize-checkout?program=narcissistic">Get the video program &middot; $497</a>
+          <p class="fb-pop-hol holiday" data-until="2027-01-01T08:00:00Z">Holiday special: includes a 30-minute session with Dr. Judy</p>
+          <a class="inline fb-pop-down" href="#booklet">Not ready? Start with the booklet &middot; $9.99</a>
+          <button type="button" class="fb-replay">Flip again</button>
+        </div>
       </div>
     </div>
     <div class="pg-copy">
@@ -696,5 +700,6 @@
 <script src="js/hero.js"></script>
 <script src="js/chapters.js"></script>
 <script src="js/site.js"></script>
+<script src="js/flipbook.js"></script>
 </body>
 </html>
